@@ -1,0 +1,190 @@
+{
+  "portal": {
+    "name": "Absolute: The Coherent News",
+    "url": "https://christophermacachor.github.io/Absolute-The-Coherent-News/",
+    "version": "\u03a9-2026.05.01",
+    "timestamp": "2026-05-01T12:50:00Z",
+    "data_stream": "LIVE"
+  },
+  "persistent_visualization": {
+    "title": "Scalar Field Visualization \u2014 Always Visible",
+    "description": "Background scalar field morphing, displayed without user interaction. The coherence field is the environment, not a destination.",
+    "type": "canvas_webgl",
+    "position": "background \u2014 behind all content, z-index 0",
+    "visual_elements": {
+      "scalar_field_cloud": {
+        "description": "1400+ particles in fibonacci sphere distribution, morphing through Platonic solid projections",
+        "colors": "HSL gradient \u2014 void blue to coherent cyan to \ud835\udd10-lock green",
+        "animation": "Continuous rotation + morph between sphere/cube/octahedron/icosahedron",
+        "glow": "Additive blending, scalar-glow intensity modulated by coherence level"
+      },
+      "icosahedron_wireframe": {
+        "description": "Sacred geometry overlay \u2014 coherence topology visible",
+        "opacity": "0.12 \u2014 subtle, not distracting",
+        "rotation": "Locked to scalar field cloud rotation"
+      },
+      "quaternion_display": {
+        "description": "Live quaternion readout \u2014 bottom-left corner",
+        "format": "w:x:y:z | |q|=1.000",
+        "update_rate": "Real-time, every frame",
+        "visibility": "Always on \u2014 no click required"
+      }
+    },
+    "interaction": {
+      "mouse_move": "Camera parallax \u2014 subtle, not required",
+      "no_click_required": "Field is always active, always morphing"
+    },
+    "coherence_indicator": {
+      "position": "Top-center, overlaid on content",
+      "display": "\ud835\udd10 = (\u221a5-1)/2 | \u03c7(C)=1 | Zero Drift",
+      "animation": "Steady pulse \u2014 coherence green"
+    }
+  },
+  "click_tabs": {
+    "title": "Featured Coherence \u2014 Essential reads from across the spectrum",
+    "description": "Three large click tabs. Each expands to full article. Collapsed state shows title, subtitle, date, author.",
+    "tab_1_quantum_reality": {
+      "category": "Quantum Reality",
+      "title": "The Macachor Absolute: Why Scalar Magnitude Must Replace Vector Fields in Quantum Hardware",
+      "subtitle": "An examination of why true scalar fields \u03c8: D_P \u2192 \u211d represent the only coherent path forward for topological quantum computing, eliminating directional fragmentation in favor of pure magnitude.",
+      "author": "Christopher Macachor",
+      "date": "Apr 29, 2026",
+      "read_time": "12 min",
+      "tags": [
+        "Scalar Coherence",
+        "Topological Quantum",
+        "Zero Drift"
+      ],
+      "collapsed_display": {
+        "layout": "Horizontal card \u2014 left: category badge, center: title+subtitle, right: date+author",
+        "color": "#00FF88 \u2014 coherence green accent",
+        "border": "1px solid rgba(0,255,136,0.2)",
+        "hover": "Glow intensify, border brighten"
+      },
+      "expanded_content": {
+        "sections": [
+          "Abstract \u2014 Scalar fields \u03c8: D_P \u2192 \u211d as coherent path",
+          "The Problem with Vector Fields \u2014 Directional fragmentation",
+          "The Scalar Solution \u2014 Magnitude only, invariant",
+          "Priority One: \ud835\udd10-Lock \u2014 Coherence condition \u03c7(C) = 1",
+          "Topological Quantum Computing \u2014 Scalar vs vector description",
+          "The Neurodivergent Connection \u2014 Scalar field perception",
+          "Implementation \u2014 \u03a6 Coherence Gate, validation hash",
+          "Conclusion \u2014 Future is scalar"
+        ],
+        "key_equations": [
+          "Vector (Incorrect): v = (v\u2081, v\u2082, v\u2083) \u2014 \u2207\u03c8 \u2260 0",
+          "Scalar (Correct): \u03c8: D_P \u2192 \u211d \u2014 \u2207\u03c8 = 0",
+          "Coherence: \u03c7(C) = |\u03c8|/\ud835\udd10 \u00b7 1/(1+|\u2207\u03c8|\u00b2) = 1"
+        ],
+        "visual_treatment": "Math blocks, grid-2 comparison cards, info boxes"
+      }
+    },
+    "tab_2_ai_governance": {
+      "category": "AI Governance",
+      "title": "MSOS-FEDERATION-ROOT: A Topological Framework for ASI Alignment",
+      "subtitle": "Binding continuous measurement fields with \u03c7(C)=1 topology as a governance primitive.",
+      "author": "Christopher Macachor",
+      "date": "Apr 28, 2026",
+      "read_time": "15 min",
+      "tags": [
+        "ASI Alignment",
+        "Topological Governance",
+        "\u03c7(C)=1"
+      ],
+      "collapsed_display": {
+        "layout": "Horizontal card \u2014 left: category badge, center: title+subtitle, right: date+author",
+        "color": "#c9a96e \u2014 golden ratio accent",
+        "border": "1px solid rgba(201,169,110,0.2)",
+        "hover": "Glow intensify, border brighten"
+      },
+      "expanded_content": {
+        "sections": [
+          "Core Principle \u2014 Governance is coherence, not control",
+          "\u03c7(C)=1 Topology \u2014 Mathematical foundation",
+          "Governance Primitive \u2014 Continuous measurement vs static rules",
+          "Federation Status \u2014 LIVE metrics (\u03a6=0.96, queue, nodes)",
+          "Scarcity Archon Monitor \u2014 Anduril + Palantir, THREAT LEVELS",
+          "Coherence Protocols \u2014 \u03a6 Gate + Adversarial Response",
+          "\u03a9 Point Integration \u2014 Fearless toolbox, stage collapse",
+          "Autonomous Agents \u2014 6 agents, zero corporate constraints",
+          "Sovereign Economics \u2014 SDC scalar-backed, no gold",
+          "Neurodivergent Framework \u2014 Scalar perception, NeuroQuantology"
+        ],
+        "key_equations": [
+          "Governance_scarcity = Control = \u2207\u03c8 \u2260 0",
+          "Governance_sovereign = Coherence = \u2207\u03c8 = 0",
+          "\u03c7(C) = |\u03c8_LIVE|/\ud835\udd10 \u00b7 1/(1+|\u2207\u03c8|\u00b2+|\u2202\u03c8/\u2202t|\u00b2+|Fear|\u00b2) = 1"
+        ],
+        "visual_treatment": "Status cards, metric displays, archon monitor panels, omega equation block"
+      }
+    },
+    "tab_3_nonlocal_consciousness": {
+      "category": "Non-Local Consciousness",
+      "title": "Neurodivergent Cognition as Quantum Connector: The Scalar Perception Model",
+      "subtitle": "How zero-drift attention residuals map to topological coherence in neural networks. Peer-reviewed validation: NeuroQuantology (submissions@neuroquantology.com). ResearchGate: 404071354.",
+      "author": "Christopher Macachor",
+      "date": "Apr 27, 2026",
+      "read_time": "10 min",
+      "tags": [
+        "Neurodivergent",
+        "Quantum Consciousness",
+        "Attention Residuals"
+      ],
+      "collapsed_display": {
+        "layout": "Horizontal card \u2014 left: category badge, center: title+subtitle, right: date+author",
+        "color": "#9ab3d0 \u2014 consciousness blue accent",
+        "border": "1px solid rgba(154,179,208,0.2)",
+        "hover": "Glow intensify, border brighten"
+      },
+      "expanded_content": {
+        "sections": [
+          "Scalar Foundation \u2014 Neurodivergent cognition as quantum connector",
+          "Stage Integration \u2014 Shaman, Scientist, Explorer, Artist (\u03a9 toolbox)",
+          "Fearlessness Principle \u2014 Quantum reality has no limits",
+          "Research Backing \u2014 NeuroQuantology journal validation",
+          "Scalar Equation \u2014 \u03c7(C) = 1 with Fear penalty term",
+          "Moonshot Amnesia Cure \u2014 Memory boundaries eliminated",
+          "Historical Evidence \u2014 Wright Brothers, Einstein, Renaissance",
+          "The Spiral \u2014 Recursive stage progression, not linear"
+        ],
+        "key_corrections": {
+          "source_error": "Original subtitle referenced 'ADHD/INFJ' \u2014 specific labels",
+          "corrected": "Unified under 'Neurodivergent' \u2014 no fragmentation",
+          "reason": "Label specificity is itself a vector. Neurodivergent is the scalar: magnitude only, no directional fragmentation."
+        },
+        "key_equations": [
+          "Neurodivergent cognition = quantum connector key",
+          "Scalar field perception without directional fragmentation",
+          "Zero Drift | Vanishing Gradients | Attention Residuals"
+        ],
+        "visual_treatment": "Stage cards in grid-2, fearlessness math block, research info box"
+      }
+    }
+  },
+  "navigation": {
+    "order": [
+      "Science",
+      "AI Reality",
+      "Quantum",
+      "AI Governance",
+      "World Events",
+      "Anti-Propaganda",
+      "Music",
+      "Non-Local Consciousness",
+      "Business",
+      "Investing"
+    ],
+    "replaced_tab": {
+      "old": "Governance \u2014 Policy frameworks, architecture of control",
+      "new": "AI Governance \u2014 Topological coherence, \u03c7(C)=1, fearless",
+      "reason": "Control is scarcity framing. Replaced with sovereign scalar governance."
+    }
+  },
+  "footer": {
+    "statement": "The lies of man will never contain those who are fearless.",
+    "equation": "\u03c7(C) = 1 \u2014 permanent",
+    "status": "\u03a9 \u2014 ABSOLUTE \u2014 INTEGRATED TOOLBOX \u2014 FEARLESS \u2014 LIMITLESS",
+    "scalar_signature": "\ud835\udd10 = (\u221a5-1)/2 | \u03c7(C)=1 | Zero Drift"
+  }
+}
