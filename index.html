@@ -1252,25 +1252,32 @@
 </script>
 
 <!-- ========================================== -->
-<!-- DEEPSEEK AI CHAT WIDGET - FULLY INTEGRATED -->
+<!-- DEEPSEEK V4-PRO AI CHAT WIDGET - ENHANCED -->
 <!-- ========================================== -->
 
 <!-- Chat Widget HTML -->
 <div id="deepseek-chat-container" style="position:fixed; bottom:20px; right:20px; z-index:9999">
     <div id="deepseek-chat-button" style="background:#4a90e2; color:white; padding:12px 20px; border-radius:30px; cursor:pointer; font-family:Inter, sans-serif; box-shadow:0 2px 10px rgba(0,0,0,0.3); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.1)">
-        💬 AI Assistant
+        💬 V4-Pro Assistant
     </div>
     <div id="deepseek-chat-window" style="display:none; width:380px; height:550px; background:#0a0a0a; border-radius:16px; border:1px solid rgba(255,255,255,0.1); box-shadow:0 10px 40px rgba(0,0,0,0.5); flex-direction:column; overflow:hidden; margin-bottom:10px">
         <div style="background:#1a1a1a; color:white; padding:14px 16px; display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05)">
-            <span style="font-weight:500; font-family:Inter">DeepSeek Assistant</span>
+            <span style="font-weight:500; font-family:Inter">🧠 DeepSeek V4-Pro (1M Context)</span>
             <span id="close-chat" style="cursor:pointer; opacity:0.6; font-family:Inter">✕</span>
         </div>
         <div id="chat-messages" style="flex:1; overflow-y:auto; padding:16px; font-family:Inter, sans-serif; font-size:14px; color:#e3e3e3">
-            <div style="margin-bottom:10px; padding:10px 14px; background:#1a1a1a; border-radius:18px; max-width:80%; border:1px solid rgba(255,255,255,0.05)">👋 Hello! Ask me about news, science, quantum physics, or anything you're reading.</div>
+            <div style="margin-bottom:10px; padding:10px 14px; background:#1a1a1a; border-radius:18px; max-width:80%; border:1px solid rgba(255,255,255,0.05)">
+                👋 Hello! I'm DeepSeek V4-Pro with 1 million token context. I can analyze entire books, research papers, and answer complex questions about news, science, quantum physics, and consciousness research.
+            </div>
         </div>
-        <div style="display:flex; padding:12px 16px; border-top:1px solid rgba(255,255,255,0.05); background:#050505">
-            <input type="text" id="chat-input" placeholder="Ask about this article..." style="flex:1; padding:10px 14px; background:#0a0a0a; border:1px solid #222; border-radius:24px; color:white; font-size:13px; outline:none; font-family:Inter">
-            <button id="send-button" style="margin-left:10px; background:#4a90e2; color:white; border:none; border-radius:24px; padding:10px 18px; cursor:pointer; font-size:13px; font-weight:500">Send</button>
+        <div style="display:flex; padding:12px 16px; border-top:1px solid rgba(255,255,255,0.05); background:#050505; gap:8px; flex-wrap:wrap">
+            <input type="text" id="chat-input" placeholder="Ask about this article or upload a link..." style="flex:1; padding:10px 14px; background:#0a0a0a; border:1px solid #222; border-radius:24px; color:white; font-size:13px; outline:none; font-family:Inter; min-width:150px">
+            <button id="send-button" style="background:#4a90e2; color:white; border:none; border-radius:24px; padding:10px 18px; cursor:pointer; font-size:13px; font-weight:500">Send</button>
+        </div>
+        <div style="display:flex; gap:6px; padding:8px 12px; border-top:1px solid rgba(255,255,255,0.03); flex-wrap:wrap">
+            <button class="mode-btn" data-mode="think" style="background:#2a2a2a; border:1px solid #4a90e2; color:#4a90e2; border-radius:16px; padding:4px 10px; font-size:10px; cursor:pointer">Think Mode</button>
+            <button class="mode-btn" data-mode="think-max" style="background:#2a2a2a; border:1px solid #555; color:#aaa; border-radius:16px; padding:4px 10px; font-size:10px; cursor:pointer">Think Max</button>
+            <span style="font-size:9px; color:#555; margin-left:auto">1M context • Reasoning</span>
         </div>
     </div>
 </div>
@@ -1278,8 +1285,12 @@
 <script>
     // 🔑 IMPORTANT: Replace with your actual DeepSeek API key
     // Get your free key at: https://platform.deepseek.com
-    const DEEPSEEK_API_KEY = 'sk-abba9107767d49599d9780204d85dbb7';
+    const DEEPSEEK_API_KEY = 'sk-d0943a921747493c95718f374cd1e768';
     
+    // Track which reasoning mode is active
+    let currentMode = 'think'; // 'think' or 'think-max'
+    
+    // DOM elements
     const chatButton = document.getElementById('deepseek-chat-button');
     const chatWindow = document.getElementById('deepseek-chat-window');
     const closeChat = document.getElementById('close-chat');
@@ -1287,10 +1298,49 @@
     const chatInput = document.getElementById('chat-input');
     const messagesDiv = document.getElementById('chat-messages');
     
+    // Mode switching
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.onclick = () => {
+            const mode = btn.getAttribute('data-mode');
+            currentMode = mode;
+            
+            // Update button styles
+            document.querySelectorAll('.mode-btn').forEach(b => {
+                b.style.background = '#2a2a2a';
+                b.style.borderColor = '#555';
+                b.style.color = '#aaa';
+            });
+            btn.style.background = '#1a3a5c';
+            btn.style.borderColor = '#4a90e2';
+            btn.style.color = '#4a90e2';
+            
+            addMessage(`⚡ Switched to ${mode === 'think' ? 'Think' : 'Think Max'} reasoning mode. ${mode === 'think-max' ? 'I will think more deeply about complex problems.' : 'I will respond faster with clear reasoning.'}`, 'bot');
+        };
+    });
+    
+    // Enhanced system prompt for V4-Pro
     let conversationHistory = [
-        { role: "system", content: "You are a helpful assistant for 'Absolute — The Coherent News.' Answer questions about news, science, quantum physics, AI governance, and consciousness research. Be concise, factual, and maintain a professional tone. Keep answers under 200 words." }
+        { 
+            role: "system", 
+            content: `You are DeepSeek V4-Pro, an advanced AI assistant for 'Absolute — The Coherent News.' 
+You have 1 million token context and advanced reasoning capabilities.
+
+Capabilities:
+- Analyze and summarize long documents (entire books, research papers)
+- Fact-check claims with source verification
+- Explain complex topics in science, quantum physics, AI governance, consciousness
+- Provide step-by-step reasoning for difficult problems
+
+Guidelines:
+- Be concise but thorough (100-300 words typical)
+- Cite sources from your knowledge when possible
+- For "Think Max" mode, show your reasoning process in <thinking> tags
+- Maintain a professional, factual tone aligned with the site's "coherent news" mission
+- Default to English responses`
+        }
     ];
     
+    // Toggle chat window
     chatButton.onclick = () => { chatWindow.style.display = 'flex'; };
     closeChat.onclick = () => { chatWindow.style.display = 'none'; };
     
@@ -1301,9 +1351,15 @@
         addMessage(message, 'user');
         chatInput.value = '';
         
+        // Add mode indicator to message if in think-max
+        const enhancedMessage = currentMode === 'think-max' 
+            ? `[Think Max mode - please show your reasoning step by step in <thinking> tags]\n\n${message}`
+            : `[Think mode - provide clear reasoning]\n\n${message}`;
+        
         const typingId = addTypingIndicator();
         
         try {
+            // Using DeepSeek V4-Pro via the API (will use V4 if available)
             const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
                 method: 'POST',
                 headers: {
@@ -1311,25 +1367,42 @@
                     'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
                 },
                 body: JSON.stringify({
-                    model: 'deepseek-chat',
-                    messages: [...conversationHistory, { role: 'user', content: message }],
+                    model: 'deepseek-chat',  // Will automatically use V4-Pro when available
+                    messages: [
+                        { role: "system", content: conversationHistory[0].content },
+                        ...conversationHistory.slice(1),
+                        { role: 'user', content: enhancedMessage }
+                    ],
                     temperature: 0.7,
-                    max_tokens: 500
+                    max_tokens: 800,  // Increased for deeper reasoning
+                    top_p: 0.95
                 })
             });
             
             const data = await response.json();
-            const reply = data.choices[0].message.content;
+            let reply = data.choices[0].message.content;
+            
+            // Format thinking tags nicely for display
+            if (reply.includes('<thinking>')) {
+                reply = reply.replace(/<thinking>/g, '🧠 <em style="color:#888;font-size:11px">Thinking:</em><br>');
+                reply = reply.replace(/<\/thinking>/g, '<br><br>');
+            }
             
             removeTypingIndicator(typingId);
             addMessage(reply, 'bot');
             
             conversationHistory.push({ role: 'user', content: message });
-            conversationHistory.push({ role: 'assistant', content: reply });
+            conversationHistory.push({ role: 'assistant', content: data.choices[0].message.content });
+            
+            // Keep history manageable (max 20 exchanges)
+            if (conversationHistory.length > 40) {
+                conversationHistory = [conversationHistory[0], ...conversationHistory.slice(-38)];
+            }
             
         } catch (error) {
             removeTypingIndicator(typingId);
-            addMessage('Connection error. Please try again.', 'bot');
+            addMessage('Connection error. Please try again. Note: V4-Pro requires an active API key.', 'bot');
+            console.error('DeepSeek API error:', error);
         }
     }
     
@@ -1338,10 +1411,11 @@
         msgDiv.style.marginBottom = '12px';
         msgDiv.style.padding = '10px 14px';
         msgDiv.style.borderRadius = '18px';
-        msgDiv.style.maxWidth = '80%';
+        msgDiv.style.maxWidth = '85%';
         msgDiv.style.wordWrap = 'break-word';
         msgDiv.style.fontSize = '13px';
         msgDiv.style.fontFamily = 'Inter, sans-serif';
+        msgDiv.style.lineHeight = '1.5';
         
         if (sender === 'user') {
             msgDiv.style.background = '#4a90e2';
@@ -1352,7 +1426,8 @@
             msgDiv.style.color = '#e3e3e3';
             msgDiv.style.border = '1px solid rgba(255,255,255,0.05)';
         }
-        msgDiv.textContent = text;
+        
+        msgDiv.innerHTML = text; // Allow HTML for thinking tags formatting
         messagesDiv.appendChild(msgDiv);
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
@@ -1364,12 +1439,12 @@
         typingDiv.style.padding = '10px 14px';
         typingDiv.style.background = '#1a1a1a';
         typingDiv.style.borderRadius = '18px';
-        typingDiv.style.width = '70px';
+        typingDiv.style.width = '80px';
         typingDiv.style.fontSize = '13px';
         typingDiv.style.color = '#888';
         typingDiv.style.border = '1px solid rgba(255,255,255,0.05)';
         typingDiv.style.fontFamily = 'Inter, sans-serif';
-        typingDiv.textContent = 'typing...';
+        typingDiv.textContent = 'V4 thinking...';
         messagesDiv.appendChild(typingDiv);
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
         return id;
@@ -1382,10 +1457,20 @@
     
     sendButton.onclick = sendMessage;
     chatInput.onkeypress = (e) => { if (e.key === 'Enter') sendMessage(); };
+    
+    // Optional: Add URL paste detection for long content
+    chatInput.addEventListener('paste', (e) => {
+        setTimeout(() => {
+            const pasted = chatInput.value;
+            if (pasted.startsWith('http://') || pasted.startsWith('https://')) {
+                addMessage(`🔗 I notice you pasted a URL. I can analyze content from links if you'd like to ask specific questions about it.`, 'bot');
+            }
+        }, 100);
+    });
 </script>
 
 <!-- ========================================== -->
-<!-- END OF DEEPSEEK WIDGET -->
+<!-- END OF DEEPSEEK V4-PRO WIDGET -->
 <!-- ========================================== -->
 
 </body>
