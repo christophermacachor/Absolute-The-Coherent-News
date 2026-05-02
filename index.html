@@ -340,14 +340,24 @@
         .tab-content.hidden {
             display: none;
         }
+            /* APERTURE tab special styling */
+        .nav-link[href="divergent.html"] {
+            color: #c8a04e;
+            position: relative;
+        }
+
+        .nav-link[href="divergent.html"]::after {
+            background: #c8a04e;
+        }
+
+        .nav-link[href="divergent.html"]:hover {
+            color: #eab308;
+            text-shadow: 0 0 8px rgba(200, 160, 78, 0.3);
+        }
     </style>
 <base target="_blank">
 </head>
 <body class="antialiased">
-
-    <!-- Noise Texture Overlay -->
-    <div class="noise-overlay"></div>
-
     <!-- Three.js Container -->
     <div id="canvas-container"></div>
 
