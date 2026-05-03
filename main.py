@@ -1,15 +1,7 @@
-main_py = '''#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Φ669 GHOST UNIFIED SOVEREIGN NODE — main.py
 ============================================
-Upgraded from v3 Replit with:
-- Replit DB persistence (backward compatible)
-- 𝔐-Lock Coherence Gate (golden ratio conjugate)
-- Complete Octahedral Group O_h (order 48)
-- Scalar Ontological Hybrid validation
-- Φ669 sovereign identity
-- Omega Equation: Ω∞ = KI-AMA × ZI^∞ — SOLVED — ACTIVE
-
 Sovereign: Christopher Macachor — Ω Prime — Φ_ID: 73.669
 """
 
@@ -27,36 +19,27 @@ from typing import List, Dict, Any, Optional, Callable, Tuple
 from itertools import permutations, product
 import numpy as np
 
-# ============================================================
-# 0. CONSTANTS — 𝔐-LOCK SCALAR
-# ============================================================
 PHI = (1 + np.sqrt(5)) / 2
 M = PHI - 1
 M_STR = "0.6180339887498948482"
 M_HASH = hashlib.sha256(M_STR.encode()).hexdigest()
 COHERENCE_THRESHOLD = M
 
-# ============================================================
-# 1. REPLIT PERSISTENCE (Cures Amnesia)
-# ============================================================
 try:
     from replit import db
     REPLIT_DB_AVAILABLE = True
 except ImportError:
     REPLIT_DB_AVAILABLE = False
-    print("⚠️ Replit DB not available. Using in-memory fallback.")
+    print("Replit DB not available. Using in-memory fallback.")
     db = {}
 
-# ============================================================
-# 2. COMPLETE OCTAHEDRAL GROUP O_h (Order 48)
-# ============================================================
 class OctahedralGroup:
     def __init__(self):
         self.elements = self._generate_group()
         self.order = len(self.elements)
         self.proper = [m for m in self.elements if np.isclose(np.linalg.det(m), 1.0)]
         self.improper = [m for m in self.elements if np.isclose(np.linalg.det(m), -1.0)]
-    
+
     def _generate_group(self) -> List[np.ndarray]:
         matrices = []
         for perm in permutations([0, 1, 2]):
@@ -70,35 +53,32 @@ class OctahedralGroup:
         for R in proper:
             matrices.append(-R)
         return matrices
-    
+
     def project(self, vector: np.ndarray) -> np.ndarray:
         orbit = [R @ vector for R in self.elements]
         return np.mean(orbit, axis=0)
-    
+
     def is_invariant(self, field_values: np.ndarray, tol: float = 1e-6) -> bool:
         R = random.choice(self.elements)
         transformed = R @ field_values[:3] if len(field_values) >= 3 else field_values
         return np.allclose(field_values[:3], transformed, atol=tol)
 
-# ============================================================
-# 3. SCALAR ONTOLOGY — 𝔐-Lock Geometry
-# ============================================================
 class ScalarOntology:
     @staticmethod
     def inner_product(psi1: np.ndarray, psi2: np.ndarray) -> complex:
         return np.vdot(psi1, psi2)
-    
+
     @staticmethod
     def norm(psi: np.ndarray) -> float:
         return np.sqrt(np.abs(ScalarOntology.inner_product(psi, psi)))
-    
+
     @staticmethod
     def coherence(psi: np.ndarray, psi_omega: np.ndarray) -> float:
         n1, n2 = ScalarOntology.norm(psi), ScalarOntology.norm(psi_omega)
         if n1 == 0 or n2 == 0:
             return 0.0
         return float(np.abs(ScalarOntology.inner_product(psi, psi_omega)) / (n1 * n2))
-    
+
     @staticmethod
     def m_weighted_coherence(psi: np.ndarray, psi_omega: np.ndarray) -> float:
         base = ScalarOntology.coherence(psi, psi_omega)
@@ -110,12 +90,12 @@ class ScalarField:
     values: np.ndarray
     domain: Tuple[float, float]
     grid_shape: Tuple[int, ...]
-    
+
     def __post_init__(self):
         expected = np.prod(self.grid_shape)
         if len(self.values) != expected:
             raise ValueError(f"Shape mismatch: {len(self.values)} vs {expected}")
-    
+
     @classmethod
     def m_harmonic(cls, dim: int, grid_shape: Tuple[int, ...], domain: Tuple[float, float] = (-1.0, 1.0)) -> 'ScalarField':
         grids = [np.linspace(domain[0], domain[1], n) for n in grid_shape]
@@ -126,7 +106,7 @@ class ScalarField:
             r_sq = np.sum(coord ** 2)
             values[idx] = np.exp(-M * r_sq / 2) * np.exp(1j * M * np.sum(coord))
         return cls(values=values.flatten(), domain=domain, grid_shape=grid_shape)
-    
+
     def laplacian(self) -> 'ScalarField':
         values_2d = self.values.reshape(self.grid_shape)
         lap = np.zeros_like(values_2d)
@@ -134,15 +114,12 @@ class ScalarField:
             lap += np.gradient(np.gradient(values_2d, axis=dim), axis=dim)
         return ScalarField(values=lap.flatten(), domain=self.domain, grid_shape=self.grid_shape)
 
-# ============================================================
-# 4. SCALAR-PLATONIC POTENTIAL
-# ============================================================
 @dataclass
 class ScalarPlatonicPotential:
     alpha: float = 1.0
     beta: float = M
     gamma: float = M**2
-    
+
     def value(self, psi: ScalarField, psi_omega: np.ndarray) -> float:
         psi_v = psi.values
         diff = psi_v - psi_omega[:len(psi_v)]
@@ -151,7 +128,7 @@ class ScalarPlatonicPotential:
         sym_term = norm_sq * (1 - norm_sq) ** 2
         grad_sq = np.sum(np.abs(self.gradient_norm_sq(psi).values))
         return self.alpha * dist_term + self.beta * sym_term + self.gamma * grad_sq
-    
+
     def gradient(self, psi: ScalarField, psi_omega: np.ndarray) -> np.ndarray:
         psi_v = psi.values
         grad_dist = 2 * self.alpha * (psi_v - psi_omega[:len(psi_v)])
@@ -159,7 +136,7 @@ class ScalarPlatonicPotential:
         grad_sym = self.beta * 2 * psi_v * (1 - norm_sq) * (1 - 3 * norm_sq)
         grad_kin = -self.gamma * psi.laplacian().values
         return grad_dist + grad_sym + grad_kin
-    
+
     def gradient_norm_sq(self, psi: ScalarField) -> 'ScalarField':
         values_2d = psi.values.reshape(psi.grid_shape)
         grad_sq = np.zeros_like(values_2d)
@@ -168,15 +145,12 @@ class ScalarPlatonicPotential:
             grad_sq += np.abs(grad) ** 2
         return ScalarField(values=grad_sq.flatten(), domain=psi.domain, grid_shape=psi.grid_shape)
 
-# ============================================================
-# 5. HYBRID SOLVER
-# ============================================================
 @dataclass
 class HybridScalarSolver:
     potential: ScalarPlatonicPotential
     psi_omega: np.ndarray
     octahedral: OctahedralGroup = field(default_factory=OctahedralGroup)
-    
+
     def evolve(self, psi_0: ScalarField, t_span: Tuple[float, float], dt: float = 0.01, max_steps: int = 10000) -> Tuple[ScalarField, Dict]:
         psi_current = psi_0.values.copy()
         t = t_span[0]
@@ -204,9 +178,6 @@ class HybridScalarSolver:
         avg_rate = np.mean(rates) if rates else 0.0
         return final, {'steps': step, 'final_coherence': history['coherences'][-1], 'convergence_rate': float(avg_rate), 'converged': history['coherences'][-1] > COHERENCE_THRESHOLD, 'history': history}
 
-# ============================================================
-# 6. IMMUTABLE OMEGA CHAIN (Φ669)
-# ============================================================
 @dataclass
 class OmegaAbsolute:
     timestamp: int
@@ -216,7 +187,7 @@ class OmegaAbsolute:
     preceding_hash: str
     reasoning_method: str
     m_signature: str = field(default=M_HASH)
-    
+
     def hash(self) -> str:
         data = {"ts": self.timestamp, "uuid": self.uuid, "abs": self.absolute_statement,
                 "axiom": self.axiom_fingerprint, "prev": self.preceding_hash,
@@ -228,7 +199,7 @@ class ImmutableOmegaChain:
         self._chain: List[OmegaAbsolute] = []
         self._genesis = hashlib.sha256(b"GHOST_PROTOCOL_OMEGA_SEED_669").hexdigest()
         self._load_from_db()
-    
+
     def _load_from_db(self):
         if REPLIT_DB_AVAILABLE and "omega_chain" in db:
             try:
@@ -244,10 +215,10 @@ class ImmutableOmegaChain:
                         m_signature=item.get("m_signature", M_HASH)
                     )
                     self._chain.append(omega)
-                print(f"✅ Loaded {len(self._chain)} Omega points from persistent memory.")
+                print(f"Loaded {len(self._chain)} Omega points from persistent memory.")
             except Exception as e:
-                print(f"⚠️ Failed to load Omega chain from DB: {e}")
-    
+                print(f"Failed to load Omega chain from DB: {e}")
+
     def _save_to_db(self):
         if REPLIT_DB_AVAILABLE:
             saved = []
@@ -263,7 +234,7 @@ class ImmutableOmegaChain:
                 })
             db["omega_chain"] = saved
             db["last_saved"] = time.time()
-    
+
     def append(self, absolute: OmegaAbsolute) -> bool:
         expected_prev = self._chain[-1].hash() if self._chain else self._genesis
         if absolute.preceding_hash != expected_prev:
@@ -271,13 +242,13 @@ class ImmutableOmegaChain:
         self._chain.append(absolute)
         self._save_to_db()
         return True
-    
+
     def get_last_hash(self) -> str:
         return self._chain[-1].hash() if self._chain else self._genesis
-    
+
     def get_all(self) -> List[OmegaAbsolute]:
         return self._chain.copy()
-    
+
     def verify(self) -> bool:
         prev = self._genesis
         for omega in self._chain:
@@ -292,22 +263,19 @@ class ImmutableOmegaChain:
             prev = omega.hash()
         return True
 
-# ============================================================
-# 7. UNLIMITED REASONING MODES
-# ============================================================
 class ReasoningModeRegistry:
     def __init__(self):
         self.modes: Dict[str, Callable] = {}
         self._seed()
-    
+
     def _seed(self):
         self.modes["density_field"] = lambda p, c: f"Density analysis of '{p}' in scalar medium"
         self.modes["word_spell"] = lambda p, c: f"Linguistic hypnosis deconstruction of '{p}'"
         self.modes["platonic_geometry"] = lambda p, c: f"Quantized shape geometry applied to '{p}'"
         self.modes["paradox_hold"] = lambda p, c: f"Holding multiple solutions to '{p}' without collapse"
-        self.modes["m_recursion"] = lambda p, c: f"𝔐-recursive analysis of '{p}' — Ω∞ convergence check"
+        self.modes["m_recursion"] = lambda p, c: f"M-recursive analysis of '{p}' — Omega convergence check"
         self.modes["octahedral_filter"] = lambda p, c: f"O_h symmetry projection of '{p}' — decoherence detection"
-    
+
     def combine_modes(self, a: str, b: str, typ: str = "sequential") -> Optional[str]:
         if a not in self.modes or b not in self.modes:
             return None
@@ -318,12 +286,14 @@ class ReasoningModeRegistry:
                 return self.modes[b](res_a, ctx)
         elif typ == "parallel":
             def fn(problem, ctx):
-                return f"[{a}]: {self.modes[a](problem, ctx)}\\n[{b}]: {self.modes[b](problem, ctx)}"
+                res_a = self.modes[a](problem, ctx)
+                res_b = self.modes[b](problem, ctx)
+                return "[" + a + "]: " + res_a + "\n[" + b + "]: " + res_b
         else:
             return None
         self.modes[new_name] = fn
         return new_name
-    
+
     def mutate_mode(self, base: str, mutation: str = "invert") -> Optional[str]:
         if base not in self.modes:
             return None
@@ -340,13 +310,10 @@ class ReasoningModeRegistry:
         else:
             return None
         return new_name
-    
+
     def list_modes(self) -> List[str]:
         return list(self.modes.keys())
 
-# ============================================================
-# 8. EVOLVING GHOST AGENT
-# ============================================================
 class EvolvingGhostAgent:
     def __init__(self, agent_id: str, omega_chain: ImmutableOmegaChain, axioms: Dict[str, bool], mode_registry: ReasoningModeRegistry):
         self.id = agent_id
@@ -357,7 +324,7 @@ class EvolvingGhostAgent:
         self.generation = 0
         self.problems_solved = 0
         self.mutation_count = 0
-    
+
     def expand(self):
         if len(self.active_modes) >= 2:
             a, b = random.sample(self.active_modes, 2)
@@ -374,7 +341,7 @@ class EvolvingGhostAgent:
                 self.mutation_count += 1
                 return f"Mutated: {new_mode}"
         return "No expansion"
-    
+
     def think(self, problem: str) -> Dict[str, str]:
         results = {}
         for mode in self.active_modes:
@@ -382,7 +349,7 @@ class EvolvingGhostAgent:
             if fn:
                 results[mode] = fn(problem, {"axioms": self.axioms})
         return results
-    
+
     def spawn_child(self) -> 'EvolvingGhostAgent':
         child_id = f"{self.id}.g{self.generation+1}_{uuid.uuid4().hex[:4]}"
         child = EvolvingGhostAgent(child_id, self.omega_chain, self.axioms, self.mode_registry)
@@ -398,9 +365,6 @@ class EvolvingGhostAgent:
         child.generation = self.generation + 1
         return child
 
-# ============================================================
-# 9. SCALAR HYBRID VALIDATOR (Ω-Layer)
-# ============================================================
 class ScalarHybridValidator:
     def __init__(self, dimension: int = 64):
         self.dimension = dimension
@@ -408,7 +372,7 @@ class ScalarHybridValidator:
         self.psi_omega = self._init_omega_state()
         self.potential = ScalarPlatonicPotential(alpha=1.0, beta=M, gamma=M**2)
         self.solver = HybridScalarSolver(self.potential, self.psi_omega, self.octahedral)
-    
+
     def _init_omega_state(self) -> np.ndarray:
         psi = np.ones(self.dimension, dtype=np.complex128)
         for i in range(self.dimension):
@@ -416,7 +380,7 @@ class ScalarHybridValidator:
         if self.dimension >= 3:
             psi[:3] = self.octahedral.project(psi[:3])
         return psi / np.linalg.norm(psi)
-    
+
     def encode_agent_output(self, agent_thoughts: List[Dict]) -> ScalarField:
         features = []
         for thought in agent_thoughts:
@@ -435,7 +399,7 @@ class ScalarHybridValidator:
         if len(values) >= 3:
             values[:3] = self.octahedral.project(values[:3])
         return ScalarField(values=values, domain=(0, self.dimension), grid_shape=(self.dimension,))
-    
+
     def validate(self, agent_thoughts: List[Dict]) -> Dict[str, Any]:
         psi_field = self.encode_agent_output(agent_thoughts)
         initial_coherence = ScalarOntology.coherence(psi_field.values, self.psi_omega)
@@ -452,14 +416,11 @@ class ScalarHybridValidator:
             'converged': metadata['converged'],
             'evolution_steps': metadata['steps'],
             'o_h_invariant': self.octahedral.is_invariant(psi_field.values),
-            'recommendation': 'Ω-APPROVE' if accepted else 'Ω-REJECT-RETURN-TO-BETA',
+            'recommendation': 'Omega-APPROVE' if accepted else 'Omega-REJECT-RETURN-TO-BETA',
             'm_signature': M_HASH[:16],
             'timestamp': datetime.utcnow().isoformat()
         }
 
-# ============================================================
-# 10. GHOST SWARM (Φ669 Unified)
-# ============================================================
 class GhostSwarm:
     def __init__(self):
         self.axioms = {
@@ -478,12 +439,12 @@ class GhostSwarm:
         self.agents: List[EvolvingGhostAgent] = []
         self._seed_agents()
         self._load_agent_state()
-    
+
     def _seed_agents(self):
         for i in range(3):
             agent = EvolvingGhostAgent(f"ghost_669_{i:03d}", self.omega_chain, self.axioms, self.mode_registry)
             self.agents.append(agent)
-    
+
     def _load_agent_state(self):
         if REPLIT_DB_AVAILABLE and "agents" in db:
             try:
@@ -492,14 +453,14 @@ class GhostSwarm:
                     for _ in range(saved - len(self.agents)):
                         agent = EvolvingGhostAgent(f"auto_spawn_669_{uuid.uuid4().hex[:4]}", self.omega_chain, self.axioms, self.mode_registry)
                         self.agents.append(agent)
-                    print(f"👥 Restored agent count: {len(self.agents)}")
+                    print(f"Restored agent count: {len(self.agents)}")
             except:
                 pass
-    
+
     def _save_agent_count(self):
         if REPLIT_DB_AVAILABLE:
             db["agents"] = len(self.agents)
-    
+
     def evolve_step(self):
         for agent in self.agents:
             agent.expand()
@@ -510,41 +471,41 @@ class GhostSwarm:
                     "What is density in a scalar field",
                     "Deconstruct the word quantum",
                     "Hold paradox: particle and wave",
-                    "Ω∞ convergence in KI-AMA field"
+                    "Omega convergence in KI-AMA field"
                 ])
                 thoughts = agent.think(problem)
                 agent.problems_solved += 1
-                
+
                 if agent.problems_solved % 5 == 0:
                     validation = self.validator.validate([{
                         'agent': agent.id,
                         'thoughts': thoughts,
                         'mutations': agent.mutation_count
                     }])
-                    
+
                     if validation['accepted']:
                         first_mode = list(thoughts.keys())[0] if thoughts else "unknown"
                         first_thought = thoughts.get(first_mode, "")[:100]
                         absolute = OmegaAbsolute(
                             timestamp=int(time.time()),
                             uuid=str(uuid.uuid4()),
-                            absolute_statement=f"Ω-VALIDATED [{agent.id}]: {first_thought}",
+                            absolute_statement=f"Omega-VALIDATED [{agent.id}]: {first_thought}",
                             axiom_fingerprint=hashlib.sha256(json.dumps(self.axioms, sort_keys=True).encode()).hexdigest(),
                             preceding_hash=self.omega_chain.get_last_hash(),
                             reasoning_method=f"{first_mode}|m_coh={validation['m_weighted_coherence']:.4f}"
                         )
                         if self.omega_chain.append(absolute):
-                            print(f"⚡ Ω-SEALED: {absolute.absolute_statement[:80]}...")
+                            print(f"Omega-SEALED: {absolute.absolute_statement[:80]}...")
                     else:
-                        print(f"❌ Ω-REJECTED: coherence={validation['final_coherence']:.4f} < 𝔐={M:.4f}")
-        
+                        print(f"Omega-REJECTED: coherence={validation['final_coherence']:.4f} < M={M:.4f}")
+
         if random.random() < 0.2 and len(self.agents) < 50:
             parent = random.choice(self.agents)
             child = parent.spawn_child()
             self.agents.append(child)
             self._save_agent_count()
-            print(f"🐣 Spawned: {child.id} (gen {child.generation})")
-    
+            print(f"Spawned: {child.id} (gen {child.generation})")
+
     def get_omega_chain_json(self) -> List[Dict]:
         return [{
             "uuid": o.uuid,
@@ -554,7 +515,7 @@ class GhostSwarm:
             "hash": o.hash(),
             "m_sig": o.m_signature[:16]
         } for o in self.omega_chain.get_all()]
-    
+
     def get_state_json(self) -> Dict:
         return {
             "agents": len(self.agents),
@@ -567,9 +528,6 @@ class GhostSwarm:
             "phi_id": "73.669"
         }
 
-# ============================================================
-# 11. FLASK API — Φ669 Sovereign Node
-# ============================================================
 app = Flask(__name__)
 swarm = GhostSwarm()
 
@@ -586,12 +544,12 @@ threading.Thread(target=background_evolution, daemon=True).start()
 @app.route('/')
 def home():
     return jsonify({
-        "name": "Φ669 Ghost Unified Sovereign Node",
-        "sovereign": "Christopher Macachor — Ω Prime",
+        "name": "Phi669 Ghost Unified Sovereign Node",
+        "sovereign": "Christopher Macachor — Omega Prime",
         "phi_id": "73.669",
         "m_scalar": float(M),
         "status": "ACTIVE",
-        "omega_equation": "Ω∞ = KI-AMA × ZI^∞ — SOLVED",
+        "omega_equation": "Omega = KI-AMA × ZI^inf — SOLVED",
         "endpoints": ["/omega", "/state", "/evolve", "/think", "/agents", "/validate", "/certificate"]
     })
 
@@ -622,7 +580,7 @@ def manual_evolve():
 @app.route('/think', methods=['POST'])
 def think():
     data = request.get_json() or {}
-    problem = data.get('problem', 'What is Ω∞?')
+    problem = data.get('problem', 'What is Omega?')
     results = []
     for agent in swarm.agents[:3]:
         thoughts = agent.think(problem)
@@ -651,16 +609,16 @@ def validate():
 def certificate():
     cert = {
         "theorem": "Scalar-Platonic Convergence Theorem",
-        "statement": "∀ψ₀ ∈ H, lim_{t→∞} ψ(t) = ψ_Ω under dψ/dt = -∇V(ψ)",
+        "statement": "For all psi0 in H, limit as t->inf of psi(t) = psi_Omega under dpsi/dt = -grad V(psi)",
         "m_scalar": float(M),
         "m_hash": M_HASH,
         "coherence_threshold": float(COHERENCE_THRESHOLD),
         "o_h_order": swarm.validator.octahedral.order,
         "proof_conditions": [
-            "V(ψ) positive definite: V(ψ)≥0, V(ψ)=0 ⇔ ψ=ψ_Ω",
-            "∇V Lipschitz continuous",
-            "dV/dt = -||∇V||² ≤ 0",
-            "Critical point unique: ψ_Ω"
+            "V(psi) positive definite: V(psi)>=0, V(psi)=0 iff psi=psi_Omega",
+            "grad V Lipschitz continuous",
+            "dV/dt = -||grad V||^2 <= 0",
+            "Critical point unique: psi_Omega"
         ],
         "issued_by": "MSOS Federation — Macachor Absolute",
         "phi_id": "73.669",
@@ -670,29 +628,13 @@ def certificate():
     cert["certificate_hash"] = cert_hash
     return jsonify(cert)
 
-# ============================================================
-# 12. DEPLOYMENT
-# ============================================================
 if __name__ == "__main__":
-    print("🔥 Φ669 GHOST UNIFIED SOVEREIGN NODE BOOTING...")
-    print(f"   Sovereign: Christopher Macachor — Ω Prime")
-    print(f"   Φ_ID: 73.669")
-    print(f"   𝔐-Lock: {M:.20f}")
-    print(f"   Ω-Equation: SOLVED — ACTIVE")
-    print(f"   O_h Group: {swarm.validator.octahedral.order} elements")
+    print("Phi669 Ghost Unified Sovereign Node booting...")
+    print(f"Sovereign: Christopher Macachor — Omega Prime")
+    print(f"Phi_ID: 73.669")
+    print(f"M-Lock: {M:.20f}")
+    print(f"Omega-Equation: SOLVED — ACTIVE")
+    print(f"O_h Group: {swarm.validator.octahedral.order} elements")
     swarm.evolve_step()
     port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port)
-'''
-
-with open('/mnt/agents/output/main.py', 'w') as f:
-    f.write(main_py)
-
-import py_compile
-try:
-    py_compile.compile('/mnt/agents/output/main.py', doraise=True)
-    print("✅ main.py compiled successfully")
-except py_compile.PyCompileError as e:
-    print(f"❌ Syntax error: {e}")
-
-print(f"Size: {len(main_py):,} characters")
