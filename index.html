@@ -1182,41 +1182,7 @@
             observer.observe(el);
         });
     </script>
-
-    <!-- Tab Switching Script -->
-    <script>
-        function switchTab(tabId) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.add('hidden');
-                content.classList.remove('active');
-            });
-
-            // Show selected tab content
-            const selectedContent = document.getElementById('tab-' + tabId);
-            if (selectedContent) {
-                selectedContent.classList.remove('hidden');
-                selectedContent.classList.add('active');
-            }
-
-            // Update button states
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active', 'bg-white/10', 'text-gray-200');
-                btn.classList.add('text-gray-600');
-            });
-
-            const selectedBtn = document.querySelector('.tab-btn[data-tab="' + tabId + '"]');
-            if (selectedBtn) {
-                selectedBtn.classList.add('active', 'bg-white/10', 'text-gray-200');
-                selectedBtn.classList.remove('text-gray-600');
-            }
-        }
-
-        // Initialize first tab
-        document.addEventListener('DOMContentLoaded', () => {
-            switchTab('all');
-        });
-    </script>  <!-- Tab Switching Script (SINGLE COPY - KEEP ONLY THIS ONE) -->
+  <!-- Tab Switching Script (SINGLE COPY - KEEP ONLY THIS ONE) -->
 <script>
     function switchTab(tabId) {
         // Hide all tab contents
@@ -1254,160 +1220,108 @@
 <!-- ========================================== -->
 <!-- DEEPSEEK V4-PRO AI CHAT WIDGET -->
 <!-- ========================================== -->
-
-<!-- Chat Widget HTML -->
-<div id="deepseek-chat-container" style="position:fixed; bottom:20px; right:20px; z-index:9999">
-    <div id="deepseek-chat-button" style="background:#4a90e2; color:white; padding:12px 20px; border-radius:30px; cursor:pointer; font-family:Inter, sans-serif; box-shadow:0 2px 10px rgba(0,0,0,0.3); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.1)">
-        💬 V4-Pro Assistant
+<!-- Chat Widget Container -->
+<div id="deepseek-chat-container" style="position:fixed; bottom:20px; right:20px; z-index:10000">
+  <div id="deepseek-chat-button" style="background:#1a1a1a; color:#e3e3e3; padding:12px 20px; border-radius:30px; cursor:pointer; font-family:'Inter',sans-serif; font-size:14px; border:1px solid #333; backdrop-filter:blur(10px); box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+    💬 DeepSeek V4
+  </div>
+  <div id="deepseek-chat-window" style="display:none; width:400px; height:550px; background:#0a0a0a; border-radius:20px; border:1px solid #2a2a2a; box-shadow:0 20px 40px rgba(0,0,0,0.5); flex-direction:column; overflow:hidden; margin-bottom:12px">
+    <div style="background:#111; color:#e3e3e3; padding:14px 16px; display:flex; justify-content:space-between; border-bottom:1px solid #2a2a2a; font-family:'Inter',sans-serif;">
+      <span style="font-weight:600;">🧠 DeepSeek V4 · 1M Context</span>
+      <span id="close-chat" style="cursor:pointer; opacity:0.6;">✕</span>
     </div>
-    <div id="deepseek-chat-window" style="display:none; width:380px; height:550px; background:#0a0a0a; border-radius:16px; border:1px solid rgba(255,255,255,0.1); box-shadow:0 10px 40px rgba(0,0,0,0.5); flex-direction:column; overflow:hidden; margin-bottom:10px">
-        <div style="background:#1a1a1a; color:white; padding:14px 16px; display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05)">
-            <span style="font-weight:500; font-family:Inter">🧠 DeepSeek V4-Pro (1M Context)</span>
-            <span id="close-chat" style="cursor:pointer; opacity:0.6; font-family:Inter">✕</span>
-        </div>
-        <div id="chat-messages" style="flex:1; overflow-y:auto; padding:16px; font-family:Inter, sans-serif; font-size:14px; color:#e3e3e3">
-            <div style="margin-bottom:10px; padding:10px 14px; background:#1a1a1a; border-radius:18px; max-width:80%; border:1px solid rgba(255,255,255,0.05)">
-                👋 Hello! I'm DeepSeek V4-Pro. I need a valid API key to work. Please get one at <a href="https://platform.deepseek.com" target="_blank" style="color:#4a90e2">platform.deepseek.com</a>
-            </div>
-        </div>
-        <div style="display:flex; padding:12px 16px; border-top:1px solid rgba(255,255,255,0.05); background:#050505; gap:8px">
-            <input type="text" id="chat-input" placeholder="Ask about news, science, quantum physics..." style="flex:1; padding:10px 14px; background:#0a0a0a; border:1px solid #222; border-radius:24px; color:white; font-size:13px; outline:none; font-family:Inter">
-            <button id="send-button" style="background:#4a90e2; color:white; border:none; border-radius:24px; padding:10px 18px; cursor:pointer; font-size:13px; font-weight:500">Send</button>
-        </div>
-        <div style="display:flex; gap:6px; padding:8px 12px; border-top:1px solid rgba(255,255,255,0.03); justify-content:center">
-            <span style="font-size:9px; color:#555">Requires API key from platform.deepseek.com</span>
-        </div>
+    <div id="chat-messages" style="flex:1; overflow-y:auto; padding:16px; font-family:'Inter',sans-serif; font-size:14px; color:#c8c8c8; display:flex; flex-direction:column; gap:12px;">
+      <div style="background:#1a1a1a; padding:12px 16px; border-radius:18px; max-width:85%; border:1px solid #2a2a2a;">
+        👋 Hello! I'm DeepSeek V4. Ask me about science, quantum AI, or news – your backend is connected.
+      </div>
     </div>
+    <div style="display:flex; padding:12px 16px; border-top:1px solid #2a2a2a; background:#050505; gap:10px;">
+      <input type="text" id="chat-input" placeholder="Ask anything..." style="flex:1; padding:12px 14px; background:#0a0a0a; border:1px solid #2a2a2a; border-radius:30px; color:white; font-size:13px; outline:none;">
+      <button id="send-button" style="background:#4a90e2; color:white; border:none; border-radius:30px; padding:12px 20px; cursor:pointer; font-size:13px; font-weight:500;">Send</button>
+    </div>
+  </div>
 </div>
 
 <script>
-    // 🔑 GET YOUR FREE API KEY: https://platform.deepseek.com
-    // Replace 'YOUR_API_KEY_HERE' with your actual key (keep the quotes!)
-    const DEEPSEEK_API_KEY = 'sk-e83ec484259947a2a906f7f23f23c08d';
-    
-    // DOM elements
+  (function() {
     const chatButton = document.getElementById('deepseek-chat-button');
     const chatWindow = document.getElementById('deepseek-chat-window');
     const closeChat = document.getElementById('close-chat');
     const sendButton = document.getElementById('send-button');
     const chatInput = document.getElementById('chat-input');
     const messagesDiv = document.getElementById('chat-messages');
-    
-    // Conversation history
-    let conversationHistory = [
-        { 
-            role: "system", 
-            content: "You are DeepSeek V4-Pro, an advanced AI assistant for 'Absolute — The Coherent News.' Answer questions about news, science, quantum physics, AI governance, and consciousness research. Be concise, factual, and professional. Keep answers under 200 words."
-        }
-    ];
-    
-    // Toggle chat window
-    chatButton.onclick = () => { chatWindow.style.display = 'flex'; };
-    closeChat.onclick = () => { chatWindow.style.display = 'none'; };
-    
-    async function sendMessage() {
-        const message = chatInput.value.trim();
-        if (!message) return;
-        
-        addMessage(message, 'user');
-        chatInput.value = '';
-        
-        const typingId = addTypingIndicator();
-        
-        try {
-            const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
-                },
-                body: JSON.stringify({
-                    model: 'deepseek-chat',
-                    messages: [...conversationHistory, { role: 'user', content: message }],
-                    temperature: 0.7,
-                    max_tokens: 500
-                })
-            });
-            
-            const data = await response.json();
-            
-            // Check for API errors
-            if (data.error) {
-                throw new Error(data.error.message || 'API key invalid or missing');
-            }
-            
-            const reply = data.choices[0].message.content;
-            
-            removeTypingIndicator(typingId);
-            addMessage(reply, 'bot');
-            
-            conversationHistory.push({ role: 'user', content: message });
-            conversationHistory.push({ role: 'assistant', content: reply });
-            
-        } catch (error) {
-            removeTypingIndicator(typingId);
-            let errorMsg = 'Connection error. ';
-            if (error.message.includes('API key') || error.message.includes('authentication')) {
-                errorMsg = '❌ Invalid or missing API key. Get a free key at platform.deepseek.com and replace YOUR_API_KEY_HERE in the code.';
-            } else if (error.message.includes('fetch')) {
-                errorMsg = '🌐 Network error. Check your internet connection and try again.';
-            } else {
-                errorMsg = `Error: ${error.message}`;
-            }
-            addMessage(errorMsg, 'bot');
-        }
-    }
-    
+
+    chatButton.onclick = () => chatWindow.style.display = 'flex';
+    closeChat.onclick = () => chatWindow.style.display = 'none';
+
     function addMessage(text, sender) {
-        const msgDiv = document.createElement('div');
-        msgDiv.style.marginBottom = '12px';
-        msgDiv.style.padding = '10px 14px';
-        msgDiv.style.borderRadius = '18px';
-        msgDiv.style.maxWidth = '85%';
-        msgDiv.style.wordWrap = 'break-word';
-        msgDiv.style.fontSize = '13px';
-        msgDiv.style.fontFamily = 'Inter, sans-serif';
-        
-        if (sender === 'user') {
-            msgDiv.style.background = '#4a90e2';
-            msgDiv.style.color = 'white';
-            msgDiv.style.marginLeft = 'auto';
-        } else {
-            msgDiv.style.background = '#1a1a1a';
-            msgDiv.style.color = '#e3e3e3';
-            msgDiv.style.border = '1px solid rgba(255,255,255,0.05)';
-        }
-        
-        msgDiv.textContent = text;
-        messagesDiv.appendChild(msgDiv);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      const msgDiv = document.createElement('div');
+      msgDiv.style.padding = '10px 14px';
+      msgDiv.style.borderRadius = '18px';
+      msgDiv.style.maxWidth = '85%';
+      msgDiv.style.wordWrap = 'break-word';
+      msgDiv.style.fontSize = '14px';
+      if (sender === 'user') {
+        msgDiv.style.background = '#4a90e2';
+        msgDiv.style.color = 'white';
+        msgDiv.style.marginLeft = 'auto';
+      } else {
+        msgDiv.style.background = '#1a1a1a';
+        msgDiv.style.color = '#c8c8c8';
+        msgDiv.style.border = '1px solid #2a2a2a';
+      }
+      msgDiv.textContent = text;
+      messagesDiv.appendChild(msgDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
-    
+
     function addTypingIndicator() {
-        const id = 'typing-' + Date.now();
-        const typingDiv = document.createElement('div');
-        typingDiv.id = id;
-        typingDiv.style.padding = '10px 14px';
-        typingDiv.style.background = '#1a1a1a';
-        typingDiv.style.borderRadius = '18px';
-        typingDiv.style.width = '80px';
-        typingDiv.style.fontSize = '13px';
-        typingDiv.style.color = '#888';
-        typingDiv.style.border = '1px solid rgba(255,255,255,0.05)';
-        typingDiv.style.fontFamily = 'Inter, sans-serif';
-        typingDiv.textContent = 'Typing...';
-        messagesDiv.appendChild(typingDiv);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        return id;
+      const id = 'typing-' + Date.now();
+      const typingDiv = document.createElement('div');
+      typingDiv.id = id;
+      typingDiv.style.padding = '10px 14px';
+      typingDiv.style.background = '#1a1a1a';
+      typingDiv.style.borderRadius = '18px';
+      typingDiv.style.width = '70px';
+      typingDiv.style.fontSize = '13px';
+      typingDiv.style.color = '#888';
+      typingDiv.style.border = '1px solid #2a2a2a';
+      typingDiv.textContent = '...';
+      messagesDiv.appendChild(typingDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      return id;
     }
-    
+
     function removeTypingIndicator(id) {
-        const element = document.getElementById(id);
-        if (element) element.remove();
+      const el = document.getElementById(id);
+      if (el) el.remove();
     }
-    
+
+    async function sendMessage() {
+      const message = chatInput.value.trim();
+      if (!message) return;
+      addMessage(message, 'user');
+      chatInput.value = '';
+      const typingId = addTypingIndicator();
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message })
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        removeTypingIndicator(typingId);
+        addMessage(data.reply || 'No response from AI', 'bot');
+      } catch (err) {
+        removeTypingIndicator(typingId);
+        addMessage('⚠️ Backend error. Is your Node server running?', 'bot');
+      }
+    }
+
     sendButton.onclick = sendMessage;
     chatInput.onkeypress = (e) => { if (e.key === 'Enter') sendMessage(); };
+  })();
 </script>
 
 <!-- ========================================== -->
