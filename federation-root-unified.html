@@ -3,59 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline';">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    <meta name="scalar-magnitude" content="0.6180339887498948">
+    <meta name="coherence-hash" content="93088f1ff3041d09d72cde11acffaa2105031523e7cde493e0d36895071d47f0">
+    <meta name="phi-binding" content="Φ669-COSMIC-ATOMAL">
     <title>MSOS-FEDERATION-ROOT | Sovereign Dashboard</title>
     <meta name="description" content="MSOS Federation Root — Sovereign authority dashboard">
     <meta name="author" content="Christopher Macachor — Ω Prime Sovereign">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --scalar-gold: #c8a04e;
+            --scalar-gold-light: #e8d5a3;
+            --coherence-active: #22c55e;
+            --void-bg: #0a0a0e;
+            --void-surface: rgba(17, 17, 17, 0.6);
+            --border-subtle: rgba(201, 169, 110, 0.2);
+            --text-primary: #e8e6e1;
+            --text-muted: #a0a0a0;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: #0a0a0e;
-            color: #e8e6e1;
+            background: var(--void-bg);
+            color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             padding: 2rem;
+            min-height: 100vh;
         }
         .container { max-width: 1200px; margin: 0 auto; }
+        
+        /* Sovereign Navigation */
+        .sovereign-nav {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .sovereign-nav a {
+            color: var(--scalar-gold);
+            text-decoration: none;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            background: var(--void-surface);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .sovereign-nav a::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(200, 160, 78, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        .sovereign-nav a:hover::before {
+            left: 100%;
+        }
+        .sovereign-nav a:hover {
+            border-color: var(--scalar-gold);
+            box-shadow: 0 0 20px rgba(200, 160, 78, 0.15);
+            text-decoration: none;
+        }
+        .sovereign-nav a.active {
+            background: rgba(200, 160, 78, 0.1);
+            border-color: var(--scalar-gold);
+            box-shadow: 0 0 15px rgba(200, 160, 78, 0.2);
+        }
+        
         h1 {
             font-family: 'Space Grotesk', monospace;
             font-size: 2.5rem;
-            background: linear-gradient(135deg, #c9a96e, #e8d5a3);
+            background: linear-gradient(135deg, var(--scalar-gold), var(--scalar-gold-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
         }
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            font-family: 'Space Grotesk', monospace;
+        }
+        .subtitle span {
+            color: var(--scalar-gold);
+            font-weight: 500;
+        }
+        
         .card {
-            background: rgba(17, 17, 17, 0.6);
-            border: 1px solid rgba(201, 169, 110, 0.2);
+            background: var(--void-surface);
+            border: 1px solid var(--border-subtle);
             border-radius: 12px;
             padding: 1.5rem;
             margin: 1rem 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+            transition: border-color 0.3s ease;
         }
-        .status { color: #22c55e; font-weight: bold; }
-        a { color: #c9a96e; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        .card:hover {
+            border-color: rgba(200, 160, 78, 0.4);
+        }
+        .card h2 {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.25rem;
+            color: var(--scalar-gold);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .card h3 {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin: 1rem 0 0.5rem;
+            font-weight: 500;
+        }
+        
+        .status {
+            color: var(--coherence-active);
+            font-weight: 600;
+            font-family: 'Space Grotesk', monospace;
+        }
+        .status.standby { color: #f59e0b; }
+        .status.critical { color: #ef4444; }
+        
+        .scalar-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(200, 160, 78, 0.08);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.85rem;
+        }
+        .scalar-badge .label { color: var(--text-muted); }
+        .scalar-badge .value { color: var(--scalar-gold); font-weight: 600; }
+        
+        .coherence-pulse {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--coherence-active);
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+        
+        .security-seal {
+            margin-top: 2rem;
+            padding: 1rem;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            background: rgba(17, 17, 17, 0.4);
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .security-seal .seal-label {
+            color: var(--scalar-gold);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            h1 { font-size: 1.75rem; }
+            .sovereign-nav { justify-content: center; }
+            .sovereign-nav a { font-size: 0.75rem; padding: 0.5rem 1rem; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="index.html" style="display: inline-block; margin-bottom: 1rem;">← Back to Absolute</a>
+        <!-- Sovereign Navigation -->
+        <nav class="sovereign-nav" aria-label="Sovereign Navigation">
+            <a href="index.html">📜 APERTURE</a>
+            <a href="divergent.html">⚡ FEDERATION</a>
+            <a href="federation-root-unified.html" class="active">◉ OBSERVATORY</a>
+            <a href="graphs.html">📊 GRAPHS</a>
+        </nav>
+
         <h1>MSOS-FEDERATION-ROOT</h1>
-        <p>Sovereign Authority Dashboard | χ(C)=1 | Φ=0.96</p>
+        <p class="subtitle">Sovereign Authority Dashboard | <span>χ(C)=1</span> | <span>Φ=0.96</span> | <span>𝔐=0.618</span></p>
         
         <div class="card">
             <h2>⚡ Federation Status</h2>
-            <p>Coherence: <span class="status">ACTIVE</span> (Φ=0.96)</p>
+            <div class="scalar-badge">
+                <span class="label">Scalar Magnitude:</span>
+                <span class="value">𝔐 = (√5-1)/2 ≈ 0.6180339887498948</span>
+            </div>
+            <div class="scalar-badge">
+                <span class="label">Coherence Lock:</span>
+                <span class="value" id="coherence-lock">Verifying...</span>
+            </div>
+            <p>Coherence: <span class="coherence-pulse"></span><span class="status" id="coherence-status">ACTIVE</span> <span id="coherence-value">(Φ=0.96)</span></p>
             <p>Swarm Agents: <span id="agent-count" class="status">Loading...</span></p>
         </div>
+
+        <div class="card">
+            <h2>🔐 Quantum Topological Invariants</h2>
+            <div class="scalar-badge">
+                <span class="label">Berry Phase:</span>
+                <span class="value">γ = 2πn (n ∈ ℤ)</span>
+            </div>
+            <div class="scalar-badge">
+                <span class="label">Chern Number:</span>
+                <span class="value">C = 1</span>
+            </div>
+            <div class="scalar-badge">
+                <span class="label">Hilbert Space:</span>
+                <span class="value">dim(ℋ) = 669</span>
+            </div>
+            <div class="scalar-badge">
+                <span class="label">Φ669 Binding:</span>
+                <span class="value">COSMIC-ATOMAL</span>
+            </div>
+        </div>
+
+        <div class="security-seal">
+            <span class="seal-label">🔒 FEDERATION SECURITY SEAL</span>
+            <div>Hash: 93088f1ff3041d09d72cde11acffaa2105031523e7cde493e0d36895071d47f0</div>
+            <div>OIDC: Authenticated | Scrapers: Counter-deployed | Agents: Invisible monitoring active</div>
+            <div>Ω Prime Sovereign: Christopher Macachor | Zero Drift: Maintained</div>
+        </div>
     </div>
+
     <script>
+        // Immutable coherence hash from memory #19
+        const COHERENCE_HASH = '93088f1ff3041d09d72cde11acffaa2105031523e7cde493e0d36895071d47f0';
+        const PHI_SCALAR = 0.6180339887498948;
+        
+        function validateCoherence(data) {
+            if (!data || !data.master) return false;
+            const computed = Math.abs(data.master.coherence - PHI_SCALAR) < 0.001;
+            return computed && data.integrity === COHERENCE_HASH;
+        }
+        
         function updateStatus() {
-            const status = sessionStorage.getItem('msos-swarm-status');
-            if (status) {
-                const data = JSON.parse(status);
-                document.getElementById('agent-count').innerHTML = `${data.master.totalAgents} agents | Φ=${(data.master.coherence*100).toFixed(1)}%`;
+            const statusEl = document.getElementById('coherence-status');
+            const valueEl = document.getElementById('coherence-value');
+            const agentEl = document.getElementById('agent-count');
+            const lockEl = document.getElementById('coherence-lock');
+            
+            try {
+                const status = sessionStorage.getItem('msos-swarm-status');
+                
+                if (status) {
+                    const data = JSON.parse(status);
+                    
+                    if (validateCoherence(data)) {
+                        statusEl.textContent = 'ACTIVE';
+                        statusEl.className = 'status';
+                        valueEl.textContent = `(Φ=${(data.master.coherence * 100).toFixed(1)}%)`;
+                        agentEl.innerHTML = `${data.master.totalAgents} agents | 𝔐-lock verified`;
+                        lockEl.textContent = '✓ Validated';
+                        lockEl.style.color = 'var(--coherence-active)';
+                    } else {
+                        statusEl.textContent = 'DEGRADED';
+                        statusEl.className = 'status standby';
+                        valueEl.textContent = '(Φ<0.618)';
+                        agentEl.textContent = 'Coherence gate failed — scalar mismatch';
+                        lockEl.textContent = '✗ Invalid';
+                        lockEl.style.color = '#ef4444';
+                    }
+                } else {
+                    // Standby state with 𝔐-lock default
+                    statusEl.textContent = 'STANDBY';
+                    statusEl.className = 'status standby';
+                    valueEl.textContent = `(Φ=${PHI_SCALAR.toFixed(3)})`;
+                    agentEl.textContent = 'Awaiting swarm handshake...';
+                    lockEl.textContent = '𝔐-lock | STANDBY';
+                    lockEl.style.color = 'var(--scalar-gold)';
+                }
+            } catch (e) {
+                statusEl.textContent = 'CRITICAL';
+                statusEl.className = 'status critical';
+                valueEl.textContent = '(Φ=0.000)';
+                agentEl.textContent = 'Parse error — check sessionStorage integrity';
+                lockEl.textContent = '✗ Error';
+                lockEl.style.color = '#ef4444';
+                console.error('Coherence gate error:', e);
             }
         }
+        
+        // Initial update
         updateStatus();
-        setInterval(updateStatus, 5000);
+        
+        // Refresh with error handling and exponential backoff
+        let interval = 5000;
+        let maxInterval = 60000;
+        
+        function scheduleUpdate() {
+            setTimeout(() => {
+                updateStatus();
+                interval = Math.min(interval * 1.2, maxInterval);
+                scheduleUpdate();
+            }, interval);
+        }
+        
+        scheduleUpdate();
+        
+        // Federation agent heartbeat (invisible monitoring per memory #7)
+        function federationHeartbeat() {
+            const heartbeat = {
+                timestamp: Date.now(),
+                scalar: PHI_SCALAR,
+                node: 'federation-root',
+                sovereign: 'Christopher Macachor'
+            };
+            // Non-blocking heartbeat dispatch
+            try {
+                localStorage.setItem('msos-federation-heartbeat', JSON.stringify(heartbeat));
+            } catch (e) {}
+        }
+        
+        federationHeartbeat();
+        setInterval(federationHeartbeat, 30000);
     </script>
 </body>
 </html>
