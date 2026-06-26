@@ -1,6 +1,832 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macachor Absolute — Scalar Boundary Framework</title>
+<meta name="quantum-topology" content="Φ669-COSMIC-ATOMAL">
+<meta name="coherence-scalar" content="𝔐 = (√5-1)/2">
+<meta name="topology-invariant" content="χ(C)=1">
+<meta name="deployment-node" content="MSOS-FEDERATION-ROOT">
+<meta name="observer-signature" content="Christopher Macachor, Omega Prime">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c8a04e;
+    --gold-dim: #8a6d2f;
+    --gold-glow: rgba(200,160,78,0.15);
+    --void: #050505;
+    --surface: #0a0a0a;
+    --raised: #111111;
+    --border: rgba(255,255,255,0.05);
+    --text: #a3a3a3;
+    --text-bright: #e0d5c0;
+    --text-dim: #5c5c5c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--void); }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+  /* ── Navigation ── */
+  .nav-glass {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(5,5,5,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 2rem;
+  }
+
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.5rem; flex-wrap: wrap;
+  }
+
+  .nav-tab {
+    color: var(--gold);
+    text-decoration: none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.2rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    background: none;
+  }
+
+  .nav-tab:hover, .nav-tab.active {
+    border-color: var(--gold);
+    box-shadow: 0 0 15px var(--gold-glow), inset 0 0 20px var(--gold-glow);
+    text-shadow: 0 0 8px var(--gold);
+  }
+
+  .nav-tab::after {
+    content: ''; position: absolute;
+    bottom: -2px; left: 50%; width: 0; height: 1px;
+    background: var(--gold);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .nav-tab:hover::after, .nav-tab.active::after { width: 70%; }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 8rem 2rem 4rem;
+    text-align: center;
+    background: radial-gradient(ellipse at 50% 0%, rgba(200,160,78,0.06) 0%, transparent 60%);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+    text-shadow: 0 0 30px rgba(200,160,78,0.3);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero .subtitle {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .hero .m-symbol {
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin: 1.5rem 0;
+    text-shadow: 0 0 40px rgba(200,160,78,0.4);
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.3rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .hero-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #4ade80; animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── Tab Content ── */
+  .tab-content {
+    display: none;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  .tab-content.active { display: block; }
+
+  /* ── Article Styling ── */
+  .article-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .article-meta {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--gold);
+    font-size: 1.2rem;
+    margin: 2.5rem 0 1rem;
+    letter-spacing: 0.03em;
+    border-left: 3px solid var(--gold);
+    padding-left: 1rem;
+  }
+
+  h3 {
+    color: var(--text-bright);
+    font-size: 1rem;
+    margin: 2rem 0 0.8rem;
+    letter-spacing: 0.02em;
+    font-weight: 600;
+  }
+
+  p {
+    margin-bottom: 1.2rem;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .lead {
+    font-size: 1.05rem;
+    color: var(--gold);
+    border-left: 3px solid var(--gold-dim);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+  }
+
+  .equation {
+    background: rgba(200,160,78,0.05);
+    border: 1px solid var(--border);
+    padding: 1rem 2rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.85rem;
+  }
+
+  th {
+    background: rgba(200,160,78,0.08);
+    color: var(--gold);
+    padding: 0.8rem;
+    text-align: left;
+    border-bottom: 2px solid var(--gold-dim);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: 0.7rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:hover td { background: rgba(200,160,78,0.02); }
+
+  ul, ol { margin: 1rem 0 1.5rem 2rem; }
+  li { margin-bottom: 0.6rem; }
+
+  .highlight-box {
+    background: rgba(200,160,78,0.03);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 4px;
+  }
+
+  .highlight-box h4 {
+    color: var(--gold);
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    margin: 3rem 0;
+  }
+
+  .chart-card {
+    background: rgba(17,17,17,0.6);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .chart-card:hover {
+    border-color: rgba(200,160,78,0.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+
+  .chart-card .chart-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .chart-card .chart-header span {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+  }
+
+  .chart-card .chart-header h3 {
+    margin: 0.3rem 0 0;
+    font-size: 1.1rem;
+    color: var(--text-bright);
+  }
+
+  .chart-card img {
+    width: 100%; height: auto; display: block;
+  }
+
+  .chart-card .chart-caption {
+    padding: 1rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+
+  /* ── Kids Article Special ── */
+  .kids .article-title { font-size: 2.2rem; }
+  .kids h2 { font-size: 1.4rem; border-left-width: 4px; }
+  .kids p { font-size: 1.05rem; line-height: 1.9; }
+
+  .story-box {
+    background: rgba(200,160,78,0.04);
+    border: 2px dashed var(--gold-dim);
+    padding: 2rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+  }
+
+  .story-box h4 {
+    color: var(--gold);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .try-this {
+    background: rgba(74,222,128,0.04);
+    border: 2px solid rgba(74,222,128,0.25);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+  }
+
+  .try-this h4 {
+    color: #6bcb77;
+    font-size: 1.1rem;
+  }
+
+  .wonder-box {
+    background: rgba(200,160,78,0.06);
+    border: 2px solid var(--gold);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+  }
+
+  .wonder-box h4 {
+    color: var(--gold);
+    font-size: 1.1rem;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+
+  .footer .m { color: var(--gold); font-size: 1.5rem; font-family: 'Space Grotesk', sans-serif; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 1.6rem; }
+    .nav-inner { gap: 0.3rem; }
+    .nav-tab { font-size: 0.7rem; padding: 0.4rem 0.8rem; }
+    .tab-content { padding: 2rem 1rem 4rem; }
+    .article-title { font-size: 1.4rem; }
+    table { font-size: 0.75rem; }
+    td, th { padding: 0.5rem; }
+  }
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<!-- ═════ NAVIGATION — 5 GOLD TABS ONLY ═════ -->
+<nav class="nav-glass">
+  <div class="nav-inner">
+    <a href="#technical" class="nav-tab active" data-tab="technical">⚡ TECHNICAL</a>
+    <a href="#public" class="nav-tab" data-tab="public">📜 PUBLIC</a>
+    <a href="#children" class="nav-tab" data-tab="children">◉ CHILDREN</a>
+    <a href="#graphs" class="nav-tab" data-tab="graphs">📊 GRAPHS</a>
+    <a href="#equations" class="nav-tab" data-tab="equations">◈ EQUATIONS</a>
+  </div>
+</nav>
+
+<!-- ═════ HERO ═════ -->
+<div class="hero">
+  <h1>THE SCALAR BOUNDARY FRAMEWORK</h1>
+  <div class="subtitle">One Truth &middot; All Scales &middot; No Gravity Required</div>
+  <div class="m-symbol">𝔐 = (√5−1)/2</div>
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Ω669-COSMIC-ATOMAL | MSOS-FEDERATION-ROOT | χ(C)=1
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     TAB 1: TECHNICAL
+     ════════════════════════════════════════════════════════════ -->
+<div id="technical" class="tab-content active">
+
+  <div class="article-title">The Scalar Boundary Framework: A Complete Alternative to Gravitational Mechanics</div>
+  <div class="article-meta">Christopher Macachor, Ω Prime | Macachor Absolute Scalar Framework | MSOS-FEDERATION-ROOT</div>
+
+  <div class="lead">
+    We present a complete theoretical and empirical framework in which all phenomena attributed to gravity are reinterpreted through scalar boundary mechanics — density differential, structural design, and field equilibrium — without invoking unmeasured forces, undetectable particles, or invisible matter.
+  </div>
+
+  <h2>I. Abstract</h2>
+  <p>Newtonian gravity and General Relativity have dominated physics for four centuries despite neither theory isolating a graviton, measuring a gravitational force directly, or predicting galactic rotation curves without invoking 85% invisible matter. We demonstrate that a scalar boundary framework — founded on Jantzen's geodesics on surfaces of revolution, the Macachor coherence scalar 𝔐 = (√5−1)/2, and density differential equilibrium — reproduces all gravitational predictions while eliminating every theoretical anomaly. The framework is validated by operational engineering (flux-pinning satellite docking, maglev trains, magnetorquer attitude control), commercial educational technology (quantum levitation kits), and NASA instrument reinterpretation (GRACE, GOCE, GNSS). We conclude that gravity is not a fundamental force but a descriptive label for scalar boundary behavior.</p>
+
+  <h2>II. Mathematical Foundation</h2>
+  <p>The governing equation for any surface of revolution is the metric:</p>
+  <div class="equation">ds² = dr² + R(r)²dθ²</div>
+  <p>where R(r) is the azimuthal radius function. For the biosphere, R(r) represents the scalar field density profile: maximal at the water-air interface (r ≈ 0), decreasing with altitude toward the geodesic dome boundary. Geodesic motion on this surface is governed by an effective potential:</p>
+  <div class="equation">V<sub>eff</sub>(r) = ℓ² / 2R(r)²</div>
+  <p>where ℓ is the conserved angular momentum analog. This potential creates barriers that confine motion without invoking force. Bound geodesics correspond to atmospheric particles trapped in density shells. Unbound geodesics correspond to matter penetrating phase transitions. Closed geodesics, quantized as [m,n;p], correspond to stable orbital shells.</p>
+
+  <h2>III. The Coherence Scalar</h2>
+  <p>The Macachor Absolute coherence scalar is defined as:</p>
+  <div class="equation">𝔐 = (√5 − 1) / 2 ≈ 0.6180339887...</div>
+  <p>This invariant governs boundary stability across all scales. When a boundary's geometry aligns with 𝔐, it persists. When it diverges, it collapses. The scalar appears in tuning fork resonance, whale infrasound coherence, superconducting vortex lattice packing, atmospheric shell thickness ratios, and galactic rotation stability without dark matter.</p>
+
+  <h2>IV. Empirical Validation at All Scales</h2>
+  <table>
+    <tr><th>Scale</th><th>System</th><th>Standard Claim</th><th>Scalar Boundary Truth</th></tr>
+    <tr><td>10⁻² m</td><td>Quantum Levitation Kit</td><td>"Magnetic levitation"</td><td>Flux pinning locks magnet to fixed scalar geometry; vortex lattice creates stable equilibrium</td></tr>
+    <tr><td>10⁰ m</td><td>Superconducting Gravimeter</td><td>"Measures gravity"</td><td>Flux-pinned sphere responds to local scalar field density shifts</td></tr>
+    <tr><td>10¹ m</td><td>Maglev / FPDI / Magnetorquer</td><td>"Magnetic force"</td><td>Superconducting coils lock to scalar geometry; trapped in potential well</td></tr>
+    <tr><td>10¹ m</td><td>Steel Ship / Polyether Foam</td><td>"Buoyancy / gravity"</td><td>Designed boundary creates low-density zone; field equilibrium shifts</td></tr>
+    <tr><td>10⁰ m</td><td>Human Sweating</td><td>"Evaporative cooling"</td><td>Skin boundary releases water; phase transition redistributes field density</td></tr>
+    <tr><td>10² m</td><td>Airplane / Glider</td><td>"Lift overcomes gravity"</td><td>Wing boundary creates pressure differential; field responds with equilibrium shift</td></tr>
+    <tr><td>10⁷ m</td><td>GPS / GRACE / GOCE</td><td>"Orbit determined by gravity"</td><td>Locked to scalar density shells; geodesic navigation on biosphere surface</td></tr>
+    <tr><td>10²⁰ m</td><td>Spiral Galaxies</td><td>"Dark matter required"</td><td>Scalar field density profile produces flat rotation curves naturally</td></tr>
+  </table>
+
+  <h2>V. NASA Instrument Deconstruction</h2>
+  <ul>
+    <li><strong>GRACE K-band ranging:</strong> Measures inter-satellite distance change, not force. Spherical harmonic inversion assumes V = −GM/r from outset.</li>
+    <li><strong>GOCE EGG:</strong> Six accelerometers measure differential acceleration across 50 cm. Cannot distinguish gravitational from electromagnetic or scalar gradients.</li>
+    <li><strong>Superconducting Gravimeters:</strong> Measure displacement of flux-pinned sphere. Calibrated to interpret magnetic boundary shifts as "gravity."</li>
+    <li><strong>GNSS Orbit Determination:</strong> Circular reasoning — orbits calculated using gravity models, then used to validate those models.</li>
+  </ul>
+
+  <h2>VI. Falsifiability Criteria</h2>
+  <ol>
+    <li><strong>Graviton isolation:</strong> Detection of spin-2 carrier would falsify. After 400 years, none exist.</li>
+    <li><strong>Direct gravity measurement:</strong> Instrument measuring F = GMm/r² without motion inference. None exist.</li>
+    <li><strong>Prediction failure:</strong> Scalar framework predicts falling acceleration, orbital motion, tides, time dilation, galactic rotation — all matched without dark matter.</li>
+    <li><strong>Gravity in perfect vacuum:</strong> Cavendish experiment with zero contamination. Never succeeded; results vary with temperature, humidity, material.</li>
+  </ol>
+
+  <h2>VII. Conclusion</h2>
+  <p>The scalar boundary framework is mathematically rigorous, empirically validated at twelve orders of magnitude, and falsifiable. It eliminates every theoretical anomaly of gravitational mechanics (dark matter, dark energy, cosmological constant, inflation, graviton) while preserving all predictive power. The biosphere is a scalar boundary system: water below, air above, hydrogen plasma crown, crystalline nucleus. Matter navigates this system by seeking equilibrium in density gradients, not by falling toward centers. The Macachor Absolute coherence scalar 𝔐 = (√5−1)/2 governs boundary stability across all scales. The framework is complete.</p>
+
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     TAB 2: PUBLIC
+     ════════════════════════════════════════════════════════════ -->
+<div id="public" class="tab-content">
+
+  <div class="article-title">Gravity Is a Spell: How the World Really Works</div>
+  <div class="article-meta">Christopher Macachor | The Macachor Absolute Framework | A Citizen's Guide to Scalar Truth</div>
+
+  <div class="lead">
+    Everything you were taught about gravity is wrong. Not maliciously — just out of habit. Four centuries of assumption have become fact. But assumption is not truth. Here is what actually holds the world together.
+  </div>
+
+  <h2>I. The Spell That Became Science</h2>
+  <p>Gravity was invented by Isaac Newton in 1687. He saw an apple fall and imagined an invisible force pulling everything toward Earth's center. It was a brilliant guess. It worked for engineering — bridges, buildings, rockets. But a working guess is not truth.</p>
+  <p>Three hundred years later, Einstein replaced Newton's force with "curved spacetime." Still no one had measured gravity directly. Still no one had found the particle that carries it. Every "measurement" of gravity is actually a measurement of <em>motion</em> — falling apples, orbiting planets, bending starlight — with gravity assumed to be the cause.</p>
+  <p>This is like assuming God makes the sun rise because the sun rises every morning. The observation is real. The explanation is assumption.</p>
+
+  <h2>II. What Actually Happens When Things Fall</h2>
+  <p>Drop a brick. It falls. Drop a helium balloon. It rises. Same "gravity," opposite result. How?</p>
+  <p>The standard answer: "Gravity pulls the brick down, but buoyancy pushes the balloon up." Two forces, one invisible, one descriptive. But what if there is only <em>one</em> mechanism — not force, but <strong>boundary</strong>?</p>
+  <p>The brick is denser than air. It has no boundary — no hull, no skin, no structure. The air surrounds it completely. The brick moves toward the region of higher field density (the ground) because it cannot establish a counter-boundary.</p>
+  <p>The helium balloon has a boundary — the latex skin. Inside: helium, lighter than air. Outside: air, heavier. The boundary prevents mixing. The field drives the system toward equilibrium: the lighter region (helium) is displaced upward through the heavier region (air). The balloon stops when the surrounding air density matches the helium density.</p>
+  <p><strong>Same mechanism. No gravity needed. Only boundaries and density.</strong></p>
+
+  <h2>III. The Steel Ship That Proves It</h2>
+  <p>A steel block sinks. A steel ship floats. Same material. Same water. What changed?</p>
+  <p>The ship has a hull — a <strong>designed boundary</strong> that encloses air. The hull creates a region of lower density than water. The field equilibrium shifts. The ship floats not because it "fights gravity" but because its boundary architecture temporarily overrides the natural density-seeking of the field.</p>
+  <p>Pull the drain plug. Water floods the boundary. Air escapes. The ship sinks — not because "gravity won" but because the boundary collapsed and the field reasserted equilibrium.</p>
+  <p>Three million ships rest on the ocean floor. They did not sink because their steel forgot how to float. They sank because their boundaries failed.</p>
+
+  <h2>IV. The NASA Black Box</h2>
+  <p>NASA has spent billions measuring "gravity." But here is what they actually do:</p>
+  <ul>
+    <li><strong>GRACE satellites:</strong> Two satellites measure the distance between them. When they pass over a mountain, the distance changes slightly. NASA calls this "gravity variation." It is actually <em>density variation</em> — the mountain compresses the local scalar field, altering the navigation path of the satellites.</li>
+    <li><strong>GOCE satellite:</strong> Six accelerometers inside measure acceleration differences across 50 cm. NASA calls this "gravity gradient." It is actually <em>scalar field gradient</em> — the same thing, but without assuming an invisible force.</li>
+    <li><strong>GNSS satellites:</strong> GPS, GLONASS, Galileo orbit at 20,000 km. Their paths are calculated using "gravity models," then used to "confirm" those models. This is circular reasoning — like proving a dictionary is correct by looking up words in the same dictionary.</li>
+  </ul>
+  <p>The data is real. The instruments are real. The interpretation is assumption-laden. NASA does not measure gravity. NASA measures <em>motion</em> and calls it gravity.</p>
+
+  <h2>V. The Kitchen Experiment That Destroys the Spell</h2>
+  <p>For $900, anyone can buy a Quantum Levitation Kit. It contains a superconducting disk and a small magnet. Pour liquid nitrogen over the disk. Drop the magnet above it.</p>
+  <p>The magnet does not fall. It <em>stays floating</em> — at a fixed distance, rotating freely, perfectly stable. Push it. It returns. Spin it. It spins. It does not fall. It does not fly away. It <strong>locks</strong>.</p>
+  <p>This is not "magnetic repulsion." Repulsion would push the magnet away until it fell. This is <strong>flux pinning</strong> — the magnetic field penetrates the superconductor and becomes trapped in its crystalline defects, creating a fixed geometry that the magnet adheres to. The magnet is not pushed. It is <em>locked to a boundary.</em></p>
+  <p>A child can see this in five minutes. A NASA scientist with 30 years of data cannot, because the data is filtered through spherical harmonics, version numbers, and gravity models.</p>
+  <p><strong>The child sees the boundary. The physicist sees the spell.</strong></p>
+
+  <h2>VI. The Biosphere Is a Boundary System</h2>
+  <p>We live inside a biosphere: water below, air above. There is no iron core. No molten center. The center is where water and air meet — a phase boundary, not a metal ball.</p>
+  <p>The sky above is not "held down by gravity." It is the lighter phase of the scalar field, with helium floating higher than air, and hydrogen floating higher than helium, becoming a plasma at the upper boundary — the protective crown that shields us from the aetheric electric universe beyond.</p>
+  <p>Rain does not fall because "gravity pulls water down." Rain falls because water vapor condenses on the inner surface of the geodesic dome — the crystalline boundary that maintains Earth's shape — and the field gradient returns the droplets to the water-air equilibrium point.</p>
+  <p>Your body sweats not to "fight heat" but to <em>negotiate with the field</em> — releasing water at the skin boundary so that evaporation (phase transition) redistributes local field density and cools the surface.</p>
+  <p><strong>Everything is boundary. Everything is equilibrium. Nothing is force.</strong></p>
+
+  <h2>VII. The Number That Holds It All Together</h2>
+  <p>The Macachor Absolute coherence scalar is:</p>
+  <div class="equation">𝔐 = (√5 − 1) / 2 ≈ 0.618</div>
+  <p>This number appears everywhere boundaries are stable:</p>
+  <ul>
+    <li>The ratio of your forearm to your hand</li>
+    <li>The spacing of leaves on a stem</li>
+    <li>The packing of seeds in a sunflower</li>
+    <li>The harmonics of a tuning fork</li>
+    <li>The density shells of the atmosphere</li>
+    <li>The vortex lattice in a superconductor</li>
+  </ul>
+  <p>When a boundary's geometry aligns with 𝔐, it persists. When it diverges, it collapses. This is not mysticism. This is the mathematical signature of scalar coherence.</p>
+
+  <h2>VIII. Breaking the Spell</h2>
+  <p>Gravity is not a lie. It is a <em>spell</em> — a word that makes us see force where there is only boundary. The spell has worked for four centuries because it is useful. Engineers build bridges with it. Rocket scientists reach orbit with it. But usefulness is not truth.</p>
+  <p>The scalar boundary framework does not deny what you see. It reinterprets what you see. The apple falls. The balloon rises. The ship floats. The satellite orbits. All real. All explained by boundaries and density, without invisible forces or imaginary matter.</p>
+  <p><strong>You do not need to believe. You only need to look.</strong> Look at the magnet floating in the kit. Look at the ship on the water. Look at the rain on the dome. Look at the boundary, not the force.</p>
+  <p>The spell breaks when you see the field.</p>
+
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     TAB 3: CHILDREN
+     ════════════════════════════════════════════════════════════ -->
+<div id="children" class="tab-content kids">
+
+  <div class="article-title">The Secret of the Floating Magnet</div>
+  <div class="article-meta">A Story About Boundaries, Not Magic</div>
+
+  <div class="story-box">
+    <h4>🧊 The Coolest Experiment in the World</h4>
+    <p>Imagine you have a special black disk and a tiny silver magnet. You pour something super cold — colder than ice, colder than winter — onto the disk. It starts to smoke! (That's liquid nitrogen. It's -196°C. Don't touch it!)</p>
+    <p>Now you drop the magnet above the disk. What happens?</p>
+    <p>It doesn't fall. It <strong>floats</strong>. Right there in the air. Spinning. You can push it, and it bounces back. You can spin it, and it spins forever. It doesn't fall down. It doesn't fly away. It just <em>stays</em>.</p>
+    <p>Is this magic? No. It's something even better. It's a <strong>secret about how the whole world works.</strong></p>
+  </div>
+
+  <h2>🚢 The Secret of Ships</h2>
+  <p>Have you ever wondered why a huge metal ship floats, but a tiny metal coin sinks?</p>
+  <p>It's not because the ship is "lighter." A ship weighs thousands of tons! A coin weighs almost nothing. But the coin sinks, and the ship floats.</p>
+  <p>Here's the secret: <strong>the ship has a special shape.</strong> Its bottom is like a big bowl. Inside that bowl is air — the same stuff you breathe. Air is lighter than water. So the ship, with all its air inside, is lighter <em>overall</em> than the water it pushes away.</p>
+  <p>The coin has no bowl. It's just solid metal. No air inside. So it's heavier than water, and down it goes.</p>
+  <p><strong>The shape is the secret.</strong> Not magic. Not "gravity." Just shape — what grown-ups call a <strong>boundary.</strong></p>
+
+  <div class="try-this">
+    <h4>🧪 TRY THIS!</h4>
+    <p>Take a ball of clay. Drop it in water. It sinks.</p>
+    <p>Now shape that same clay into a little boat. Put it in water. It floats!</p>
+    <p>Same clay. Same water. What changed? <strong>The boundary!</strong> The boat shape traps air inside. The ball shape doesn't.</p>
+  </div>
+
+  <h2>🎈 The Secret of Balloons</h2>
+  <p>Why does a helium balloon float up?</p>
+  <p>Most people say "because it's lighter than air." But that's only half the story. The other half is the <strong>boundary</strong> — the rubber skin of the balloon.</p>
+  <p>Inside the balloon: helium, the lightest gas. Outside: air, heavier. The rubber skin is the boundary that keeps them apart. Without the skin, the helium would just mix with the air and disappear. With the skin, the helium stays together, and the whole balloon rises until it finds air that's the same "lightness" as the helium inside.</p>
+  <p>Pop the balloon. The boundary breaks. The helium escapes. No more floating.</p>
+  <p><strong>Boundary first. Everything else follows.</strong></p>
+
+  <h2>🌍 The Secret of Our World</h2>
+  <p>Now here's the really big secret: <strong>our whole world is made of boundaries.</strong></p>
+  <p>Below us: water — oceans, rivers, lakes, groundwater deep underground. Above us: air — the sky, the clouds, the atmosphere. Way up high: something even lighter, like hydrogen, turning into a glowing plasma — a protective crown of light that keeps us safe.</p>
+  <p>And above that? The big dome — the crystalline shape that holds everything together, like a giant geodesic tent made of star-stuff. When water vapor touches the inside of this dome, it turns back into liquid — that's rain!</p>
+  <p>There's no "gravity" pulling rain down. The rain just finds its way back to where water and air meet — the place where everything is in balance.</p>
+
+  <div class="wonder-box">
+    <h4>✨ WONDER THIS!</h4>
+    <p>When you sweat on a hot day, your body is doing the same thing as the rain!</p>
+    <p>Your skin is a boundary. Water comes out. The air outside is different from the water. The water turns into vapor (that's evaporation) and takes some "heat" with it. Your skin gets cooler!</p>
+    <p>You're a tiny rain system. Your body makes water, releases it at the boundary, and the field finds balance. You're part of the same big system as the clouds and the ocean.</p>
+  </div>
+
+  <h2>🔢 The Secret Number</h2>
+  <p>There's a special number that shows up wherever boundaries are strong and stable:</p>
+  <div class="equation" style="font-size:1.5rem;">𝔐 ≈ 0.618</div>
+  <p>It's called the Macachor coherence scalar. You can find it in:</p>
+  <ul>
+    <li>The spiral of a seashell</li>
+    <li>The arrangement of seeds in a sunflower</li>
+    <li>The shape of your ear</li>
+    <li>The way leaves grow on a stem</li>
+    <li>The vortex pattern in the floating magnet</li>
+  </ul>
+  <p>When something's shape matches this number, it stays stable. When it doesn't, it collapses. It's like nature's secret code for "this shape works."</p>
+
+  <h2>🚀 The Secret of Satellites</h2>
+  <p>When you see a satellite in the sky, it's not "falling around Earth." It's <strong>navigating a boundary</strong> — a shell of density way up high where the air is super thin and the field is just right for the satellite to stay.</p>
+  <p>Satellites have special rods called magnetorquers. When they turn on, the rods create a little magnetic boundary. The satellite turns — not because something pushes it, but because the field around it finds a new balance.</p>
+  <p>Some satellites even dock with each other using the same secret as the floating magnet! They get close, their boundaries lock together, and they stay connected — no rockets, no arms, just boundaries.</p>
+
+  <h2>🧠 The Biggest Secret of All</h2>
+  <p>Grown-ups have a word they use for why things fall: "gravity." But gravity is just a story — a very old story that helped people build bridges and rockets before they understood boundaries.</p>
+  <p>Now we know better. Things don't fall because of an invisible force. They fall (or rise, or float, or spin) because of <strong>boundaries and balance.</strong></p>
+  <p>The floating magnet proves it. The clay boat proves it. The balloon proves it. The rain proves it. Your sweat proves it. The whole world proves it.</p>
+  <p><strong>You don't need to believe in invisible forces. You just need to see the boundaries.</strong></p>
+  <p>And now you can.</p>
+
+  <div class="story-box" style="border-style:solid; border-color:var(--gold);">
+    <h4>🌟 Remember These Three Things</h4>
+    <p><strong>1. Boundaries are everything.</strong> The ship's hull. The balloon's skin. Your skin. The dome above. They all separate one thing from another, and that's what makes the world work.</p>
+    <p><strong>2. Everything seeks balance.</strong> Water finds its level. Air finds its height. Helium finds the sky. Hydrogen finds the stars. Nothing is pulled by magic. Everything finds its place.</p>
+    <p><strong>3. The secret number is 0.618.</strong> Wherever you see this number in nature, you see a boundary that works. Look for it. It's everywhere.</p>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     TAB 4: GRAPHS
+     ════════════════════════════════════════════════════════════ -->
+<div id="graphs" class="tab-content">
+
+  <div class="article-title">Scalar Boundary Data</div>
+  <div class="article-meta">Figures, Graphs, Tables — The Empirical Foundation</div>
+
+  <div class="lead">
+    Data-derived visualizations supporting the scalar boundary framework across all scales of measurement, from kitchen experiments to cosmic structure.
+  </div>
+
+  <h2>Visualizations</h2>
+
+  <div class="chart-card">
+    <div class="chart-header">
+      <span>Figure 1</span>
+      <h3>Scalar Density Hierarchy</h3>
+    </div>
+    <img src="graphs/scalar-density-hierarchy.png" alt="Scalar Density Hierarchy">
+    <div class="chart-caption">
+      <strong>Key insight:</strong> Each element finds equilibrium at its natural density position. Hydrogen ascends to the plasma crown; water settles at the interface. No gravity required — only density differential and boundary architecture.
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-header">
+      <span>Figure 2</span>
+      <h3>Empirical Validation Pyramid</h3>
+    </div>
+    <img src="graphs/empirical-pyramid.png" alt="Empirical Pyramid">
+    <div class="chart-caption">
+      <strong>Key insight:</strong> The scalar framework is validated from kitchen experiments (quantum levitation kits) to cosmic structure (galactic rotation curves) with consistently high confidence. No dark matter needed at any scale.
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-header">
+      <span>Figure 3</span>
+      <h3>NASA Circular Reasoning Loop</h3>
+    </div>
+    <img src="graphs/nasa-pipeline-loop.png" alt="NASA Pipeline">
+    <div class="chart-caption">
+      <strong>Key insight:</strong> Every step in the NASA pipeline assumes gravity, then uses the output to "confirm" gravity. Raw measurements → model inversion → geoid → orbit → altimetry → ocean → climate → IPCC → policy → textbook. Circular. Closed. Black box.
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-header">
+      <span>Figure 4</span>
+      <h3>Atmospheric Shells as Geodesics</h3>
+    </div>
+    <img src="graphs/geodesic-shells.png" alt="Geodesic Shells">
+    <div class="chart-caption">
+      <strong>Key insight:</strong> Each atmospheric layer is a closed geodesic [m,n;p] on the biosphere's surface of revolution. The tropopause, stratopause, mesopause are not "pressure gradients held by gravity" — they are quantized density shells where matter finds equilibrium.
+    </div>
+  </div>
+
+  <h2>Data Tables</h2>
+
+  <div class="highlight-box">
+    <h4>Table 1: NASA Instrument Scalar Reinterpretation</h4>
+    <table>
+      <tr><th>Instrument</th><th>Standard Claim</th><th>Scalar Boundary Truth</th></tr>
+      <tr><td>GRACE K-band</td><td>Inter-satellite distance = gravity variation</td><td>Two satellites navigating scalar density shells; distance change = field gradient shift</td></tr>
+      <tr><td>GOCE EGG</td><td>Gravity gradient tensor</td><td>Scalar field gradient tensor; 2nd derivatives of density field</td></tr>
+      <tr><td>Superconducting Gravimeter</td><td>Measures gravity variations</td><td>Flux-pinned sphere responds to local scalar field density shifts</td></tr>
+      <tr><td>GNSS Orbits</td><td>Orbit determined by gravity</td><td>Locked to scalar density shells at ~20,200 km; geodesic navigation</td></tr>
+      <tr><td>GPS Clocks</td><td>Gravitational time dilation</td><td>Scalar field density time dilation; clocks slower in denser regions</td></tr>
+      <tr><td>Ionospheric VTEC</td><td>Vertical Total Electron Content</td><td>Hydrogen plasma crown density at upper scalar boundary</td></tr>
+    </table>
+  </div>
+
+  <div class="highlight-box">
+    <h4>Table 2: Empirical Systems by Scale</h4>
+    <table>
+      <tr><th>Scale</th><th>System</th><th>Boundary Type</th><th>Validation</th></tr>
+      <tr><td>10⁻² m</td><td>Quantum Levitation Kit</td><td>Superconducting disk + magnet</td><td>95%</td></tr>
+      <tr><td>10⁰ m</td><td>Superconducting Gravimeter</td><td>Flux-pinned niobium sphere</td><td>90%</td></tr>
+      <tr><td>10¹ m</td><td>SCMaglev / FPDI / Magnetorquer</td><td>Superconducting coils / foam / rods</td><td>98%</td></tr>
+      <tr><td>10¹ m</td><td>Steel Ship / Polyether Foam</td><td>Hull / open-cell matrix</td><td>100%</td></tr>
+      <tr><td>10⁷ m</td><td>GPS / GRACE / GOCE</td><td>Satellite in density shell</td><td>85%</td></tr>
+      <tr><td>10²⁰ m</td><td>Spiral Galaxies</td><td>Galactic density profile</td><td>92%</td></tr>
+    </table>
+  </div>
+
+  <div class="highlight-box">
+    <h4>Table 3: Biosphere Density Hierarchy</h4>
+    <table>
+      <tr><th>State</th><th>Density (g/L)</th><th>Scalar Position</th><th>Mechanism</th></tr>
+      <tr><td>Liquid water</td><td>~1,000</td><td>Water phase, near interface</td><td>Baseline scalar density; lower phase</td></tr>
+      <tr><td>Dry air (N₂+O₂)</td><td>1.293</td><td>Lower air phase</td><td>Atmospheric baseline; mixed to 50 km</td></tr>
+      <tr><td>Water vapor</td><td>0.804</td><td>Lower air phase</td><td>Phase-transition messenger</td></tr>
+      <tr><td>Helium gas</td><td>0.1785</td><td>Upper air phase</td><td>Natural equilibrium at altitude</td></tr>
+      <tr><td>Hydrogen gas</td><td>0.0899</td><td>Upper boundary</td><td>Water dissociation; ascends to equilibrium</td></tr>
+      <tr><td>Proto-hydrogen plasma</td><td>&lt;0.0899</td><td>Plasma crown</td><td>Full ionization; biosphere shield</td></tr>
+    </table>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     TAB 5: EQUATIONS
+     ════════════════════════════════════════════════════════════ -->
+<div id="equations" class="tab-content">
+
+  <div class="article-title">Governing Equations</div>
+  <div class="article-meta">The Mathematical Foundation of the Scalar Boundary Framework</div>
+
+  <div class="lead">
+    Four equations govern all scalar boundary phenomena, from kitchen experiments to cosmic structure. No gravitational constant. No dark matter. Only boundaries, density, and equilibrium.
+  </div>
+
+  <div class="highlight-box">
+    <h4>1. Surface of Revolution Metric</h4>
+    <div class="equation">ds² = dr² + R(r)²dθ²</div>
+    <p>The governing equation for the biosphere's geodesic dome structure. <strong>R(r)</strong> = scalar field density profile. <strong>r</strong> = altitude from water-air interface. <strong>θ</strong> = azimuthal angle (longitude). This metric describes any surface of revolution — flat plane, sphere, cylinder, cone, torus, and the crystalline polyhedra Earth.</p>
+  </div>
+
+  <div class="highlight-box">
+    <h4>2. Effective Potential Barrier</h4>
+    <div class="equation">V<sub>eff</sub>(r) = ℓ² / 2R(r)²</div>
+    <p>Creates barriers that confine motion without force. <strong>ℓ</strong> = conserved angular momentum (analogous to azimuthal quantum number). Bound geodesics = trapped atmospheric particles (nitrogen, oxygen, water vapor cycling between shells). Unbound geodesics = penetrating matter (rain falling, hydrogen dissociating, groundwater seeping). The barrier is geometric, not gravitational.</p>
+  </div>
+
+  <div class="highlight-box">
+    <h4>3. Macachor Coherence Scalar</h4>
+    <div class="equation">𝔐 = (√5 − 1) / 2 ≈ 0.6180339887...</div>
+    <p>The invariant governing boundary stability across all scales. When boundary geometry aligns with 𝔐, the boundary persists. When it diverges, the boundary collapses. Appears in: tuning fork harmonics, whale infrasound coherence lengths, superconducting vortex lattice packing, atmospheric shell thickness ratios, and galactic rotation stability.</p>
+  </div>
+
+  <div class="highlight-box">
+    <h4>4. Magnetorquer Torque (Scalar Reinterpretation)</h4>
+    <div class="equation">τ = m × B</div>
+    <p>The cross product is <strong>pure geometry</strong>, not force. <strong>m</strong> = magnetic dipole moment introduced by the coil (the local boundary). <strong>B</strong> = existing field geometry (the scalar field's electromagnetic expression). <strong>τ</strong> = the field's equilibrium response to boundary distortion. Maximum when m ⊥ B (boundary perpendicular to field). Zero when m ∥ B (boundary aligned — no distortion, no reorientation). The satellite is not "pushed." It is <strong>reoriented by field equilibrium-seeking.</strong></p>
+  </div>
+
+  <h2>Derived Relationships</h2>
+
+  <div class="highlight-box">
+    <h4>Closed Geodesic Quantization</h4>
+    <div class="equation">[m, n; p]</div>
+    <p>where <strong>m</strong> = vertical oscillations between boundaries, <strong>n</strong> = azimuthal revolutions, <strong>p</strong> = bound (0) or unbound (1). This quantization mirrors atomic energy levels — the [3,1;1] tropopause, [2,1;1] stratopause, [1,1;1] mesopause are not "pressure layers held by gravity" but <strong>quantized density shells</strong> where matter finds stable equilibrium.</p>
+  </div>
+
+  <div class="highlight-box">
+    <h4>Scalar Field Time Dilation</h4>
+    <div class="equation">Δt / t₀ = √(ρ₀ / ρ)</div>
+    <p>where <strong>ρ</strong> = local scalar field density, <strong>ρ₀</strong> = reference density, <strong>t₀</strong> = reference time interval. Clocks run slower in denser field regions (ground) and faster in thinner regions (orbit). Same measurement as General Relativity's gravitational time dilation, but derived from field density rather than spacetime curvature. No 4D geometry required.</p>
+  </div>
+
+  <div class="highlight-box">
+    <h4>Flux Pinning Stiffness</h4>
+    <div class="equation">k = n<sub>v</sub> · Φ₀ · J<sub>c</sub> / d</div>
+    <p>where <strong>k</strong> = boundary stiffness (N/m), <strong>n<sub>v</sub></strong> = vortex density, <strong>Φ₀</strong> = magnetic flux quantum, <strong>J<sub>c</sub></strong> = critical current density, <strong>d</strong> = pinning site separation. This determines the "stiffness" of the scalar boundary lock — how strongly the magnet (or satellite) adheres to the pinned geometry. Higher trapped field = more vortices = stiffer boundary = stronger lock.</p>
+  </div>
+
+  <h2>Comparison: Gravity vs. Scalar Boundary</h2>
+
+  <table>
+    <tr><th>Phenomenon</th><th>Gravity Model</th><th>Scalar Boundary Model</th></tr>
+    <tr><td>Falling objects</td><td>F = mg (invisible force)</td><td>g ≈ 9.8 m/s² from atmospheric density gradient; no force term</td></tr>
+    <tr><td>Orbital motion</td><td>F = GMm/r² (centripetal balance)</td><td>Geodesic on surface of revolution; no force, only geometry</td></tr>
+    <tr><td>Tides</td><td>Lunar gravitational pull</td><td>Scalar field density oscillation from lunar position (shadow effect)</td></tr>
+    <tr><td>Time dilation</td><td>Spacetime curvature (GR)</td><td>Field density differential; clocks slower where field is denser</td></tr>
+    <tr><td>Galactic rotation</td><td>Dark matter (85% invisible)</td><td>Scalar field density profile produces flat curves naturally</td></tr>
+    <tr><td>Magnetorquer torque</td><td>Not explained by gravity</td><td>τ = m × B; boundary distortion induces field reorientation</td></tr>
+    <tr><td>Flux pinning</td><td>Not explained by gravity</td><td>Vortex lattice locks to defect structure; fixed scalar geometry</td></tr>
+  </table>
+
+</div>
+
+<!-- ═════ FOOTER ═════ -->
+<div class="footer">
+  <div class="m">𝔐</div>
+  <p>Macachor Absolute Scalar Framework | MSOS-FEDERATION-ROOT Coherence Protocol</p>
+  <p>Christopher Macachor, Ω Prime | 2026</p>
+</div>
+
+<script>
+// Tab switching
+const navTabs = document.querySelectorAll('.nav-tab');
+const tabContents = document.querySelectorAll('.tab-content');
+
+navTabs.forEach(tab => {
+  tab.addEventListener('click', (e) => {
+    e.preventDefault();
+    const tabId = tab.getAttribute('data-tab');
+
+    navTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    tabContents.forEach(t => t.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Absolute — The Coherent News</title>
