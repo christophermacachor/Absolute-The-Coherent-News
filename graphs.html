@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Absolute — Graphs & Data | Scalar Boundary Visualization</title>
+<base target="_blank">
+<meta name="quantum-topology" content="Φ669-COSMIC-ATOMAL">
+<meta name="coherence-scalar" content="𝔐 = (√5-1)/2">
+<meta name="topology-invariant" content="χ(C)=1">
+<meta name="deployment-node" content="MSOS-FEDERATION-ROOT">
+<meta name="observer-signature" content="Christopher Macachor, Omega Prime">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        display: ['Space Grotesk', 'sans-serif'],
+      },
+      colors: {
+        absolute: {
+          black: '#050505', void: '#0a0a0a', surface: '#111111',
+          raised: '#1a1a1a', border: '#222222',
+          gold: '#c8a04e', goldDim: '#8a6d2f',
+        }
+      }
+    }
+  }
+}
+</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background-color: #050505; color: #a3a3a3; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #0a0a0a; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+  .nav-glass {
+    background: rgba(5, 5, 5, 0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  }
+  .nav-link { position: relative; color: #5c5c5c; transition: color 0.3s; }
+  .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: #a3a3a3; transition: width 0.3s; }
+  .nav-link:hover { color: #c8c8c8; }
+  .nav-link:hover::after { width: 100%; }
+
+  .chart-card {
+    background: rgba(17, 17, 17, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .chart-card:hover {
+    border-color: rgba(200, 160, 78, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(200,160,78,0.08);
+  }
+  .chart-card img { width: 100%; height: auto; display: block; }
+
+  .data-table {
+    width: 100%; border-collapse: collapse; font-size: 0.85rem;
+  }
+  .data-table th {
+    background: rgba(200, 160, 78, 0.1); color: #c8a04e;
+    padding: 0.8rem; text-align: left; border-bottom: 2px solid #8a6d2f;
+    font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.75rem;
+  }
+  .data-table td {
+    padding: 0.7rem 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: top; color: #a3a3a3;
+  }
+  .data-table tr:hover td { background: rgba(200, 160, 78, 0.03); }
+
+  .section-divider {
+    height: 1px; background: linear-gradient(90deg, transparent, rgba(200,160,78,0.3), transparent);
+    margin: 3rem 0;
+  }
+
+  .glow-text { text-shadow: 0 0 40px rgba(200,160,78,0.15); }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+
+  .noise-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 1000; opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+</style>
+<base target="_blank">
+</head>
+<body class="antialiased">
+<div class="noise-overlay"></div>
+
+<!-- Navigation -->
+<nav class="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 border border-white/10 rounded-sm flex items-center justify-center">
+        <span class="text-white font-display font-bold text-sm">A</span>
+      </div>
+      <span class="font-display font-semibold text-gray-300 tracking-wide text-sm">ABSOLUTE</span>
+    </div>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="index.html" class="nav-link text-xs uppercase tracking-widest">Home</a>
+      <a href="divergent.html" class="nav-link text-xs uppercase tracking-widest" style="color: #c8a04e;">📜 APERTURE</a>
+      <a href="federation-root-unified.html" class="nav-link text-xs uppercase tracking-widest" style="color: #c8a04e;">⚡ FEDERATION</a>
+      <a href="observatory.html" class="nav-link text-xs uppercase tracking-widest" style="color: #c8a04e;">◉ OBSERVATORY</a>
+      <a href="scalar-trilogy.html" class="nav-link text-xs uppercase tracking-widest" style="color: #c8a04e;">◈ TRILOGY</a>
+      <a href="graphs.html" class="nav-link text-xs uppercase tracking-widest" style="color: #c8a04e; border-bottom: 1px solid #c8a04e;">📊 GRAPHS</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative pt-32 pb-16 px-6 text-center" style="background: radial-gradient(ellipse at 50% 0%, rgba(200,160,78,0.06) 0%, transparent 60%);">
+  <h1 class="font-display text-4xl md:text-5xl lg:text-6xl mb-4 glow-text" style="color: #c8a04e; letter-spacing: -0.02em;">
+    Scalar Boundary Data
+  </h1>
+  <p class="text-sm uppercase tracking-[0.3em] text-gray-600 mb-4">
+    Figures, Graphs, Tables — The Empirical Foundation
+  </p>
+  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] text-gray-500 tracking-wider">
+    <span class="w-1.5 h-1.5 rounded-full bg-green-500/80 animate-pulse"></span>
+    𝔐 = (√5-1)/2 | χ(C)=1 | Zero Drift
+  </div>
+</section>
+
+<div class="section-divider max-w-7xl mx-auto"></div>
+
+<!-- Charts Grid -->
+<section class="py-12 px-6 max-w-7xl mx-auto">
+  <div class="mb-12">
+    <h2 class="font-display text-2xl md:text-3xl text-gray-200 mb-3">Visualizations</h2>
+    <p class="text-gray-600 text-sm max-w-xl">Data-derived figures supporting the scalar boundary framework across all scales of measurement.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Chart 1: Density Hierarchy -->
+    <div class="chart-card rounded-lg overflow-hidden animate-fade-in delay-100">
+      <div class="p-4 border-b border-white/5">
+        <span class="text-[10px] uppercase tracking-widest text-gray-600">Figure 1</span>
+        <h3 class="font-display text-lg text-gray-200 mt-1">Scalar Density Hierarchy</h3>
+        <p class="text-xs text-gray-600 mt-1">Biosphere phase boundaries from proto-hydrogen plasma to liquid water</p>
+      </div>
+      <img src="graphs/scalar-density-hierarchy.png" alt="Scalar Density Hierarchy Chart" loading="lazy">
+      <div class="p-4 text-xs text-gray-700">
+        <strong class="text-gray-500">Key insight:</strong> Each element finds equilibrium at its natural density position. Hydrogen ascends to the plasma crown; water settles at the interface. No gravity required — only density differential and boundary architecture.
+      </div>
+    </div>
+
+    <!-- Chart 2: Empirical Pyramid -->
+    <div class="chart-card rounded-lg overflow-hidden animate-fade-in delay-200">
+      <div class="p-4 border-b border-white/5">
+        <span class="text-[10px] uppercase tracking-widest text-gray-600">Figure 2</span>
+        <h3 class="font-display text-lg text-gray-200 mt-1">Empirical Validation Pyramid</h3>
+        <p class="text-xs text-gray-600 mt-1">Validation confidence across 22 orders of magnitude</p>
+      </div>
+      <img src="graphs/empirical-pyramid.png" alt="Empirical Pyramid Chart" loading="lazy">
+      <div class="p-4 text-xs text-gray-700">
+        <strong class="text-gray-500">Key insight:</strong> The scalar framework is validated from kitchen experiments (quantum levitation kits) to cosmic structure (galactic rotation curves) with consistently high confidence. No dark matter needed at any scale.
+      </div>
+    </div>
+
+    <!-- Chart 3: NASA Pipeline -->
+    <div class="chart-card rounded-lg overflow-hidden animate-fade-in delay-300">
+      <div class="p-4 border-b border-white/5">
+        <span class="text-[10px] uppercase tracking-widest text-gray-600">Figure 3</span>
+        <h3 class="font-display text-lg text-gray-200 mt-1">NASA Circular Reasoning Loop</h3>
+        <p class="text-xs text-gray-600 mt-1">The gravity data pipeline exposed as self-referential</p>
+      </div>
+      <img src="graphs/nasa-pipeline-loop.png" alt="NASA Pipeline Circular Loop" loading="lazy">
+      <div class="p-4 text-xs text-gray-700">
+        <strong class="text-gray-500">Key insight:</strong> Every step in the NASA pipeline assumes gravity, then uses the output to "confirm" gravity. Raw measurements → model inversion → geoid → orbit → altimetry → ocean → climate → IPCC → policy → textbook. Circular. Closed. Black box.
+      </div>
+    </div>
+
+    <!-- Chart 4: Geodesic Shells -->
+    <div class="chart-card rounded-lg overflow-hidden animate-fade-in delay-400">
+      <div class="p-4 border-b border-white/5">
+        <span class="text-[10px] uppercase tracking-widest text-gray-600">Figure 4</span>
+        <h3 class="font-display text-lg text-gray-200 mt-1">Atmospheric Shells as Geodesics</h3>
+        <p class="text-xs text-gray-600 mt-1">Quantized density boundaries [m,n;p] from surface to orbit</p>
+      </div>
+      <img src="graphs/geodesic-shells.png" alt="Geodesic Atmospheric Shells" loading="lazy">
+      <div class="p-4 text-xs text-gray-700">
+        <strong class="text-gray-500">Key insight:</strong> Each atmospheric layer is a closed geodesic [m,n;p] on the biosphere's surface of revolution. The tropopause, stratopause, mesopause are not "pressure gradients held by gravity" — they are quantized density shells where matter finds equilibrium.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-7xl mx-auto"></div>
+
+<!-- Data Tables -->
+<section class="py-12 px-6 max-w-7xl mx-auto">
+  <div class="mb-12">
+    <h2 class="font-display text-2xl md:text-3xl text-gray-200 mb-3">Data Tables</h2>
+    <p class="text-gray-600 text-sm max-w-xl">Raw numerical foundations for the scalar boundary framework.</p>
+  </div>
+
+  <!-- Table 1: NASA Instrument Reinterpretation -->
+  <div class="chart-card rounded-lg overflow-hidden mb-8">
+    <div class="p-4 border-b border-white/5">
+      <span class="text-[10px] uppercase tracking-widest text-gray-600">Table 1</span>
+      <h3 class="font-display text-lg text-gray-200 mt-1">NASA Instrument Scalar Reinterpretation</h3>
+    </div>
+    <div class="overflow-x-auto p-4">
+      <table class="data-table">
+        <tr>
+          <th>Instrument</th>
+          <th>Standard Claim</th>
+          <th>Scalar Boundary Truth</th>
+        </tr>
+        <tr>
+          <td>GRACE K-band</td>
+          <td>Inter-satellite distance = gravity variation</td>
+          <td>Two satellites navigating scalar density shells; distance change = field gradient shift</td>
+        </tr>
+        <tr>
+          <td>GOCE EGG</td>
+          <td>Gravity gradient tensor</td>
+          <td>Scalar field gradient tensor; 2nd derivatives of density field, not gravitational potential</td>
+        </tr>
+        <tr>
+          <td>Superconducting Gravimeter</td>
+          <td>Measures gravity variations</td>
+          <td>Flux-pinned sphere responds to local scalar field density shifts</td>
+        </tr>
+        <tr>
+          <td>GNSS Orbits</td>
+          <td>Orbit determined by gravity</td>
+          <td>Locked to scalar density shells at ~20,200 km; geodesic navigation</td>
+        </tr>
+        <tr>
+          <td>GPS Clocks</td>
+          <td>Gravitational time dilation</td>
+          <td>Scalar field density time dilation; clocks slower in denser field regions</td>
+        </tr>
+        <tr>
+          <td>Ionospheric VTEC</td>
+          <td>Vertical Total Electron Content</td>
+          <td>Hydrogen plasma crown density at upper scalar boundary</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Table 2: Empirical Pyramid Systems -->
+  <div class="chart-card rounded-lg overflow-hidden mb-8">
+    <div class="p-4 border-b border-white/5">
+      <span class="text-[10px] uppercase tracking-widest text-gray-600">Table 2</span>
+      <h3 class="font-display text-lg text-gray-200 mt-1">Empirical Systems by Scale</h3>
+    </div>
+    <div class="overflow-x-auto p-4">
+      <table class="data-table">
+        <tr>
+          <th>Scale</th>
+          <th>System</th>
+          <th>Boundary Type</th>
+          <th>Scalar Mechanism</th>
+          <th>Validation</th>
+        </tr>
+        <tr>
+          <td>10⁻² m</td>
+          <td>Quantum Levitation Kit</td>
+          <td>Superconducting disk + magnet</td>
+          <td>Flux pinning; vortex lattice locks to defect structure</td>
+          <td>95%</td>
+        </tr>
+        <tr>
+          <td>10⁰ m</td>
+          <td>Superconducting Gravimeter</td>
+          <td>Flux-pinned niobium sphere</td>
+          <td>Magnetic boundary responds to local field density</td>
+          <td>90%</td>
+        </tr>
+        <tr>
+          <td>10¹ m</td>
+          <td>SCMaglev / FPDI / Magnetorquer</td>
+          <td>Superconducting coils / foam / rods</td>
+          <td>Electromagnetic boundary locks to scalar geometry</td>
+          <td>98%</td>
+        </tr>
+        <tr>
+          <td>10¹ m</td>
+          <td>Steel Ship / Polyether Foam</td>
+          <td>Hull / open-cell matrix</td>
+          <td>Displacement boundary; average density differential</td>
+          <td>100%</td>
+        </tr>
+        <tr>
+          <td>10⁷ m</td>
+          <td>GPS / GRACE / GOCE</td>
+          <td>Satellite in density shell</td>
+          <td>Geodesic navigation on surface of revolution</td>
+          <td>85%</td>
+        </tr>
+        <tr>
+          <td>10²⁰ m</td>
+          <td>Spiral Galaxies</td>
+          <td>Galactic density profile</td>
+          <td>Scalar field produces flat rotation curves</td>
+          <td>92%</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Table 3: Biosphere Density Hierarchy -->
+  <div class="chart-card rounded-lg overflow-hidden">
+    <div class="p-4 border-b border-white/5">
+      <span class="text-[10px] uppercase tracking-widest text-gray-600">Table 3</span>
+      <h3 class="font-display text-lg text-gray-200 mt-1">Biosphere Density Hierarchy</h3>
+    </div>
+    <div class="overflow-x-auto p-4">
+      <table class="data-table">
+        <tr>
+          <th>State</th>
+          <th>Density (g/L)</th>
+          <th>Scalar Position</th>
+          <th>Mechanism</th>
+        </tr>
+        <tr>
+          <td>Liquid water</td>
+          <td>~1,000</td>
+          <td>Water phase, near interface</td>
+          <td>Baseline scalar density; lower phase of biosphere</td>
+        </tr>
+        <tr>
+          <td>Dry air (N₂+O₂)</td>
+          <td>1.293</td>
+          <td>Lower air phase</td>
+          <td>Atmospheric baseline; mixed by field coherence to 50 km</td>
+        </tr>
+        <tr>
+          <td>Water vapor</td>
+          <td>0.804</td>
+          <td>Lower air phase</td>
+          <td>Phase-transition messenger; temperature-dependent</td>
+        </tr>
+        <tr>
+          <td>Helium gas</td>
+          <td>0.1785</td>
+          <td>Upper air phase</td>
+          <td>Natural equilibrium at altitude; scalar density match</td>
+        </tr>
+        <tr>
+          <td>Hydrogen gas</td>
+          <td>0.0899</td>
+          <td>Upper boundary</td>
+          <td>Water dissociation; ascends to find equilibrium</td>
+        </tr>
+        <tr>
+          <td>Proto-hydrogen plasma</td>
+          <td>&lt;0.0899</td>
+          <td>Plasma crown</td>
+          <td>Full ionization at aetheric boundary; biosphere shield</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-7xl mx-auto"></div>
+
+<!-- Key Equations -->
+<section class="py-12 px-6 max-w-7xl mx-auto">
+  <div class="mb-12">
+    <h2 class="font-display text-2xl md:text-3xl text-gray-200 mb-3">Governing Equations</h2>
+    <p class="text-gray-600 text-sm max-w-xl">The mathematical foundation of the scalar boundary framework.</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="chart-card rounded-lg p-6">
+      <h3 class="font-display text-lg text-gray-200 mb-3">Surface of Revolution Metric</h3>
+      <div class="p-4 rounded-lg text-center font-mono text-lg" style="background: rgba(200,160,78,0.05); border: 1px solid rgba(200,160,78,0.15); color: #c8a04e;">
+        ds² = dr² + R(r)²dθ²
+      </div>
+      <p class="text-xs text-gray-600 mt-3">Governing equation for the biosphere's geodesic dome structure. R(r) = scalar field density profile. r = altitude from water-air interface. θ = azimuthal angle (longitude).</p>
+    </div>
+
+    <div class="chart-card rounded-lg p-6">
+      <h3 class="font-display text-lg text-gray-200 mb-3">Effective Potential Barrier</h3>
+      <div class="p-4 rounded-lg text-center font-mono text-lg" style="background: rgba(200,160,78,0.05); border: 1px solid rgba(200,160,78,0.15); color: #c8a04e;">
+        V<sub>eff</sub>(r) = ℓ² / 2R(r)²
+      </div>
+      <p class="text-xs text-gray-600 mt-3">Creates barriers that confine motion without force. ℓ = conserved angular momentum. Bound geodesics = trapped atmospheric particles. Unbound = penetrating matter.</p>
+    </div>
+
+    <div class="chart-card rounded-lg p-6">
+      <h3 class="font-display text-lg text-gray-200 mb-3">Macachor Coherence Scalar</h3>
+      <div class="p-4 rounded-lg text-center font-mono text-lg" style="background: rgba(200,160,78,0.05); border: 1px solid rgba(200,160,78,0.15); color: #c8a04e;">
+        𝔐 = (√5 − 1) / 2 ≈ 0.618
+      </div>
+      <p class="text-xs text-gray-600 mt-3">The invariant governing boundary stability across all scales. Appears in tuning forks, whale song, vortex lattices, and atmospheric shell ratios. When geometry aligns with 𝔐, boundary persists.</p>
+    </div>
+
+    <div class="chart-card rounded-lg p-6">
+      <h3 class="font-display text-lg text-gray-200 mb-3">Magnetorquer Torque (Scalar)</h3>
+      <div class="p-4 rounded-lg text-center font-mono text-lg" style="background: rgba(200,160,78,0.05); border: 1px solid rgba(200,160,78,0.15); color: #c8a04e;">
+        τ = m × B
+      </div>
+      <p class="text-xs text-gray-600 mt-3">Cross product = pure geometry, not force. m = introduced boundary. B = existing field geometry. τ = field's equilibrium response to boundary distortion. Zero when aligned, max when perpendicular.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-12 px-6 border-t border-white/5">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 border border-white/10 rounded-sm flex items-center justify-center">
+        <span class="text-white font-display font-bold text-sm">A</span>
+      </div>
+      <div>
+        <span class="font-display font-semibold text-gray-400 tracking-wide text-sm block">ABSOLUTE</span>
+        <span class="text-[10px] text-gray-700 uppercase tracking-widest">The Coherent News</span>
+      </div>
+    </div>
+    <div class="text-[10px] text-gray-800">
+      © 2026 Absolute Media. Ω669-COSMIC-ATOMAL | MSOS-FEDERATION-ROOT | χ(C)=1 | 𝔐 = (√5-1)/2
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
