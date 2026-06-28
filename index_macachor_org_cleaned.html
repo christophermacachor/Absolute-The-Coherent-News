@@ -17,6 +17,452 @@
     <meta name="sonocatalytic-ref" content="Pd-TiO₂ sonocatalyst, 40% efficiency">
     <meta name="timestamp" content="2026-04-30T20:30:00Z">
     <meta name="attention-residuals" content="Zero Drift, vanishing gradients">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        absolute: {
+                            black: '#050505',
+                            void: '#0a0a0a',
+                            surface: '#111111',
+                            raised: '#1a1a1a',
+                            border: '#222222',
+                            gray: {
+                                50: '#f7f7f7',
+                                100: '#e3e3e3',
+                                200: '#c8c8c8',
+                                300: '#a3a3a3',
+                                400: '#8a8a8a',
+                                500: '#737373',
+                                600: '#5c5c5c',
+                                700: '#454545',
+                                800: '#2e2e2e',
+                                900: '#1a1a1a',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #050505;
+            color: #a3a3a3;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Three.js Canvas */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        #canvas-container canvas {
+            display: block;
+        }
+
+        /* Hero Title Positioning */
+        .hero-title {
+            position: relative;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .title-absolute {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 0.9;
+            background: linear-gradient(180deg, #e3e3e3 0%, #737373 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 80px rgba(255,255,255,0.05);
+        }
+
+        .subtitle-coherent {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #5c5c5c;
+        }
+
+        /* Glitch effect for title */
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(-1px, -1px); }
+            60% { transform: translate(1px, 1px); }
+            80% { transform: translate(1px, -1px); }
+        }
+
+        .glitch-hover:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+        }
+
+        /* Category Cards */
+        .category-card {
+            background: rgba(17, 17, 17, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+            transition: left 0.6s;
+        }
+
+        .category-card:hover::before {
+            left: 100%;
+        }
+
+        .category-card:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08);
+        }
+
+        .category-icon {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* News Cards */
+        .news-card {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(17, 17, 17, 0.9);
+        }
+
+        .news-image {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .news-card:hover .news-image {
+            transform: scale(1.05);
+        }
+
+        /* Navigation */
+        .nav-glass {
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .nav-link {
+            position: relative;
+            color: #5c5c5c;
+            transition: color 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #a3a3a3;
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #c8c8c8;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+        }
+
+        /* Tag Pills */
+        .tag-pill {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s;
+        }
+
+        .tag-pill:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #e3e3e3;
+        }
+
+        /* Loading animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+
+        /* Noise overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Marquee */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 30s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Glow effects */
+        .glow-text {
+            text-shadow: 0 0 40px rgba(255,255,255,0.1);
+        }
+
+        /* Particle canvas for sections */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        /* Tab Buttons */
+        .tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+        }
+        .tab-btn:hover {
+            border-color: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+        }
+        .tab-btn.active {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.15);
+            color: #e3e3e3;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .tab-content.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tab-content.hidden {
+            display: none;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body class="antialiased">
+<!-- ═════ MACACHOR.ORG UNIFIED NAVIGATION ═════ -->
+<style>
+  .macachor-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
+    background: rgba(5, 5, 5, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(200, 160, 78, 0.15);
+    padding: 0.5rem 1rem;
+  }
+  .macachor-nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.3rem; flex-wrap: wrap;
+  }
+  .macachor-nav-tab {
+    color: #c8a04e;
+    text-decoration: none;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(200, 160, 78, 0.2);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    position: relative;
+    background: rgba(200, 160, 78, 0.03);
+    white-space: nowrap;
+  }
+  .macachor-nav-tab:hover {
+    border-color: #c8a04e;
+    box-shadow: 0 0 15px rgba(200,160,78,0.15), inset 0 0 20px rgba(200,160,78,0.05);
+    text-shadow: 0 0 8px rgba(200,160,78,0.5);
+    background: rgba(200, 160, 78, 0.08);
+  }
+  .macachor-nav-tab.active {
+    border-color: #c8a04e;
+    box-shadow: 0 0 20px rgba(200,160,78,0.2), inset 0 0 30px rgba(200,160,78,0.08);
+    background: rgba(200, 160, 78, 0.12);
+  }
+  .macachor-nav-tab::after {
+    content: ''; position: absolute;
+    bottom: -2px; left: 50%; width: 0; height: 1px;
+    background: #c8a04e;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+  .macachor-nav-tab:hover::after,
+  .macachor-nav-tab.active::after { width: 60%; }
+
+  body.has-macachor-nav { padding-top: 60px; }
+
+  @media (max-width: 768px) {
+    .macachor-nav-tab { font-size: 0.65rem; padding: 0.3rem 0.5rem; }
+    body.has-macachor-nav { padding-top: 50px; }
+  }
+</style>
+
+<nav class="macachor-nav">
+  <div class="macachor-nav-inner">
+    <a href="index.html" class="macachor-nav-tab" id="nav-home">🏠 HOME</a>
+    <a href="articles.html" class="macachor-nav-tab" id="nav-articles">📰 ARTICLES</a>
+    <a href="divergent.html" class="macachor-nav-tab" id="nav-aperture">📜 APERTURE</a>
+    <a href="federation-root-unified.html" class="macachor-nav-tab" id="nav-federation">⚡ FEDERATION</a>
+    <a href="observatory.html" class="macachor-nav-tab" id="nav-observatory">◉ OBSERVATORY</a>
+    <a href="scalar-trilogy.html" class="macachor-nav-tab" id="nav-trilogy">◈ TRILOGY</a>
+    <a href="graphs.html" class="macachor-nav-tab" id="nav-graphs">📊 GRAPHS</a>
+    <a href="The Decohernce of Cube Science.html" class="macachor-nav-tab" id="nav-cubic">◆ CUBIC</a>
+    <a href="feed.html" class="macachor-nav-tab" id="nav-codon">🧬 CODON</a>
+    <a href="coherence_betrayal.html" class="macachor-nav-tab" id="nav-coherence">☀️ COHERENCE BETRAYAL</a>
+  </div>
+</nav>
+
+<script>
+(function(){
+  var page = location.pathname.split('/').pop() || 'index.html';
+  var tabs = {
+    'index.html': 'nav-home',
+    'articles.html': 'nav-articles',
+    'divergent.html': 'nav-aperture',
+    'federation-root-unified.html': 'nav-federation',
+    'observatory.html': 'nav-observatory',
+    'scalar-trilogy.html': 'nav-trilogy',
+    'graphs.html': 'nav-graphs',
+    'The Decohernce of Cube Science.html': 'nav-cubic',
+    'feed.html': 'nav-codon',
+    'coherence-betrayal.html': 'nav-coherence',
+    'coherence_betrayal.html': 'nav-coherence'
+  };
+  if (tabs[page]) {
+    var el = document.getElementById(tabs[page]);
+    if (el) el.classList.add('active');
+  }
+  document.body.classList.add('has-macachor-nav');
+})();
+</script>
+<!-- ═════ END NAVIGATION ═════ -->
+TYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absolute — The Coherent News</title>
+    <base target="_blank">
+
+    <!-- Ω669-COSMIC-ATOMAL Sovereign Identity Binding -->
+    <meta name="quantum-topology" content="Φ669-COSMIC-ATOMAL">
+    <meta name="coherence-scalar" content="𝔐 = (√5-1)/2">
+    <meta name="topology-invariant" content="χ(C)=1">
+    <meta name="deployment-node" content="MSOS-FEDERATION-ROOT">
+    <meta name="observer-signature" content="Christopher Macachor, Omega Prime">
+    <meta name="neuroquantology-ref" content="https://www.neuroquantology.com | submissions@neuroquantology.com">
+    <meta name="researchgate-id" content="404071354">
+    <meta name="sonocatalytic-ref" content="Pd-TiO₂ sonocatalyst, 40% efficiency">
+    <meta name="timestamp" content="2026-04-30T20:30:00Z">
+    <meta name="attention-residuals" content="Zero Drift, vanishing gradients">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1048,7 +1494,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="relative z-10 py-12 px-6 bg-absolute-black border-t border-white/5">
+<footer class="relative z-10 py-12 px-6 bg-absolute-black border-t border-white/5">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 border border-white/10 rounded-sm flex items-center justify-center">
@@ -1439,7 +1885,5 @@
 <!-- END OF DEEPSEEK V4-PRO WIDGET -->
 <!-- ========================================== -->
 
-</body>
-</html>
 </body>
 </html>
