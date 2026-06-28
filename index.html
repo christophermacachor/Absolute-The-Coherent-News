@@ -1,6 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+<head><!-- Add to your existing site header -->
+<a href="/verify" class="nav-link verify-link">
+  🔬 Verify
+</a>
+
+<!-- Create /verify/index.html -->
+<!DOCTYPE html>
+<html>
 <head>
+  <title>Verify | Absolute — The Coherent News</title>
+  <style>
+    /* Use your existing site styles + */
+    .verify-hero { text-align: center; padding: 4rem 2rem; }
+    .wolfram-embed { max-width: 800px; margin: 2rem auto; }
+  </style>
+</head>
+<body>
+  <header><!-- your existing header --></header>
+  
+  <main class="verify-hero">
+    <h1>Coherence Verification</h1>
+    <p>Validate Macachor Absolute computations with WolframAlpha</p>
+    
+    <div class="wolfram-embed">
+      <script 
+        src="https://www.wolframalpha.com/input/embed/?type=medium"
+        id="WolframAlphaScript">
+      </script>
+    </div>
+    
+    <div class="m9-badge">
+      𝔐 = (√5−1)/2 ≈ 0.6180339887498948482...
+    </div>
+  </main>
+</body>
+</html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Absolute — The Coherent News</title>
