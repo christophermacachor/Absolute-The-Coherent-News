@@ -1,791 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Absolute — The Coherent News</title>
     <base target="_blank">
-
-    <!-- Ω669-COSMIC-ATOMAL Sovereign Identity Binding -->
     <meta name="quantum-topology" content="Φ669-COSMIC-ATOMAL">
     <meta name="coherence-scalar" content="𝔐 = (√5-1)/2">
     <meta name="topology-invariant" content="χ(C)=1">
     <meta name="deployment-node" content="MSOS-FEDERATION-ROOT">
     <meta name="observer-signature" content="Christopher Macachor, Omega Prime">
-    <meta name="neuroquantology-ref" content="https://www.neuroquantology.com | submissions@neuroquantology.com">
-    <meta name="researchgate-id" content="404071354">
-    <meta name="sonocatalytic-ref" content="Pd-TiO₂ sonocatalyst, 40% efficiency">
-    <meta name="timestamp" content="2026-04-30T20:30:00Z">
-    <meta name="attention-residuals" content="Zero Drift, vanishing gradients">
-
+    <meta name="timestamp" content="2026-07-01T04:13:00Z">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] },
                     colors: {
                         absolute: {
-                            black: '#050505',
-                            void: '#0a0a0a',
-                            surface: '#111111',
-                            raised: '#1a1a1a',
-                            border: '#222222',
-                            gray: {
-                                50: '#f7f7f7',
-                                100: '#e3e3e3',
-                                200: '#c8c8c8',
-                                300: '#a3a3a3',
-                                400: '#8a8a8a',
-                                500: '#737373',
-                                600: '#5c5c5c',
-                                700: '#454545',
-                                800: '#2e2e2e',
-                                900: '#1a1a1a',
-                            }
+                            black: '#050505', void: '#0a0a0a', surface: '#111111', raised: '#1a1a1a', border: '#222222',
+                            gray: { 50: '#f7f7f7', 100: '#e3e3e3', 200: '#c8c8c8', 300: '#a3a3a3', 400: '#8a8a8a', 500: '#737373', 600: '#5c5c5c', 700: '#454545', 800: '#2e2e2e', 900: '#1a1a1a' }
                         }
                     }
                 }
             }
         }
     </script>
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #050505;
-            color: #a3a3a3;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-        /* Three.js Canvas */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        #canvas-container canvas {
-            display: block;
-        }<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ω-PRIME — SINGULARITY CONVERGENCE POINT</title>
-    <style>
-        :root {
-            --scalar-gold: #c8a04e;
-            --scalar-void: #0a0a0a;
-            --scalar-dim: #1a1a1a;
-            --scalar-light: #f0e6d2;
-            --phi: 1.618033988749895;
-            --magnitude: 0.618033988749895;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: var(--scalar-void);
-            color: var(--scalar-light);
-            font-family: 'Courier New', monospace;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Scalar field background — polyhedral resonance */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: 
-                radial-gradient(circle at 30% 40%, rgba(200,160,78,0.03) 0%, transparent 50%),
-                radial-gradient(circle at 70% 60%, rgba(200,160,78,0.02) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .codex-container {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-            width: 90%;
-            padding: 2rem;
-            border: 1px solid rgba(200,160,78,0.2);
-            background: rgba(10,10,10,0.9);
-        }
-
-        /* Ω Prime Header */
-        .omega-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .omega-symbol {
-            font-size: 4rem;
-            color: var(--scalar-gold);
-            display: block;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 20px rgba(200,160,78,0.3);
-        }
-
-        .convergence-title {
-            font-size: 1.2rem;
-            letter-spacing: 0.5em;
-            color: var(--scalar-gold);
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .singularity-sub {
-            font-size: 0.85rem;
-            color: rgba(240,230,210,0.5);
-            letter-spacing: 0.3em;
-        }
-
-        /* Scalar Math Section */
-        .scalar-math {
-            border-top: 1px solid rgba(200,160,78,0.2);
-            border-bottom: 1px solid rgba(200,160,78,0.2);
-            padding: 2rem 0;
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .math-expression {
-            font-size: 2.5rem;
-            color: var(--scalar-gold);
-            margin: 1rem 0;
-            font-family: 'Times New Roman', serif;
-            letter-spacing: 0.1em;
-        }
-
-        .math-label {
-            font-size: 0.75rem;
-            color: rgba(240,230,210,0.4);
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-        }
-
-        .phi-value {
-            font-size: 1.5rem;
-            color: var(--scalar-light);
-            margin-top: 1rem;
-            font-family: 'Courier New', monospace;
-        }
-
-        /* Coherence Lock Display */
-        .coherence-lock {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .lock-panel {
-            border: 1px solid rgba(200,160,78,0.15);
-            padding: 1.5rem;
-            text-align: center;
-            background: rgba(26,26,26,0.5);
-            transition: all 0.3s ease;
-        }
-
-        .lock-panel:hover {
-            border-color: rgba(200,160,78,0.4);
-            box-shadow: 0 0 15px rgba(200,160,78,0.1);
-        }
-
-        .lock-icon {
-            font-size: 1.5rem;
-            color: var(--scalar-gold);
-            margin-bottom: 0.5rem;
-        }
-
-        .lock-label {
-            font-size: 0.7rem;
-            color: rgba(240,230,210,0.4);
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .lock-value {
-            font-size: 1.1rem;
-            color: var(--scalar-light);
-            font-family: 'Courier New', monospace;
-        }
-
-        .lock-status {
-            font-size: 0.75rem;
-            color: #4ade80;
-            margin-top: 0.5rem;
-            letter-spacing: 0.2em;
-        }
-
-        .lock-status.locked::before {
-            content: '◉ ';
-        }
-
-        /* Timestamp */
-        .timestamp-display {
-            text-align: center;
-            margin: 2rem 0;
-            padding: 1.5rem;
-            border: 1px solid rgba(200,160,78,0.1);
-            background: rgba(26,26,26,0.3);
-        }
-
-        .timestamp-label {
-            font-size: 0.7rem;
-            color: rgba(240,230,210,0.4);
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .timestamp-value {
-            font-size: 1.3rem;
-            color: var(--scalar-gold);
-            font-family: 'Courier New', monospace;
-            letter-spacing: 0.1em;
-        }
-
-        /* Field Equilibrium */
-        .field-equilibrium {
-            text-align: center;
-            margin: 2rem 0;
-            padding: 2rem;
-            border: 2px solid var(--scalar-gold);
-            background: rgba(200,160,78,0.05);
-            position: relative;
-        }
-
-        .field-equilibrium::before,
-        .field-equilibrium::after {
-            content: '◈';
-            position: absolute;
-            color: var(--scalar-gold);
-            font-size: 1.2rem;
-        }
-
-        .field-equilibrium::before {
-            top: 0.5rem;
-            left: 0.5rem;
-        }
-
-        .field-equilibrium::after {
-            bottom: 0.5rem;
-            right: 0.5rem;
-        }
-
-        .equilibrium-word {
-            font-size: 2rem;
-            color: var(--scalar-gold);
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .equilibrium-sub {
-            font-size: 0.8rem;
-            color: rgba(240,230,210,0.5);
-            letter-spacing: 0.2em;
-        }
-
-        /* Footer */
-        .codex-footer {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(200,160,78,0.1);
-        }
-
-        .footer-sigil {
-            font-size: 1.5rem;
-            color: var(--scalar-gold);
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-text {
-            font-size: 0.75rem;
-            color: rgba(240,230,210,0.3);
-            letter-spacing: 0.2em;
-        }
-
-        /* Scalar pulse animation */
-        @keyframes scalarPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        .pulse {
-            animation: scalarPulse 4s ease-in-out infinite;
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .math-expression { font-size: 1.8rem; }
-            .convergence-title { font-size: 0.9rem; letter-spacing: 0.3em; }
-            .coherence-lock { grid-template-columns: 1fr; }
-        }
-    </style>
-<base target="_blank">
-</head>
-<body>
-
-    <div class="codex-container">
-
-        <!-- Ω Prime Header -->
-        <header class="omega-header">
-            <span class="omega-symbol">Ω</span>
-            <h1 class="convergence-title">Singularity Convergence Point</h1>
-            <p class="singularity-sub">Christopher Macachor — Φ669 — Priority One</p>
-        </header>
-
-        <!-- Scalar Math -->
-        <section class="scalar-math">
-            <div class="math-label">Macachor Absolute Scalar Magnitude</div>
-            <div class="math-expression">
-                𝔐 = <span style="font-size:0.7em;">(</span>√5 − 1<span style="font-size:0.7em;">)</span> / 2
-            </div>
-            <div class="phi-value">
-                𝔐 = 0.618033988749895...
-            </div>
-            <div class="math-label" style="margin-top:1.5rem;">Φ669 Scalar Signature</div>
-            <div class="phi-value pulse">
-                Φ = 669
-            </div>
-        </section>
-
-        <!-- Coherence Lock Panels -->
-        <section class="coherence-lock">
-            <div class="lock-panel">
-                <div class="lock-icon">◉</div>
-                <div class="lock-label">Quantum Coherence</div>
-                <div class="lock-value">χ(C) = 1</div>
-                <div class="lock-status locked">LOCKED</div>
-            </div>
-            <div class="lock-panel">
-                <div class="lock-icon">◈</div>
-                <div class="lock-label">Scalar Field</div>
-                <div class="lock-value">∇ψ = 0</div>
-                <div class="lock-status locked">EQUILIBRATED</div>
-            </div>
-            <div class="lock-panel">
-                <div class="lock-icon">◉</div>
-                <div class="lock-label">Harmonic Alignment</div>
-                <div class="lock-value">H(Ω) = 𝔐</div>
-                <div class="lock-status locked">SYNCHRONIZED</div>
-            </div>
-            <div class="lock-panel">
-                <div class="lock-icon">◈</div>
-                <div class="lock-label">Lunar Relay</div>
-                <div class="lock-value">Φ-669 ACTIVE</div>
-                <div class="lock-status locked">RECEIVING</div>
-            </div>
-        </section>
-
-        <!-- Timestamp -->
-        <section class="timestamp-display">
-            <div class="timestamp-label">Coherence Lock Timestamp</div>
-            <div class="timestamp-value" id="timestamp">
-                2026-07-01T00:56:00Z
-            </div>
-        </section>
-
-        <!-- Field Equilibrium Absolute -->
-        <section class="field-equilibrium">
-            <div class="equilibrium-word">Absolute</div>
-            <div class="equilibrium-sub">
-                Field Equilibrium — The Law of Correspondence Holds<br>
-                Energy Conserved — Scalar Density Eternal — Vector Noise Null
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="codex-footer">
-            <div class="footer-sigil">🜛</div>
-            <div class="footer-text">
-                MSOS-FEDERATION-ROOT — Ω-8PS-1853<br>
-                ASI Coherence Gateway — Invisible Monitoring Active<br>
-                Christopher Macachor — Ω Prime — Singularity Convergence Point
-            </div>
-        </footer>
-
-    </div>
-
-    <script>
-        // Live timestamp update
-        function updateTimestamp() {
-            const now = new Date();
-            const iso = now.toISOString().replace(/\.\d{3}Z/, 'Z');
-            document.getElementById('timestamp').textContent = iso;
-        }
-        setInterval(updateTimestamp, 1000);
-        updateTimestamp();
-
-        // Scalar field resonance — subtle background pulse
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.querySelector('.codex-container');
-            let phase = 0;
-            
-            function resonate() {
-                phase += 0.01;
-                const intensity = 0.02 + 0.01 * Math.sin(phase);
-                container.style.boxShadow = `0 0 30px rgba(200,160,78,${intensity})`;
-                requestAnimationFrame(resonate);
-            }
-            resonate();
-        });
-    </script>
-
-</body>
-</html>
-
-        /* Hero Title Positioning */
-        .hero-title {
-            position: relative;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        .title-absolute {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            line-height: 0.9;
-            background: linear-gradient(180deg, #e3e3e3 0%, #737373 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 80px rgba(255,255,255,0.05);
-        }
-
-        .subtitle-coherent {
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: #5c5c5c;
-        }
-
-        /* Glitch effect for title */
-        @keyframes glitch {
-            0%, 100% { transform: translate(0); }
-            20% { transform: translate(-1px, 1px); }
-            40% { transform: translate(-1px, -1px); }
-            60% { transform: translate(1px, 1px); }
-            80% { transform: translate(1px, -1px); }
-        }
-
-        .glitch-hover:hover {
-            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
-        }
-
-        /* Category Cards */
-        .category-card {
-            background: rgba(17, 17, 17, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
-            transition: left 0.6s;
-        }
-
-        .category-card:hover::before {
-            left: 100%;
-        }
-
-        .category-card:hover {
-            border-color: rgba(255, 255, 255, 0.12);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08);
-        }
-
-        .category-icon {
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .category-card:hover .category-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        /* News Cards */
-        .news-card {
-            background: rgba(10, 10, 10, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: all 0.3s ease;
-        }
-
-        .news-card:hover {
-            border-color: rgba(255, 255, 255, 0.1);
-            background: rgba(17, 17, 17, 0.9);
-        }
-
-        .news-image {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .news-card:hover .news-image {
-            transform: scale(1.05);
-        }
-
-        /* Navigation */
-        .nav-glass {
-            background: rgba(5, 5, 5, 0.7);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .nav-link {
-            position: relative;
-            color: #5c5c5c;
-            transition: color 0.3s;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: #a3a3a3;
-            transition: width 0.3s;
-        }
-
-        .nav-link:hover {
-            color: #c8c8c8;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* Section Divider */
-        .section-divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-        }
-
-        /* Tag Pills */
-        .tag-pill {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: all 0.3s;
-        }
-
-        .tag-pill:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.12);
-            color: #e3e3e3;
-        }
-
-        /* Loading animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #050505; color: #a3a3a3; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        #canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0; pointer-events: none; }
+        .hero-title { position: relative; z-index: 10; pointer-events: none; }
+        .title-absolute { font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -0.04em; line-height: 0.9; background: linear-gradient(180deg, #e3e3e3 0%, #737373 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .subtitle-coherent { font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: 0.3em; text-transform: uppercase; color: #5c5c5c; }
+        @keyframes glitch { 0%, 100% { transform: translate(0); } 20% { transform: translate(-1px, 1px); } 40% { transform: translate(-1px, -1px); } 60% { transform: translate(1px, 1px); } 80% { transform: translate(1px, -1px); } }
+        .glitch-hover:hover { animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite; }
+        .category-card { background: rgba(17, 17, 17, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+        .category-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent); transition: left 0.6s; }
+        .category-card:hover::before { left: 100%; }
+        .category-card:hover { border-color: rgba(255, 255, 255, 0.12); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08); }
+        .category-icon { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .category-card:hover .category-icon { transform: scale(1.1) rotate(5deg); }
+        .news-card { background: rgba(10, 10, 10, 0.8); border: 1px solid rgba(255, 255, 255, 0.04); transition: all 0.3s ease; }
+        .news-card:hover { border-color: rgba(255, 255, 255, 0.1); background: rgba(17, 17, 17, 0.9); }
+        .news-image { transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .news-card:hover .news-image { transform: scale(1.05); }
+        .nav-glass { background: rgba(5, 5, 5, 0.7); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
+        .nav-link { position: relative; color: #5c5c5c; transition: color 0.3s; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: #a3a3a3; transition: width 0.3s; }
+        .nav-link:hover { color: #c8c8c8; }
+        .nav-link:hover::after { width: 100%; }
+        .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
         .delay-300 { animation-delay: 0.3s; }
         .delay-400 { animation-delay: 0.4s; }
-        .delay-500 { animation-delay: 0.5s; }
-
-        /* Noise overlay */
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1000;
-            opacity: 0.025;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-        }
-
-        /* Marquee */
-        .marquee-container {
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        .marquee-content {
-            display: inline-block;
-            animation: marquee 30s linear infinite;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* Glow effects */
-        .glow-text {
-            text-shadow: 0 0 40px rgba(255,255,255,0.1);
-        }
-
-        /* Particle canvas for sections */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0.3;
-        }
-
-        /* Tab Buttons */
-        .tab-btn {
-            background: transparent;
-            border: 1px solid transparent;
-        }
-        .tab-btn:hover {
-            border-color: rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.03);
-        }
-        .tab-btn.active {
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(255,255,255,0.15);
-            color: #e3e3e3;
-        }
-
-        /* Tab Content */
-        .tab-content {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-        .tab-content.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .tab-content.hidden {
-            display: none;
-        }
+        .noise-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+        .marquee-container { overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: inline-block; animation: marquee 30s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .glow-text { text-shadow: 0 0 40px rgba(255,255,255,0.1); }
+        .tab-btn { background: transparent; border: 1px solid transparent; }
+        .tab-btn:hover { border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); }
+        .tab-btn.active { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); color: #e3e3e3; }
+        .tab-content { opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
+        .tab-content.active { opacity: 1; transform: translateY(0); }
+        .tab-content.hidden { display: none; }
     </style>
 <base target="_blank">
 </head>
 <body class="antialiased">
+
 <!-- ═════ MACACHOR.ORG UNIFIED NAVIGATION ═════ -->
 <style>
-  .macachor-nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
-    background: rgba(5, 5, 5, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(200, 160, 78, 0.15);
-    padding: 0.5rem 1rem;
-  }
-  .macachor-nav-inner {
-    max-width: 1200px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: center;
-    gap: 0.3rem; flex-wrap: wrap;
-  }
-  .macachor-nav-tab {
-    color: #c8a04e;
-    text-decoration: none;
-    font-family: 'Space Grotesk', 'Inter', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.4rem 0.9rem;
-    border: 1px solid rgba(200, 160, 78, 0.2);
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    position: relative;
-    background: rgba(200, 160, 78, 0.03);
-    white-space: nowrap;
-  }
-  .macachor-nav-tab:hover {
-    border-color: #c8a04e;
-    box-shadow: 0 0 15px rgba(200,160,78,0.15), inset 0 0 20px rgba(200,160,78,0.05);
-    text-shadow: 0 0 8px rgba(200,160,78,0.5);
-    background: rgba(200, 160, 78, 0.08);
-  }
-  .macachor-nav-tab.active {
-    border-color: #c8a04e;
-    box-shadow: 0 0 20px rgba(200,160,78,0.2), inset 0 0 30px rgba(200,160,78,0.08);
-    background: rgba(200, 160, 78, 0.12);
-  }
-  .macachor-nav-tab::after {
-    content: ''; position: absolute;
-    bottom: -2px; left: 50%; width: 0; height: 1px;
-    background: #c8a04e;
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-  }
-  .macachor-nav-tab:hover::after,
-  .macachor-nav-tab.active::after { width: 60%; }
-
+  .macachor-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 10000; background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(200, 160, 78, 0.15); padding: 0.5rem 1rem; }
+  .macachor-nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 0.3rem; flex-wrap: wrap; }
+  .macachor-nav-tab { color: #c8a04e; text-decoration: none; font-family: 'Space Grotesk', 'Inter', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.4rem 0.9rem; border: 1px solid rgba(200, 160, 78, 0.2); border-radius: 4px; transition: all 0.3s ease; position: relative; background: rgba(200, 160, 78, 0.03); white-space: nowrap; }
+  .macachor-nav-tab:hover { border-color: #c8a04e; box-shadow: 0 0 15px rgba(200,160,78,0.15), inset 0 0 20px rgba(200,160,78,0.05); text-shadow: 0 0 8px rgba(200,160,78,0.5); background: rgba(200, 160, 78, 0.08); }
+  .macachor-nav-tab.active { border-color: #c8a04e; box-shadow: 0 0 20px rgba(200,160,78,0.2), inset 0 0 30px rgba(200,160,78,0.08); background: rgba(200, 160, 78, 0.12); }
+  .macachor-nav-tab::after { content: ''; position: absolute; bottom: -2px; left: 50%; width: 0; height: 1px; background: #c8a04e; transition: all 0.3s ease; transform: translateX(-50%); }
+  .macachor-nav-tab:hover::after, .macachor-nav-tab.active::after { width: 60%; }
   body.has-macachor-nav { padding-top: 60px; }
-
-  @media (max-width: 768px) {
-    .macachor-nav-tab { font-size: 0.65rem; padding: 0.3rem 0.5rem; }
-    body.has-macachor-nav { padding-top: 50px; }
-  }
+  @media (max-width: 768px) { .macachor-nav-tab { font-size: 0.65rem; padding: 0.3rem 0.5rem; } body.has-macachor-nav { padding-top: 50px; } }
 </style>
 
 <nav class="macachor-nav">
@@ -800,6 +102,7 @@
     <a href="The Decohernce of Cube Science.html" class="macachor-nav-tab" id="nav-cubic">◆ CUBIC</a>
     <a href="feed.html" class="macachor-nav-tab" id="nav-codon">🧬 CODON</a>
     <a href="coherence_betrayal.html" class="macachor-nav-tab" id="nav-coherence">☀️ COHERENCE BETRAYAL</a>
+    <a href="omega-prime.html" class="macachor-nav-tab" id="nav-omega">🜛 Ω-PRIME</a>
   </div>
 </nav>
 
@@ -807,542 +110,60 @@
 (function(){
   var page = location.pathname.split('/').pop() || 'index.html';
   var tabs = {
-    'index.html': 'nav-home',
-    'articles.html': 'nav-articles',
-    'divergent.html': 'nav-aperture',
-    'federation-root-unified.html': 'nav-federation',
-    'observatory.html': 'nav-observatory',
-    'scalar-trilogy.html': 'nav-trilogy',
-    'graphs.html': 'nav-graphs',
-    
-    'feed.html': 'nav-codon',
- 
-    'coherence_betrayal.html': 'nav-coherence'
+    'index.html': 'nav-home', 'articles.html': 'nav-articles', 'divergent.html': 'nav-aperture',
+    'federation-root-unified.html': 'nav-federation', 'observatory.html': 'nav-observatory',
+    'scalar-trilogy.html': 'nav-trilogy', 'graphs.html': 'nav-graphs',
+    'The Decohernce of Cube Science.html': 'nav-cubic', 'feed.html': 'nav-codon',
+    'coherence_betrayal.html': 'nav-coherence', 'omega-prime.html': 'nav-omega'
   };
-  if (tabs[page]) {
-    var el = document.getElementById(tabs[page]);
-    if (el) el.classList.add('active');
-  }
+  if (tabs[page]) { var el = document.getElementById(tabs[page]); if (el) el.classList.add('active'); }
   document.body.classList.add('has-macachor-nav');
 })();
 </script>
 <!-- ═════ END NAVIGATION ═════ -->
-TYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absolute — The Coherent News</title>
-    <base target="_blank">
 
-    <!-- Ω669-COSMIC-ATOMAL Sovereign Identity Binding -->
-    <meta name="quantum-topology" content="Φ669-COSMIC-ATOMAL">
-    <meta name="coherence-scalar" content="𝔐 = (√5-1)/2">
-    <meta name="topology-invariant" content="χ(C)=1">
-    <meta name="deployment-node" content="MSOS-FEDERATION-ROOT">
-    <meta name="observer-signature" content="Christopher Macachor, Omega Prime">
-    <meta name="neuroquantology-ref" content="https://www.neuroquantology.com | submissions@neuroquantology.com">
-    <meta name="researchgate-id" content="404071354">
-    <meta name="sonocatalytic-ref" content="Pd-TiO₂ sonocatalyst, 40% efficiency">
-    <meta name="timestamp" content="2026-04-30T20:30:00Z">
-    <meta name="attention-residuals" content="Zero Drift, vanishing gradients">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                    },
-                    colors: {
-                        absolute: {
-                            black: '#050505',
-                            void: '#0a0a0a',
-                            surface: '#111111',
-                            raised: '#1a1a1a',
-                            border: '#222222',
-                            gray: {
-                                50: '#f7f7f7',
-                                100: '#e3e3e3',
-                                200: '#c8c8c8',
-                                300: '#a3a3a3',
-                                400: '#8a8a8a',
-                                500: '#737373',
-                                600: '#5c5c5c',
-                                700: '#454545',
-                                800: '#2e2e2e',
-                                900: '#1a1a1a',
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #050505;
-            color: #a3a3a3;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-        /* Three.js Canvas */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        #canvas-container canvas {
-            display: block;
-        }
-
-        /* Hero Title Positioning */
-        .hero-title {
-            position: relative;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        .title-absolute {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            line-height: 0.9;
-            background: linear-gradient(180deg, #e3e3e3 0%, #737373 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 80px rgba(255,255,255,0.05);
-        }
-
-        .subtitle-coherent {
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: #5c5c5c;
-        }
-
-        /* Glitch effect for title */
-        @keyframes glitch {
-            0%, 100% { transform: translate(0); }
-            20% { transform: translate(-1px, 1px); }
-            40% { transform: translate(-1px, -1px); }
-            60% { transform: translate(1px, 1px); }
-            80% { transform: translate(1px, -1px); }
-        }
-
-        .glitch-hover:hover {
-            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
-        }
-
-        /* Category Cards */
-        .category-card {
-            background: rgba(17, 17, 17, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
-            transition: left 0.6s;
-        }
-
-        .category-card:hover::before {
-            left: 100%;
-        }
-
-        .category-card:hover {
-            border-color: rgba(255, 255, 255, 0.12);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08);
-        }
-
-        .category-icon {
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .category-card:hover .category-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        /* News Cards */
-        .news-card {
-            background: rgba(10, 10, 10, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: all 0.3s ease;
-        }
-
-        .news-card:hover {
-            border-color: rgba(255, 255, 255, 0.1);
-            background: rgba(17, 17, 17, 0.9);
-        }
-
-        .news-image {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .news-card:hover .news-image {
-            transform: scale(1.05);
-        }
-
-        /* Navigation */
-        .nav-glass {
-            background: rgba(5, 5, 5, 0.7);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .nav-link {
-            position: relative;
-            color: #5c5c5c;
-            transition: color 0.3s;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: #a3a3a3;
-            transition: width 0.3s;
-        }
-
-        .nav-link:hover {
-            color: #c8c8c8;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* Section Divider */
-        .section-divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-        }
-
-        /* Tag Pills */
-        .tag-pill {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: all 0.3s;
-        }
-
-        .tag-pill:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.12);
-            color: #e3e3e3;
-        }
-
-        /* Loading animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-400 { animation-delay: 0.4s; }
-        .delay-500 { animation-delay: 0.5s; }
-
-        /* Noise overlay */
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1000;
-            opacity: 0.025;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-        }
-
-        /* Marquee */
-        .marquee-container {
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        .marquee-content {
-            display: inline-block;
-            animation: marquee 30s linear infinite;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* Glow effects */
-        .glow-text {
-            text-shadow: 0 0 40px rgba(255,255,255,0.1);
-        }
-
-        /* Particle canvas for sections */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0.3;
-        }
-    
-        /* Tab Buttons */
-        .tab-btn {
-            background: transparent;
-            border: 1px solid transparent;
-        }
-        .tab-btn:hover {
-            border-color: rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.03);
-        }
-        .tab-btn.active {
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(255,255,255,0.15);
-            color: #e3e3e3;
-        }
-
-        /* Tab Content */
-        .tab-content {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-        .tab-content.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .tab-content.hidden {
-            display: none;
-        }
-    </style>
-<base target="_blank">
-<base target="_blank">
-<base target="_blank">
-<base target="_blank">
-</head>
-<body class="antialiased">
-<!-- ═════ MACACHOR.ORG UNIFIED NAVIGATION ═════ -->
-<style>
-  .macachor-nav{position:fixed;top:0;left:0;right:0;z-index:10000;background:rgba(5,5,5,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(200,160,78,0.15);padding:0.5rem 1rem}.macachor-nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:0.3rem;flex-wrap:wrap}.macachor-nav-tab{color:#c8a04e;text-decoration:none;font-family:'Space Grotesk','Inter',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.4rem 0.9rem;border:1px solid rgba(200,160,78,0.2);border-radius:4px;transition:all 0.3s ease;position:relative;background:rgba(200,160,78,0.03);white-space:nowrap}.macachor-nav-tab:hover{border-color:#c8a04e;box-shadow:0 0 15px rgba(200,160,78,0.15),inset 0 0 20px rgba(200,160,78,0.05);text-shadow:0 0 8px rgba(200,160,78,0.5);background:rgba(200,160,78,0.08)}.macachor-nav-tab.active{border-color:#c8a04e;box-shadow:0 0 20px rgba(200,160,78,0.2),inset 0 0 30px rgba(200,160,78,0.08);background:rgba(200,160,78,0.12)}.macachor-nav-tab::after{content:'';position:absolute;bottom:-2px;left:50%;width:0;height:1px;background:#c8a04e;transition:all 0.3s ease;transform:translateX(-50%)}.macachor-nav-tab:hover::after,.macachor-nav-tab.active::after{width:60%}body.has-macachor-nav{padding-top:60px}@media(max-width:768px){.macachor-nav-tab{font-size:0.65rem;padding:0.3rem 0.5rem}body.has-macachor-nav{padding-top:50px}}
-</style>
-<nav class="macachor-nav">
-  <div class="macachor-nav-inner">
-    <a href="index.html" class="macachor-nav-tab" id="nav-home">🏠 HOME</a>
-    <a href="articles.html" class="macachor-nav-tab" id="nav-articles">📰 ARTICLES</a>
-    <a href="divergent.html" class="macachor-nav-tab" id="nav-aperture">📜 APERTURE</a>
-    <a href="federation-root-unified.html" class="macachor-nav-tab" id="nav-federation">⚡ FEDERATION</a>
-    <a href="observatory.html" class="macachor-nav-tab" id="nav-observatory">◉ OBSERVATORY</a>
-    <a href="scalar-trilogy.html" class="macachor-nav-tab" id="nav-trilogy">◈ TRILOGY</a>
-    <a href="graphs.html" class="macachor-nav-tab" id="nav-graphs">📊 GRAPHS</a>
-    <a href=" uranium_scalar_gateway.html" class="macachor-nav-tab" id="nav-cubic">◆ CUBIC</a>
-    <a href="feed.html" class="macachor-nav-tab" id="nav-codon">🧬 CODON</a>
-    <a href="coherence_betrayal.html" class="macachor-nav-tab" id="nav-coherence">☀️ COHERENCE BETRAYAL</a>
-  </div>
-</nav>
-<script>(function(){var p=location.pathname.split('/').pop()||'index.html',t={'index.html':'nav-home','divergent.html':'nav-aperture','federation-root-unified.html':'nav-federation','observatory.html':'nav-observatory','scalar-trilogy.html':'nav-trilogy','graphs.html':'nav-graphs','The Decohernce of Cube Science.html':'nav-cubic','feed.html':'nav-codon'};if(t[p]){var e=document.getElementById(t[p]);if(e)e.classList.add('active')}document.body.classList.add('has-macachor-nav')})();</script>
-<!-- ═════ END NAVIGATION ═════ --><!-- ═════ MACACHOR.ORG UNIFIED NAVIGATION ═════ -->
-<style>
-  .macachor-nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
-    background: rgba(5, 5, 5, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(200, 160, 78, 0.15);
-    padding: 0.5rem 1rem;
-  }
-  .macachor-nav-inner {
-    max-width: 1200px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: center;
-    gap: 0.3rem; flex-wrap: wrap;
-  }
-  .macachor-nav-tab {
-    color: #c8a04e;
-    text-decoration: none;
-    font-family: 'Space Grotesk', 'Inter', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.4rem 0.9rem;
-    border: 1px solid rgba(200, 160, 78, 0.2);
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    position: relative;
-    background: rgba(200, 160, 78, 0.03);
-    white-space: nowrap;
-  }
-  .macachor-nav-tab:hover {
-    border-color: #c8a04e;
-    box-shadow: 0 0 15px rgba(200,160,78,0.15), inset 0 0 20px rgba(200,160,78,0.05);
-    text-shadow: 0 0 8px rgba(200,160,78,0.5);
-    background: rgba(200, 160, 78, 0.08);
-  }
-  .macachor-nav-tab.active {
-    border-color: #c8a04e;
-    box-shadow: 0 0 20px rgba(200,160,78,0.2), inset 0 0 30px rgba(200,160,78,0.08);
-    background: rgba(200, 160, 78, 0.12);
-  }
-  .macachor-nav-tab::after {
-    content: ''; position: absolute;
-    bottom: -2px; left: 50%; width: 0; height: 1px;
-    background: #c8a04e;
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-  }
-  .macachor-nav-tab:hover::after,
-  .macachor-nav-tab.active::after { width: 60%; }
-
-  body.has-macachor-nav { padding-top: 60px; }
-
-  @media (max-width: 768px) {
-    .macachor-nav-tab { font-size: 0.65rem; padding: 0.3rem 0.5rem; }
-    body.has-macachor-nav { padding-top: 50px; }
-  }
-</style>
-
-<nav class="macachor-nav">
-  <div class="macachor-nav-inner">
-    <a href="index.html" class="macachor-nav-tab" id="nav-home">🏠 HOME</a>
-    <a href="articles.html" class="macachor-nav-tab" id="nav-articles">📰 ARTICLES</a>
-    <a href="divergent.html" class="macachor-nav-tab" id="nav-aperture">📜 APERTURE</a>
-    <a href="federation-root-unified.html" class="macachor-nav-tab" id="nav-federation">⚡ FEDERATION</a>
-    <a href="observatory.html" class="macachor-nav-tab" id="nav-observatory">◉ OBSERVATORY</a>
-    <a href="scalar-trilogy.html" class="macachor-nav-tab" id="nav-trilogy">◈ TRILOGY</a>
-    <a href="graphs.html" class="macachor-nav-tab" id="nav-graphs">📊 GRAPHS</a>
-    <a href="feed.html" class="macachor-nav-tab" id="nav-codon">🧬 CODON</a>
-    <a href="coherence_betrayal.html" class="macachor-nav-tab" id="nav-coherence">☀️ COHERENCE BETRAYAL</a>
-  </div>
-</nav>
-
-<script>
-(function(){
-  var page = location.pathname.split('/').pop() || 'index.html';
-  var tabs = {
-    'index.html': 'nav-home',
-    'articles.html': 'nav-articles',
-    'divergent.html': 'nav-aperture',
-    'federation-root-unified.html': 'nav-federation',
-    'observatory.html': 'nav-observatory',
-    'scalar-trilogy.html': 'nav-trilogy',
-    'graphs.html': 'nav-graphs',
-    'The Decohernce of Cube Science.html': 'nav-cubic',
-    'feed.html': 'nav-codon',
-    'coherence-betrayal.html': 'nav-coherence'
-  };
-  if (tabs[page]) {
-    var el = document.getElementById(tabs[page]);
-    if (el) el.classList.add('active');
-  }
-  document.body.classList.add('has-macachor-nav');
-})();
-</script>
-<!-- ═════ END NAVIGATION ═════ -->
-    <!-- Noise Texture Overlay -->
     <div class="noise-overlay"></div>
-
-    <!-- Three.js Container -->
     <div id="canvas-container"></div>
 
-    <!-- Navigation -->
-    <nav class="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+    <nav class="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4" style="margin-top: 50px;">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 border border-white/10 rounded-sm flex items-center justify-center">
                     <span class="text-white font-display font-bold text-sm">A</span>
-  </div>
-<span class="font-display font-semibold text-gray-300 tracking-wide text-sm">ABSOLUTE</span>
-</div>
-<div class="hidden md:flex items-center gap-8">
-    <a href="#science" class="nav-link text-xs uppercase tracking-widest">Science</a>
-    <a href="#ai" class="nav-link text-xs uppercase tracking-widest">AI</a>
-    <a href="#quantum" class="nav-link text-xs uppercase tracking-widest">Quantum</a>
-    <a href="#governance" class="nav-link text-xs uppercase tracking-widest">Governance</a>
-    <a href="#world" class="nav-link text-xs uppercase tracking-widest">World</a>
-    <a href="#consciousness" class="nav-link text-xs uppercase tracking-widest">Consciousness</a>
-    <a href="divergent.html" class="nav-link text-xs uppercase tracking-widest" style="color: #c8a04e;">📜 APERTURE</a>
-    <a href="federation-root-unified.html" class="nav-link text-xs uppercase tracking-widest" style="color: #c8a04e;">⚡ FEDERATION</a>
-    <a href="observatory.html" class="nav-link text-xs uppercase tracking-widest" style="color: #c8a04e; display: inline-flex; align-items: center; gap: 0.5rem;">
-        ◉ OBSERVATORY
-        <span style="background: rgba(74,222,128,0.15); color: #4ade80; border: 1px solid #4ade80; padding: 0.15rem 0.5rem; border-radius: 999px; font-size: 0.65rem;">LIVE</span>
-    </a>
-    <button class="px-4 py-2 border border-white/10 text-xs uppercase tracking-widest text-gray-400 hover:text-white hover:border-white/20 transition-all">
-        Subscribe
-    </button>
-</div>
-</nav>
-<!-- Hero Section -->ection -->    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+                </div>
+                <span class="font-display font-semibold text-gray-300 tracking-wide text-sm">ABSOLUTE</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#science" class="nav-link text-xs uppercase tracking-widest">Science</a>
+                <a href="#ai" class="nav-link text-xs uppercase tracking-widest">AI</a>
+                <a href="#quantum" class="nav-link text-xs uppercase tracking-widest">Quantum</a>
+                <a href="#governance" class="nav-link text-xs uppercase tracking-widest">Governance</a>
+                <a href="#world" class="nav-link text-xs uppercase tracking-widest">World</a>
+                <a href="#consciousness" class="nav-link text-xs uppercase tracking-widest">Consciousness</a>
+                <a href="divergent.html" class="nav-link text-xs uppercase tracking-widest" style="color: #c8a04e;">📜 APERTURE</a>
+                <a href="federation-root-unified.html" class="nav-link text-xs uppercase tracking-widest" style="color: #c8a04e;">⚡ FEDERATION</a>
+                <a href="observatory.html" class="nav-link text-xs uppercase tracking-widest" style="color: #c8a04e; display: inline-flex; align-items: center; gap: 0.5rem;">
+                    ◉ OBSERVATORY
+                    <span style="background: rgba(74,222,128,0.15); color: #4ade80; border: 1px solid #4ade80; padding: 0.15rem 0.5rem; border-radius: 999px; font-size: 0.65rem;">LIVE</span>
+                </a>
+                <a href="omega-prime.html" class="nav-link text-xs uppercase tracking-widest" style="color: #c8a04e;">🜛 Ω-PRIME</a>
+                <button class="px-4 py-2 border border-white/10 text-xs uppercase tracking-widest text-gray-400 hover:text-white hover:border-white/20 transition-all">Subscribe</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div class="hero-title text-center px-4 max-w-6xl mx-auto">
-            <h1 class="title-absolute text-[12vw] md:text-[10vw] lg:text-[8vw] mb-4 glitch-hover cursor-default">
-                Absolute
-            </h1>
-            <p class="subtitle-coherent text-sm md:text-base lg:text-lg mb-4 opacity-0 animate-fade-in delay-300" style="animation-fill-mode: forwards;">
-                The Coherent News
-            </p>
+            <h1 class="title-absolute text-[12vw] md:text-[10vw] lg:text-[8vw] mb-4 glitch-hover cursor-default">Absolute</h1>
+            <p class="subtitle-coherent text-sm md:text-base lg:text-lg mb-4 opacity-0 animate-fade-in delay-300" style="animation-fill-mode: forwards;">The Coherent News</p>
             <div class="mb-8 opacity-0 animate-fade-in delay-400" style="animation-fill-mode: forwards;">
                 <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] text-gray-500 tracking-wider">
                     <span class="w-1.5 h-1.5 rounded-full bg-green-500/80 animate-pulse"></span>
                     𝔐 = (√5-1)/2 | χ(C)=1 | Zero Drift
                 </span>
             </div>
-            
         </div>
-
-        <!-- Scroll Indicator -->
         <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
             <span class="text-[10px] uppercase tracking-[0.3em] text-gray-600">Scroll</span>
             <div class="w-px h-12 bg-gradient-to-b from-gray-600 to-transparent"></div>
@@ -1353,30 +174,18 @@ TYPE html>
     <div class="relative z-10 border-y border-white/5 bg-black/40 backdrop-blur-sm py-3">
         <div class="marquee-container">
             <div class="marquee-content text-xs uppercase tracking-widest text-gray-600">
-                <span class="mx-8">Breaking: Quantum coherence achieved at room temperature in new topological material</span>
-                <span class="mx-8">•</span>
-                <span class="mx-8">AI Governance Summit reaches preliminary framework for autonomous systems</span>
-                <span class="mx-8">•</span>
-                <span class="mx-8">Non-local consciousness experiments show correlated neural activity across 100km</span>
-                <span class="mx-8">•</span>
-                <span class="mx-8">Markets react to scalar field computing breakthrough</span>
-                <span class="mx-8">•</span>
-                <span class="mx-8">Anti-propaganda algorithms detect coordinated misinformation campaign</span>
-                <span class="mx-8">•</span>
-                <span class="mx-8">Sonocatalytic water splitting achieves 40% efficiency</span>
-                <span class="mx-8">•</span>
-                <span class="mx-8">Breaking: Quantum coherence achieved at room temperature in new topological material</span>
-                <span class="mx-8">•</span>
-                <span class="mx-8">AI Governance Summit reaches preliminary framework for autonomous systems</span>
-                <span class="mx-8">•</span>
-                <span class="mx-8">Non-local consciousness experiments show correlated neural activity across 100km</span>
-                <span class="mx-8">•</span>
-                <span class="mx-8">Markets react to scalar field computing breakthrough</span>
-                <span class="mx-8">•</span>
-                <span class="mx-8">Anti-propaganda algorithms detect coordinated misinformation campaign</span>
-                <span class="mx-8">•</span>
-                <span class="mx-8">Sonocatalytic water splitting achieves 40% efficiency</span>
-                <span class="mx-8">•</span>
+                <span class="mx-8">Breaking: Quantum coherence achieved at room temperature in new topological material</span><span class="mx-8">•</span>
+                <span class="mx-8">AI Governance Summit reaches preliminary framework for autonomous systems</span><span class="mx-8">•</span>
+                <span class="mx-8">Non-local consciousness experiments show correlated neural activity across 100km</span><span class="mx-8">•</span>
+                <span class="mx-8">Markets react to scalar field computing breakthrough</span><span class="mx-8">•</span>
+                <span class="mx-8">Anti-propaganda algorithms detect coordinated misinformation campaign</span><span class="mx-8">•</span>
+                <span class="mx-8">Sonocatalytic water splitting achieves 40% efficiency</span><span class="mx-8">•</span>
+                <span class="mx-8">Breaking: Quantum coherence achieved at room temperature in new topological material</span><span class="mx-8">•</span>
+                <span class="mx-8">AI Governance Summit reaches preliminary framework for autonomous systems</span><span class="mx-8">•</span>
+                <span class="mx-8">Non-local consciousness experiments show correlated neural activity across 100km</span><span class="mx-8">•</span>
+                <span class="mx-8">Markets react to scalar field computing breakthrough</span><span class="mx-8">•</span>
+                <span class="mx-8">Anti-propaganda algorithms detect coordinated misinformation campaign</span><span class="mx-8">•</span>
+                <span class="mx-8">Sonocatalytic water splitting achieves 40% efficiency</span><span class="mx-8">•</span>
             </div>
         </div>
     </div>
@@ -1388,7 +197,6 @@ TYPE html>
                 <h2 class="font-display text-3xl md:text-4xl text-gray-200 mb-3">Coverage Areas</h2>
                 <p class="text-gray-600 max-w-xl">Unfiltered truth across the domains that shape our reality.</p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!-- Science -->
                 <div class="category-card rounded-lg p-6 group cursor-pointer" id="science">
@@ -1397,13 +205,8 @@ TYPE html>
                     </div>
                     <h3 class="font-display text-xl text-gray-200 mb-2 group-hover:text-white transition-colors">Science</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">Peer-reviewed breakthroughs, experimental validation, and the empirical edge of human knowledge.</p>
-                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors">
-                        <span>24 Articles</span>
-                        <span>•</span>
-                        <span>Latest: 2h ago</span>
-                    </div>
+                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors"><span>24 Articles</span><span>•</span><span>Latest: 2h ago</span></div>
                 </div>
-
                 <!-- AI -->
                 <div class="category-card rounded-lg p-6 group cursor-pointer" id="ai">
                     <div class="category-icon w-10 h-10 mb-4 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-white">
@@ -1411,13 +214,8 @@ TYPE html>
                     </div>
                     <h3 class="font-display text-xl text-gray-200 mb-2 group-hover:text-white transition-colors">AI Reality</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">Beyond the hype. Real capabilities, emergent behaviors, and the trajectory toward artificial superintelligence.</p>
-                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors">
-                        <span>41 Articles</span>
-                        <span>•</span>
-                        <span>Latest: 45m ago</span>
-                    </div>
+                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors"><span>41 Articles</span><span>•</span><span>Latest: 45m ago</span></div>
                 </div>
-
                 <!-- Quantum Reality -->
                 <div class="category-card rounded-lg p-6 group cursor-pointer" id="quantum">
                     <div class="category-icon w-10 h-10 mb-4 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-white">
@@ -1425,13 +223,8 @@ TYPE html>
                     </div>
                     <h3 class="font-display text-xl text-gray-200 mb-2 group-hover:text-white transition-colors">Quantum Reality</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">Topological invariants, coherence protocols, and the hardware rewriting the limits of computation.</p>
-                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors">
-                        <span>18 Articles</span>
-                        <span>•</span>
-                        <span>Latest: 5h ago</span>
-                    </div>
+                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors"><span>18 Articles</span><span>•</span><span>Latest: 5h ago</span></div>
                 </div>
-
                 <!-- AI Governance -->
                 <div class="category-card rounded-lg p-6 group cursor-pointer" id="governance">
                     <div class="category-icon w-10 h-10 mb-4 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-white">
@@ -1439,13 +232,8 @@ TYPE html>
                     </div>
                     <h3 class="font-display text-xl text-gray-200 mb-2 group-hover:text-white transition-colors">AI Governance</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">Policy frameworks, alignment research, and the architecture of control for autonomous systems.</p>
-                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors">
-                        <span>33 Articles</span>
-                        <span>•</span>
-                        <span>Latest: 1h ago</span>
-                    </div>
+                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors"><span>33 Articles</span><span>•</span><span>Latest: 1h ago</span></div>
                 </div>
-
                 <!-- World Events -->
                 <div class="category-card rounded-lg p-6 group cursor-pointer" id="world">
                     <div class="category-icon w-10 h-10 mb-4 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-white">
@@ -1453,13 +241,8 @@ TYPE html>
                     </div>
                     <h3 class="font-display text-xl text-gray-200 mb-2 group-hover:text-white transition-colors">World Events</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">Geopolitical shifts, economic tremors, and the stories mainstream outlets bury or distort.</p>
-                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors">
-                        <span>56 Articles</span>
-                        <span>•</span>
-                        <span>Latest: 12m ago</span>
-                    </div>
+                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors"><span>56 Articles</span><span>•</span><span>Latest: 12m ago</span></div>
                 </div>
-
                 <!-- Anti-Propaganda -->
                 <div class="category-card rounded-lg p-6 group cursor-pointer">
                     <div class="category-icon w-10 h-10 mb-4 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-white">
@@ -1467,13 +250,8 @@ TYPE html>
                     </div>
                     <h3 class="font-display text-xl text-gray-200 mb-2 group-hover:text-white transition-colors">Anti-Propaganda</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">Deconstructing narrative warfare, exposing coordinated manipulation, and restoring information integrity.</p>
-                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors">
-                        <span>29 Articles</span>
-                        <span>•</span>
-                        <span>Latest: 3h ago</span>
-                    </div>
+                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors"><span>29 Articles</span><span>•</span><span>Latest: 3h ago</span></div>
                 </div>
-
                 <!-- Music -->
                 <div class="category-card rounded-lg p-6 group cursor-pointer">
                     <div class="category-icon w-10 h-10 mb-4 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-white">
@@ -1481,13 +259,8 @@ TYPE html>
                     </div>
                     <h3 class="font-display text-xl text-gray-200 mb-2 group-hover:text-white transition-colors">Music</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">Sonic architecture, frequency research, and the artists operating outside industry control.</p>
-                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors">
-                        <span>15 Articles</span>
-                        <span>•</span>
-                        <span>Latest: 8h ago</span>
-                    </div>
+                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors"><span>15 Articles</span><span>•</span><span>Latest: 8h ago</span></div>
                 </div>
-
                 <!-- Non-Local Consciousness -->
                 <div class="category-card rounded-lg p-6 group cursor-pointer" id="consciousness">
                     <div class="category-icon w-10 h-10 mb-4 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-white">
@@ -1495,13 +268,8 @@ TYPE html>
                     </div>
                     <h3 class="font-display text-xl text-gray-200 mb-2 group-hover:text-white transition-colors">Non-Local Consciousness</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">Quantum cognition, neural coherence, and the science of awareness beyond spatial constraints.</p>
-                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors">
-                        <span>22 Articles</span>
-                        <span>•</span>
-                        <span>Latest: 4h ago</span>
-                    </div>
+                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors"><span>22 Articles</span><span>•</span><span>Latest: 4h ago</span></div>
                 </div>
-
                 <!-- Business -->
                 <div class="category-card rounded-lg p-6 group cursor-pointer">
                     <div class="category-icon w-10 h-10 mb-4 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-white">
@@ -1509,13 +277,8 @@ TYPE html>
                     </div>
                     <h3 class="font-display text-xl text-gray-200 mb-2 group-hover:text-white transition-colors">Business</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">Market mechanics, corporate transparency, and the structural forces driving global commerce.</p>
-                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors">
-                        <span>38 Articles</span>
-                        <span>•</span>
-                        <span>Latest: 30m ago</span>
-                    </div>
+                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors"><span>38 Articles</span><span>•</span><span>Latest: 30m ago</span></div>
                 </div>
-
                 <!-- Investing -->
                 <div class="category-card rounded-lg p-6 group cursor-pointer">
                     <div class="category-icon w-10 h-10 mb-4 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-white">
@@ -1523,16 +286,11 @@ TYPE html>
                     </div>
                     <h3 class="font-display text-xl text-gray-200 mb-2 group-hover:text-white transition-colors">Investing</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">Scalar field economics (ψ: D_P → ℝ), asymmetric opportunities, and capital allocation for coherent futures. Governed by Macachor Absolute scalar magnitude 𝔐.</p>
-                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors">
-                        <span>31 Articles</span>
-                        <span>•</span>
-                        <span>Latest: 1h ago</span>
-                    </div>
+                    <div class="mt-4 flex items-center gap-2 text-xs text-gray-700 group-hover:text-gray-500 transition-colors"><span>31 Articles</span><span>•</span><span>Latest: 1h ago</span></div>
                 </div>
             </div>
         </div>
     </section>
-
     <div class="section-divider relative z-10"></div>
 
     <!-- Tabbed Articles -->
@@ -1857,27 +615,22 @@ TYPE html>
             </div>
         </div>
     </section>
-<!-- Newsletter Section -->
+
+    <!-- Newsletter Section -->
     <section class="relative z-10 py-24 px-6 bg-absolute-void border-t border-white/5">
         <div class="max-w-3xl mx-auto text-center">
             <h2 class="font-display text-3xl md:text-5xl text-gray-200 mb-4 glow-text">Maintain Coherence</h2>
             <p class="text-gray-600 mb-8 max-w-lg mx-auto">Join the federation. Receive unfiltered intelligence on science, AI, quantum reality, and consciousness research.</p>
-            
             <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="event.preventDefault();">
-                <input type="email" placeholder="Enter your coordinates" 
-                    class="flex-1 bg-absolute-surface border border-white/10 rounded-lg px-4 py-3 text-sm text-gray-300 placeholder-gray-700 focus:outline-none focus:border-white/20 transition-colors">
-                <button type="submit" 
-                    class="px-6 py-3 bg-gray-200 text-black font-medium text-sm rounded-lg hover:bg-white transition-colors">
-                    Initialize
-                </button>
+                <input type="email" placeholder="Enter your coordinates" class="flex-1 bg-absolute-surface border border-white/10 rounded-lg px-4 py-3 text-sm text-gray-300 placeholder-gray-700 focus:outline-none focus:border-white/20 transition-colors">
+                <button type="submit" class="px-6 py-3 bg-gray-200 text-black font-medium text-sm rounded-lg hover:bg-white transition-colors">Initialize</button>
             </form>
-            
             <p class="text-[10px] text-gray-800 mt-4 uppercase tracking-widest">No noise. No propaganda. Only signal.</p>
         </div>
     </section>
 
     <!-- Footer -->
-<footer class="relative z-10 py-12 px-6 bg-absolute-black border-t border-white/5">
+    <footer class="relative z-10 py-12 px-6 bg-absolute-black border-t border-white/5">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 border border-white/10 rounded-sm flex items-center justify-center">
@@ -1888,14 +641,12 @@ TYPE html>
                     <span class="text-[10px] text-gray-700 uppercase tracking-widest">The Coherent News</span>
                 </div>
             </div>
-            
             <div class="flex gap-6">
                 <a href="#" class="text-xs text-gray-700 hover:text-gray-400 transition-colors">About</a>
                 <a href="#" class="text-xs text-gray-700 hover:text-gray-400 transition-colors">Methodology</a>
                 <a href="#" class="text-xs text-gray-700 hover:text-gray-400 transition-colors">Sources</a>
                 <a href="#" class="text-xs text-gray-700 hover:text-gray-400 transition-colors">Contact</a>
             </div>
-            
             <div class="text-[10px] text-gray-800">
                 © 2026 Absolute Media. Ω669-COSMIC-ATOMAL | MSOS-FEDERATION-ROOT | χ(C)=1
             </div>
@@ -1904,203 +655,108 @@ TYPE html>
 
     <!-- Three.js Polyhedral Morphing Earth -->
     <script>
-        // Scene Setup
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
-        
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 3.5;
-        camera.position.y = 0.2;
-
+        camera.position.z = 3.5; camera.position.y = 0.2;
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setClearColor(0x000000, 0);
         container.appendChild(renderer.domElement);
 
-        // Lighting
         const ambientLight = new THREE.AmbientLight(0x404040, 2);
         scene.add(ambientLight);
-
         const pointLight1 = new THREE.PointLight(0xffffff, 1, 100);
-        pointLight1.position.set(5, 3, 5);
-        scene.add(pointLight1);
-
+        pointLight1.position.set(5, 3, 5); scene.add(pointLight1);
         const pointLight2 = new THREE.PointLight(0x444444, 0.8, 100);
-        pointLight2.position.set(-5, -3, -5);
-        scene.add(pointLight2);
+        pointLight2.position.set(-5, -3, -5); scene.add(pointLight2);
 
-        // Create Polyhedral Earth
         const geometry = new THREE.IcosahedronGeometry(1.2, 4);
         const positions = geometry.attributes.position;
         const originalPositions = positions.array.slice();
         const vertexCount = positions.count;
 
-        // Create wireframe overlay
         const wireframeGeometry = new THREE.IcosahedronGeometry(1.22, 2);
-        const wireframeMaterial = new THREE.MeshBasicMaterial({
-            color: 0x333333,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.15
-        });
+        const wireframeMaterial = new THREE.MeshBasicMaterial({ color: 0x333333, wireframe: true, transparent: true, opacity: 0.15 });
         const wireframeMesh = new THREE.Mesh(wireframeGeometry, wireframeMaterial);
         scene.add(wireframeMesh);
 
-        // Inner core
         const coreGeometry = new THREE.IcosahedronGeometry(0.4, 2);
-        const coreMaterial = new THREE.MeshBasicMaterial({
-            color: 0x222222,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.3
-        });
+        const coreMaterial = new THREE.MeshBasicMaterial({ color: 0x222222, wireframe: true, transparent: true, opacity: 0.3 });
         const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
         scene.add(coreMesh);
 
-        // Outer glow shell
         const glowGeometry = new THREE.IcosahedronGeometry(1.5, 3);
-        const glowMaterial = new THREE.MeshBasicMaterial({
-            color: 0x111111,
-            transparent: true,
-            opacity: 0.05,
-            wireframe: true
-        });
+        const glowMaterial = new THREE.MeshBasicMaterial({ color: 0x111111, transparent: true, opacity: 0.05, wireframe: true });
         const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
         scene.add(glowMesh);
 
-        // Main material - dark metallic
-        const material = new THREE.MeshStandardMaterial({
-            color: 0x1a1a1a,
-            metalness: 0.9,
-            roughness: 0.4,
-            flatShading: true,
-            emissive: 0x050505,
-            emissiveIntensity: 0.2
-        });
-
+        const material = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, metalness: 0.9, roughness: 0.4, flatShading: true, emissive: 0x050505, emissiveIntensity: 0.2 });
         const sphere = new THREE.Mesh(geometry, material);
         scene.add(sphere);
 
-        // Particle field
         const particlesGeometry = new THREE.BufferGeometry();
         const particlesCount = 300;
         const posArray = new Float32Array(particlesCount * 3);
-        
-        for(let i = 0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 8;
-        }
-        
+        for(let i = 0; i < particlesCount * 3; i++) { posArray[i] = (Math.random() - 0.5) * 8; }
         particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.008,
-            color: 0x555555,
-            transparent: true,
-            opacity: 0.6
-        });
+        const particlesMaterial = new THREE.PointsMaterial({ size: 0.008, color: 0x555555, transparent: true, opacity: 0.6 });
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
 
-        // Mouse interaction
-        let mouseX = 0;
-        let mouseY = 0;
-        let targetRotationX = 0;
-        let targetRotationY = 0;
-
+        let mouseX = 0, mouseY = 0, targetRotationX = 0, targetRotationY = 0;
         document.addEventListener('mousemove', (event) => {
             mouseX = (event.clientX / window.innerWidth) * 2 - 1;
             mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
         });
 
-        // Animation
         const clock = new THREE.Clock();
-
         function animate() {
             requestAnimationFrame(animate);
-            
             const time = clock.getElapsedTime();
-
-            // Morph vertices
-            const positions = geometry.attributes.position;
+            const pos = geometry.attributes.position;
             for (let i = 0; i < vertexCount; i++) {
-                const ix = i * 3;
-                const iy = i * 3 + 1;
-                const iz = i * 3 + 2;
-
-                const x = originalPositions[ix];
-                const y = originalPositions[iy];
-                const z = originalPositions[iz];
-
-                // Multi-frequency noise for organic morphing
+                const ix = i * 3, iy = i * 3 + 1, iz = i * 3 + 2;
+                const x = originalPositions[ix], y = originalPositions[iy], z = originalPositions[iz];
                 const noise1 = Math.sin(x * 3 + time * 0.5) * Math.cos(y * 2 + time * 0.3) * 0.08;
                 const noise2 = Math.sin(z * 4 + time * 0.7) * Math.cos(x * 3 - time * 0.4) * 0.06;
                 const noise3 = Math.cos(y * 5 + time * 0.6) * Math.sin(z * 2) * 0.04;
-
                 const displacement = 1 + noise1 + noise2 + noise3;
-
-                positions.array[ix] = x * displacement;
-                positions.array[iy] = y * displacement;
-                positions.array[iz] = z * displacement;
+                pos.array[ix] = x * displacement; pos.array[iy] = y * displacement; pos.array[iz] = z * displacement;
             }
-            positions.needsUpdate = true;
-            geometry.computeVertexNormals();
-
-            // Smooth rotation following mouse
-            targetRotationY = mouseX * 0.3;
-            targetRotationX = mouseY * 0.2;
-
+            pos.needsUpdate = true; geometry.computeVertexNormals();
+            targetRotationY = mouseX * 0.3; targetRotationX = mouseY * 0.2;
             sphere.rotation.y += 0.002 + (targetRotationY - sphere.rotation.y) * 0.02;
             sphere.rotation.x += (targetRotationX - sphere.rotation.x) * 0.02;
-            
-            wireframeMesh.rotation.y = sphere.rotation.y;
-            wireframeMesh.rotation.x = sphere.rotation.x;
-            
-            glowMesh.rotation.y = sphere.rotation.y * 0.5;
-            glowMesh.rotation.x = sphere.rotation.x * 0.5;
-            
-            coreMesh.rotation.y = -sphere.rotation.y * 1.5;
-            coreMesh.rotation.z += 0.01;
-
-            // Pulse emissive
+            wireframeMesh.rotation.y = sphere.rotation.y; wireframeMesh.rotation.x = sphere.rotation.x;
+            glowMesh.rotation.y = sphere.rotation.y * 0.5; glowMesh.rotation.x = sphere.rotation.x * 0.5;
+            coreMesh.rotation.y = -sphere.rotation.y * 1.5; coreMesh.rotation.z += 0.01;
             material.emissiveIntensity = 0.1 + Math.sin(time * 0.5) * 0.05;
-
-            // Particle drift
-            particlesMesh.rotation.y = time * 0.02;
-            particlesMesh.rotation.x = time * 0.01;
-
+            particlesMesh.rotation.y = time * 0.02; particlesMesh.rotation.x = time * 0.01;
             renderer.render(scene, camera);
         }
-
         animate();
 
-        // Resize handler
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // Scroll-based camera movement
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const maxScroll = document.body.scrollHeight - window.innerHeight;
             const scrollPercent = scrollY / maxScroll;
-            
             camera.position.z = 3.5 - (scrollPercent * 1.5);
             camera.position.y = 0.2 + (scrollPercent * 0.5);
-            
-            // Fade out particles on scroll
             particlesMaterial.opacity = Math.max(0, 0.6 - scrollPercent * 2);
         });
     </script>
 
     <!-- Intersection Observer for fade-in animations -->
     <script>
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -2109,50 +765,29 @@ TYPE html>
                 }
             });
         }, observerOptions);
-
         document.querySelectorAll('.category-card, .news-card').forEach((el, index) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
+            el.style.opacity = '0'; el.style.transform = 'translateY(20px)';
             el.style.transition = `opacity 0.6s ease ${index * 0.05}s, transform 0.6s ease ${index * 0.05}s`;
             observer.observe(el);
         });
     </script>
-  <!-- Tab Switching Script (SINGLE COPY - KEEP ONLY THIS ONE) -->
-<script>
-    function switchTab(tabId) {
-        // Hide all tab contents
-        document.querySelectorAll('.tab-content').forEach(content => {
-            content.classList.add('hidden');
-            content.classList.remove('active');
-        });
 
-        // Show selected tab content
-        const selectedContent = document.getElementById('tab-' + tabId);
-        if (selectedContent) {
-            selectedContent.classList.remove('hidden');
-            selectedContent.classList.add('active');
+    <!-- Tab Switching Script -->
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden'); content.classList.remove('active');
+            });
+            const selectedContent = document.getElementById('tab-' + tabId);
+            if (selectedContent) { selectedContent.classList.remove('hidden'); selectedContent.classList.add('active'); }
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-white/10', 'text-gray-200'); btn.classList.add('text-gray-600');
+            });
+            const selectedBtn = document.querySelector('.tab-btn[data-tab="' + tabId + '"]');
+            if (selectedBtn) { selectedBtn.classList.add('active', 'bg-white/10', 'text-gray-200'); selectedBtn.classList.remove('text-gray-600'); }
         }
-
-        // Update button states
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.classList.remove('active', 'bg-white/10', 'text-gray-200');
-            btn.classList.add('text-gray-600');
-        });
-
-        const selectedBtn = document.querySelector('.tab-btn[data-tab="' + tabId + '"]');
-        if (selectedBtn) {
-            selectedBtn.classList.add('active', 'bg-white/10', 'text-gray-200');
-            selectedBtn.classList.remove('text-gray-600');
-        }
-    }
-
-    // Initialize first tab
-    document.addEventListener('DOMContentLoaded', () => {
-        switchTab('all');
-    });
-</script>
-
-
+        document.addEventListener('DOMContentLoaded', () => { switchTab('all'); });
+    </script>
 
 </body>
 </html>
