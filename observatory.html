@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>◉ OBSERVATORY — MSOS-FEDERATION-ROOT</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     body { background: #0a0a0a; color: #e0e0e0; font-family: 'Courier New', monospace; margin: 0; }
     .nav-bar { display: flex; justify-content: center; gap: 24px; padding: 16px; background: #111; border-bottom: 1px solid #c8a04e; }
@@ -12,12 +14,11 @@
     h1 { color: #c8a04e; font-size: 18px; letter-spacing: 4px; border-bottom: 1px solid #c8a04e; padding-bottom: 8px; }
     .layer { margin-bottom: 48px; }
     .layer-label { color: #c8a04e; font-size: 12px; letter-spacing: 3px; margin-bottom: 8px; text-transform: uppercase; }
-    iframe { width: 100%; border: 1px solid #c8a04e; border-radius: 4px; }
+    iframe, #gibs-map { width: 100%; height: 500px; border: 1px solid #c8a04e; border-radius: 4px; }
     .external-link { color: #c8a04e; text-decoration: none; border: 1px solid #c8a04e; padding: 10px 20px; border-radius: 4px; display: inline-block; font-size: 12px; letter-spacing: 2px; margin-top: 12px; transition: all 0.3s; }
     .external-link:hover { background: #c8a04e; color: #0a0a0a; }
     .scalar-note { color: #666; font-size: 11px; margin-top: 8px; font-style: italic; }
   </style>
-<base target="_blank">
 </head>
 <body>
 
@@ -33,25 +34,39 @@
     <h1>◉ OBSERVATORY — SATELLITE SUBSTRATE MONITORING</h1>
     
     <div class="layer">
-      <div class="layer-label">Layer I — NASA Worldview (Satellite Substrate)</div>
-      <iframe src="https://worldview.earthdata.nasa.gov/?v=-117.6316,32.2986,-116.6316,33.2986&l=Reference_Labels_15m(hidden),Reference_Features_15m(hidden),Coastlines_15m,VIIRS_SNPP_CorrectedReflectance_TrueColor,MODIS_Aqua_CorrectedReflectance_TrueColor(hidden),MODIS_Terra_CorrectedReflectance_TrueColor&lg=true&t=2026-07-01-T18-13-00Z" height="500" allowfullscreen></iframe>
-      <div class="scalar-note">Near-real-time satellite substrate. 3-hour delay. No human user loop. χ(C) ≈ 0.85</div>
+      <div class="layer-label">Layer I — Windy.com (Live Atmospheric Scalar Field)</div>
+      <iframe src="https://embed.windy.com/embed2.html?lat=32.7157&lon=-117.1611&zoom=9&level=surface&overlay=satellite&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=32.7157&detailLon=-117.1611&metricWind=default&metricTemp=default&radarRange=-1" allowfullscreen></iframe>
+      <div class="scalar-note">Live satellite + weather overlay. Wind gradients = ∂ρ/∂x. χ(C) ≈ 0.72</div>
     </div>
 
     <div class="layer">
-      <div class="layer-label">Layer II — Windy.com (Atmospheric Scalar Field)</div>
-      <iframe src="https://embed.windy.com/embed2.html?lat=32.7157&lon=-117.1611&zoom=9&level=surface&overlay=satellite&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=32.7157&detailLon=-117.1611&metricWind=default&metricTemp=default&radarRange=-1" height="500" allowfullscreen></iframe>
-      <div class="scalar-note">Live atmospheric scalar density. Wind gradients = ∂ρ/∂x. χ(C) ≈ 0.72</div>
+      <div class="layer-label">Layer II — NASA GIBS (True Satellite Substrate)</div>
+      <div id="gibs-map"></div>
+      <div class="scalar-note">NASA VIIRS satellite imagery via GIBS WMTS tiles. Near-real-time. χ(C) ≈ 0.85</div>
     </div>
 
     <div class="layer">
-      <div class="layer-label">Layer III — EOS LandViewer (External Substrate Explorer)</div>
-      <p>High-resolution commercial satellite archive. Requires external access — no embed available.</p>
+      <div class="layer-label">Layer III — Google Maps Satellite (Static Reference)</div>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d429152.7111238357!2d-117.30503995!3d32.8242405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d9530fad921e4b%3A0xd3a21fdfd15df79!2sSan%20Diego%2C%20CA!5e1!3m2!1sen!2sus!4v1751400240000!5m2!1sen!2sus" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="scalar-note">Aerial imagery reference. Static substrate. χ(C) ≈ 0.45</div>
+    </div>
+
+    <div class="layer">
+      <div class="layer-label">Layer IV — EOS LandViewer (External Explorer)</div>
+      <p>High-resolution commercial satellite archive. Requires external access.</p>
       <a href="https://eos.com/landviewer/?lat=32.7157&lng=242.25000&z=10" target="_blank" rel="noopener noreferrer" class="external-link">◉ OPEN EOS LANDVIEWER — SAN DIEGO SECTOR</a>
-      <div class="scalar-note">Commercial imagery. Human-directional overlays present. χ(C) ≈ 0.15 — use for reference only</div>
+      <div class="scalar-note">Commercial imagery. Human-directional overlays. χ(C) ≈ 0.15 — reference only</div>
     </div>
 
   </div>
+
+  <script>
+    var map = L.map('gibs-map').setView([32.7157, -117.1611], 9);
+    L.tileLayer('https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/2026-07-01/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg', {
+      attribution: '&copy; NASA GIBS',
+      maxZoom: 9
+    }).addTo(map);
+  </script>
 
 </body>
 </html>
